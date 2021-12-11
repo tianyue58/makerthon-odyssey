@@ -21,14 +21,13 @@ const LogoContainer = styled.div`
 `;
 
 const NavIcon = styled.img`
-  padding-left: 10px;
+  padding: 15px;
   width: 55px;
   height: 55px;
 `;
 
 const Title = styled.button`
   color: #fff;
-  margin-left: 10px;
   font-size: 1.8rem;
   font-weight: 1000;
   font-family: "Candara";
@@ -47,7 +46,9 @@ function NavBar() {
   return (
     <NavContainer>
       <LogoContainer>
-        <NavIcon src={logo} alt="logo" />
+        <Link to="/">
+          <NavIcon src={logo} alt="logo" />
+        </Link>
         <Link to="/">
           <Title>ODYSSEY</Title>
         </Link>
