@@ -20,9 +20,10 @@ function EmotionPlanet() {
   //     let timer = setTimeout(() => setDisplayPlanet(true), 5000);
   //     return () => clearTimeout(timer);
   //   }, []);
-
+  const solutionArray = ["Don't worry! No boyfriend, no problems :D", "Solution 2"]
   const handleDisplaySolution = (index) => {
-    const solution = "Don't worry! No boyfriend, no problems :D";
+    // const solution = "Don't worry! No boyfriend, no problems :D";
+    const solution = solutionArray[index - 1];
     setSolution(solution);
     setShowSolution(true);
   };
@@ -52,7 +53,9 @@ function EmotionPlanet() {
                 <LightButton onClick={() => handleDisplaySolution("1")}>
                   Solution 1
                 </LightButton>
-                <LightButton>Solution 2</LightButton>
+                <LightButton onClick={() => handleDisplaySolution("2")}>
+                  Solution 2
+                </LightButton>
                 <LightButton>Solution 3</LightButton>
               </LinkContainer>
             </InnerWrapper>
