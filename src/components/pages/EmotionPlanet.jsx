@@ -16,11 +16,6 @@ function EmotionPlanet() {
   const [showSolution, setShowSolution] = useState(false);
   const [solution, setSolution] = useState("");
 
-  //   useEffect(() => {
-  //     let timer = setTimeout(() => setDisplayPlanet(true), 5000);
-  //     return () => clearTimeout(timer);
-  //   }, []);
-  const solutionArray = ["Don't worry! No boyfriend, no problems :D", "Solution 2"]
   const handleDisplaySolution = (index) => {
     // const solution = "Don't worry! No boyfriend, no problems :D";
     const solution = solutionArray[index - 1];
@@ -30,25 +25,56 @@ function EmotionPlanet() {
 
   return (
     <>
-      <VideoBackground autoPlay muted loop playsInline>
-        <source src={background} type="video/mp4" />
-      </VideoBackground>
-      {showDetail ? (
+      {!displayPlanet ? (
+        <VideoBackground
+          autoPlay
+          muted
+          playsInline
+          onEnded={() => setDisplayPlanet(true)}
+        >
+          <source src={travelling} type="video/mp4" />
+        </VideoBackground>
+      ) : (
         <>
-          {showSolution ? (
-            <InnerWrapper>
-              <TextContainer>{solution}</TextContainer>
-              <Link to="/">
-                <LightButton>Go it!</LightButton>
-              </Link>
-            </InnerWrapper>
+          <VideoBackground autoPlay muted loop playsInline>
+            <source src={background} type="video/mp4" />
+          </VideoBackground>
+          {showDetail ? (
+            <>
+              {showSolution ? (
+                <InnerWrapper>
+                  <TextContainer>{solution}</TextContainer>
+                  <Link to="/">
+                    <LightButton>Go it!</LightButton>
+                  </Link>
+                </InnerWrapper>
+              ) : (
+                <InnerWrapper>
+                  <TextContainer>
+                    Here are some relics left by those who had visited this
+                    planet before... <br />
+                    Pick one to explore!
+                  </TextContainer>
+                  <LinkContainer>
+                    <LightButton onClick={() => handleDisplaySolution("1")}>
+                      Solution 1
+                    </LightButton>
+                    <LightButton>Solution 2</LightButton>
+                    <LightButton>Solution 3</LightButton>
+                  </LinkContainer>
+                </InnerWrapper>
+              )}
+            </>
           ) : (
             <InnerWrapper>
               <TextContainer>
-                Here are some relics left by those who had visited this planet
-                before... <br />
-                Pick one to explore!
+                You're on Planet XYZ, 1000 light years away from the Earth{" "}
+                <br />
+                Currently there are 100 other earthlings on this planet, <br />
+                who are experiencing the same emotion as you <br />
+                Click to explore more
               </TextContainer>
+
               <LinkContainer>
                 <LightButton onClick={() => handleDisplaySolution("1")}>
                   Solution 1
@@ -57,24 +83,10 @@ function EmotionPlanet() {
                   Solution 2
                 </LightButton>
                 <LightButton>Solution 3</LightButton>
-              </LinkContainer>
             </InnerWrapper>
           )}
         </>
-      ) : (
-        <InnerWrapper>
-          <TextContainer>
-            You're on Planet XYZ, 1000 light years away from the Earth <br />
-            Currently there are 100 other earthlings on this planet, <br />
-            who are experiencing the same emotion as you <br />
-            Click to explore more
-          </TextContainer>
-          <LightButton onClick={() => setShowDetail(true)}>
-            Explore the planet
-          </LightButton>
-        </InnerWrapper>
       )}
-      ; ;
     </>
   );
 }
