@@ -17,8 +17,7 @@ function EmotionPlanet() {
   const [solution, setSolution] = useState("");
 
   const handleDisplaySolution = (index) => {
-    // const solution = "Don't worry! No boyfriend, no problems :D";
-    const solution = solutionArray[index - 1];
+    const solution = "Don't worry! No boyfriend, no problems :D";
     setSolution(solution);
     setShowSolution(true);
   };
@@ -74,15 +73,9 @@ function EmotionPlanet() {
                 who are experiencing the same emotion as you <br />
                 Click to explore more
               </TextContainer>
-
-              <LinkContainer>
-                <LightButton onClick={() => handleDisplaySolution("1")}>
-                  Solution 1
-                </LightButton>
-                <LightButton onClick={() => handleDisplaySolution("2")}>
-                  Solution 2
-                </LightButton>
-                <LightButton>Solution 3</LightButton>
+              <LightButton onClick={() => setShowDetail(true)}>
+                Explore the planet
+              </LightButton>
             </InnerWrapper>
           )}
         </>
