@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import background from "../../backgrounds/home-galaxy.mp4";
 import styled from "styled-components/macro";
@@ -8,7 +8,6 @@ import {
   VideoBackground,
 } from "../../globalStyles";
 import { TextContainer, InnerWrapper } from "../../globalStyles";
-import { useEffect } from "react";
 
 function Home() {
   return (
