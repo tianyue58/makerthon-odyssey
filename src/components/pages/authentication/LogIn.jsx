@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Link, useNavigate, Navigate, NavigationType } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import background from "../../../backgrounds/sign-up-galaxy.mp4";
 import {
   Card,
@@ -31,7 +31,13 @@ function LogIn() {
       await login(emailRef.current.value, passwordRef.current.value);
       navigate("/");
     } catch (e) {
-      setError(e.message);
+      if (e.code == "auth/user-not-found") {
+        setError("This email hasn't been registered yet.");
+      } else if (e.code == "auth/wrong-password") {
+        setError("The password provided is incorrect.");
+      } else {
+        setError(e.message);
+      }
     }
 
     setLoading(false);

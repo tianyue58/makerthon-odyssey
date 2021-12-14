@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 import background from "../../../backgrounds/sign-up-galaxy.mp4";
 import {
   Card,
@@ -21,6 +22,7 @@ function SignUp() {
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -32,8 +34,15 @@ function SignUp() {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
+      navigate("/login");
     } catch (e) {
-      setError(e.message);
+      if (e.code == "auth/email-already-in-use") {
+        setError("This email has already been registered.");
+      } else if (e.code == "auth/weak-password") {
+        setError("Password must contain at least 6 characters.");
+      } else {
+        setError(e.message);
+      }
     }
     setLoading(false);
   }

@@ -30,7 +30,7 @@ function ForgotPassword() {
       setError("");
       setLoading(true);
       await resetPassword(emailRef.current.value);
-      setMessage("Check your inbox for further instructions");
+      setMessage("Check your inbox for further instructions.");
     } catch (e) {
       setError(e.message);
     }
@@ -65,8 +65,7 @@ function ForgotPassword() {
             <StyledLink to="/LogIn">Log In</StyledLink>
             <p>
               Need a new account? <br />
-              <StyledLink to="/SignUp">Sign Up</StyledLink>
-              here
+              <StyledLink to="/SignUp">Sign Up</StyledLink> here
             </p>
           </Extra>
         </Card>

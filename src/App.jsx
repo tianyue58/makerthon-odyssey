@@ -9,6 +9,8 @@ import { AuthProvider } from "./components/context/AuthContext";
 import SignUp from "./components/pages/authentication/SignUp";
 import LogIn from "./components/pages/authentication/LogIn";
 import ForgotPassword from "./components/pages/authentication/ForgotPassword";
+import UserProfile from "./components/pages/authentication/UserProfile";
+import UpdateProfile from "./components/pages/authentication/UpdateProfile";
 
 function App() {
   return (
@@ -38,6 +40,22 @@ function App() {
             element={
               <PrivateRoute>
                 <EmotionPlanet />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/UpdateProfile"
+            element={
+              <PrivateRoute>
+                <UpdateProfile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/UserProfile"
+            element={
+              <PrivateRoute>
+                <UserProfile />
               </PrivateRoute>
             }
           />
