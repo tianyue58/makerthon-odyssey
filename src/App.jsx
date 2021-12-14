@@ -6,6 +6,8 @@ import EmotionPlanet from "./components/pages/EmotionPlanet";
 import NavBar from "./components/NavBar";
 import { AuthProvider } from "./components/context/AuthContext";
 import SignUp from "./components/pages/authentication/SignUp";
+import LogIn from "./components/pages/authentication/LogIn";
+import ForgotPassword from "./components/pages/authentication/ForgotPassword";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <Route path="/ChooseProblem" element={<ChooseProblem />} />
             <Route path="/EmotionPlanet" element={<EmotionPlanet />} />
             <Route path="SignUp" element={<SignUp />} />
+            <Route path="LogIn" element={<LogIn />} />
+            <Route path="ForgotPassword" element={<ForgotPassword />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

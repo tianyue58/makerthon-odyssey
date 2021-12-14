@@ -54,8 +54,8 @@ function NavBar() {
         </Link>
       </LogoContainer>
       <Functionalities>
-        <Link to="/ChooseProblem">
-          <LightButton>Page 1</LightButton>
+        <Link to="/SignUp">
+          <LightButton>Sign Up</LightButton>
         </Link>
         <LightButton>Page 2</LightButton>
         <LightButton>Page 3</LightButton>
