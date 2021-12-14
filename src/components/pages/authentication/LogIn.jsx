@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate, NavigationType } from "react-router-dom";
 import background from "../../../backgrounds/sign-up-galaxy.mp4";
 import {
   Card,
@@ -28,7 +28,6 @@ function LogIn() {
 
     try {
       setError("");
-      setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
       navigate("/");
     } catch (e) {

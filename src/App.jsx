@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/pages/Home";
 import ChooseProblem from "./components/pages/ChooseProblem";
 import EmotionPlanet from "./components/pages/EmotionPlanet";
@@ -11,21 +12,41 @@ import ForgotPassword from "./components/pages/authentication/ForgotPassword";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <BrowserRouter>
-        <AuthProvider>
-          <NavBar />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/ChooseProblem" element={<ChooseProblem />} />
-            <Route path="/EmotionPlanet" element={<EmotionPlanet />} />
-            <Route path="SignUp" element={<SignUp />} />
-            <Route path="LogIn" element={<LogIn />} />
-            <Route path="ForgotPassword" element={<ForgotPassword />} />
-          </Routes>
-        </AuthProvider>
+        <NavBar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/ChooseProblem"
+            element={
+              <PrivateRoute>
+                <ChooseProblem />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/EmotionPlanet"
+            element={
+              <PrivateRoute>
+                <EmotionPlanet />
+              </PrivateRoute>
+            }
+          />
+          <Route path="SignUp" element={<SignUp />} />
+          <Route path="LogIn" element={<LogIn />} />
+          <Route path="ForgotPassword" element={<ForgotPassword />} />
+        </Routes>
       </BrowserRouter>
-    </>
+    </AuthProvider>
   );
 }
 
