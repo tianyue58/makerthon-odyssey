@@ -68,7 +68,7 @@ function NavBar() {
       </LogoContainer>
       {currentUser ? (
         <Functionalities>
-          <Link to="/My Profile">
+          <Link to="/UserProfile">
             <LightButton>My Profile</LightButton>
           </Link>
           <LightButton onClick={handleLogout}>Log Out</LightButton>

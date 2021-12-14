@@ -165,3 +165,45 @@ export const StyledLink = styled(Link)`
     text-decoration: "none";
   }
 `;
+
+/** for profile pages */
+
+export const GroupTitle = styled.h3`
+  font-family: Cambria;
+  color: gray;
+  margin-bottom: 10px;
+`;
+
+export const Button = styled.button`
+  margin: ${({ buttonmargin }) => (buttonmargin ? buttonmargin : "10px")};
+  width: ${({ buttonwidth }) => (buttonwidth ? buttonwidth : "100px")};
+  padding: ${({ buttonpadding }) => (buttonpadding ? buttonpadding : "10px")};
+  background: ${({ buttoncolor }) => (buttoncolor ? buttoncolor : "#e9967a")};
+  color: #fff;
+  font-size: 16px;
+  border: 1px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    color: #a52a2a;
+  }
+`;
+export const ProfilePageWrapper = styled.div`
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+`;
+
+export const PageWrapper = styled.div`
+  height: ${({ pageheight }) => (pageheight ? pageheight : "807px")};
+  display: flex;
+`;
+
+export const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: ${({ width }) => (width ? width : "100%")};
+`;
