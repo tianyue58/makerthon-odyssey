@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import logo from "../images/odyssey-logo.png";
 import { LightButton } from "../globalStyles";
+import { useAuth } from "./context/AuthContext";
 
 const NavContainer = styled.nav`
   position: absolute;
@@ -43,23 +44,36 @@ const Functionalities = styled.div`
 `;
 
 function NavBar() {
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <NavContainer>
       <LogoContainer>
-        <Link to="/">
+        <Link to={currentUser ? "/" : "/login"}>
           <NavIcon src={logo} alt="logo" />
         </Link>
-        <Link to="/">
+        <Link to={currentUser ? "/" : "/login"}>
           <Title>ODYSSEY</Title>
         </Link>
       </LogoContainer>
-      <Functionalities>
-        <Link to="/ChooseProblem">
-          <LightButton>Page 1</LightButton>
-        </Link>
-        <LightButton>Page 2</LightButton>
-        <LightButton>Page 3</LightButton>
-      </Functionalities>
+      {currentUser ? (
+        <Functionalities>
+          <Link to="/UserProfile">
+            <LightButton>My Profile</LightButton>
+          </Link>
+          <LightButton onClick={handleLogout}>Log Out</LightButton>
+        </Functionalities>
+      ) : null}
     </NavContainer>
   );
 }

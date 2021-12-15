@@ -1,98 +1,94 @@
-import { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import background from "../../../backgrounds/sign-up-galaxy.mp4";
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
-import "../../../App.css";
-import { auth } from "../../../firebase";
+  Card,
+  Title,
+  Form,
+  GroupInput,
+  Extra,
+  LightButton,
+  MessageBlock,
+  VideoBackground,
+  CardWrapper,
+  StyledLink,
+} from "../../../globalStyles";
 
 function SignUp() {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  const { signup } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const [user, setUser] = useState({});
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
-
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-      console.log(user);
-    } catch (error) {
-      console.log(error.message);
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError("Passwords do not match");
     }
-  };
-
-  const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      console.log(user);
-    } catch (error) {
-      console.log(error.message);
+      setError("");
+      setLoading(true);
+      await signup(emailRef.current.value, passwordRef.current.value);
+      navigate("/login");
+    } catch (e) {
+      if (e.code == "auth/email-already-in-use") {
+        setError("This email has already been registered.");
+      } else if (e.code == "auth/weak-password") {
+        setError("Password must contain at least 6 characters.");
+      } else {
+        setError(e.message);
+      }
     }
-  };
-
-  const logout = async () => {
-    await signOut(auth);
-  };
+    setLoading(false);
+  }
 
   return (
-    <div className="App">
-      <div>
-        <h3> Register User </h3>
-        <input
-          placeholder="Email..."
-          onChange={(event) => {
-            setRegisterEmail(event.target.value);
-          }}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(event) => {
-            setRegisterPassword(event.target.value);
-          }}
-        />
-
-        <button onClick={register}> Create User</button>
-      </div>
-
-      <div>
-        <h3> Login </h3>
-        <input
-          placeholder="Email..."
-          onChange={(event) => {
-            setLoginEmail(event.target.value);
-          }}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(event) => {
-            setLoginPassword(event.target.value);
-          }}
-        />
-
-        <button onClick={login}> Login</button>
-      </div>
-
-      <h4> User Logged In: </h4>
-      {user?.email}
-
-      <button onClick={logout}> Sign Out </button>
-    </div>
+    <>
+      <VideoBackground autoPlay muted loop playsInline>
+        <source src={background} type="video/mp4" />
+      </VideoBackground>
+      <CardWrapper>
+        <Card>
+          <Title>Sign Up</Title>
+          {error && <MessageBlock type="bad">{error}</MessageBlock>}
+          <Form onSubmit={handleSubmit}>
+            <GroupInput
+              type="email"
+              ref={emailRef}
+              required
+              placeholder="Email"
+            />
+            <GroupInput
+              type="password"
+              ref={passwordRef}
+              required
+              placeholder="Password"
+            />
+            <GroupInput
+              type="password"
+              ref={passwordConfirmRef}
+              required
+              placeholder="Confirm Password"
+              bottommargin="20px"
+            />
+            <LightButton buttonmargin="0" type="submit" disabled={loading}>
+              Sign Up
+            </LightButton>
+          </Form>
+          <Extra>
+            <p>
+              Already have an account? <br />
+              <StyledLink to="/LogIn">Log In</StyledLink> instead
+            </p>
+          </Extra>
+        </Card>
+      </CardWrapper>
+    </>
   );
 }
 
