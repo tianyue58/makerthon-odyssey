@@ -1,4 +1,3 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/pages/Home";
@@ -59,6 +58,7 @@ function App() {
               </PrivateRoute>
             }
           />
+
           <Route path="SignUp" element={<SignUp />} />
           <Route path="LogIn" element={<LogIn />} />
           <Route path="ForgotPassword" element={<ForgotPassword />} />
