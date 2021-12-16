@@ -6,7 +6,7 @@ import {
   Button,
   Input,
   Container,
-} from "../../../globalStyles";
+} from "../../../styles/globalStyles";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import profile from "../../../images/unicorn.svg";
@@ -59,11 +59,13 @@ export default function UserProfile() {
   const [imageURL, setImageURL] = useState();
   const [isViewingProfile, setIsViewingProfile] = useState(true);
   const [uploadImageURL, setUploadImageURL] = useState();
+  const [nickname, setNickname] = useState();
   const [gender, setGender] = useState();
   const [faculty, setFaculty] = useState();
   const [yearOfStudy, setYearOfStudy] = useState();
   const userRef = doc(db, "users", currentUser.uid);
   const moreUserInfo = {
+    nickname: nickname,
     gender: gender,
     faculty: faculty,
     yearOfStudy: yearOfStudy,
@@ -74,9 +76,10 @@ export default function UserProfile() {
     if (userSnap.exists()) {
       const data = userSnap.data();
       setUploadImageURL(data.uploadImageURL ? data.uploadImageURL : profile);
-      setGender(data.gender ? data.gender : "");
-      setFaculty(data.faulty ? data.faulty : "");
-      setYearOfStudy(data.yearOfStudy ? data.yearOfStudy : "");
+      setNickname(data.nickname);
+      setGender(data.gender);
+      setFaculty(data.faulty);
+      setYearOfStudy(data.yearOfStudy);
     }
   }
 

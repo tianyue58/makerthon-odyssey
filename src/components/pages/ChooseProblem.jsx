@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import background from "../../backgrounds/choose-problem-galaxy.mp4";
 import styled from "styled-components/macro";
-import { VideoBackground } from "../../globalStyles";
+import { VideoBackground } from "../../styles/globalStyles";
 import {
   TextContainer,
   LinkContainer,
   LightButton,
   InnerWrapper,
-} from "../../globalStyles";
+} from "../../styles/globalStyles";
 
 function ChooseProblem() {
   const [displayEmotion, setDisplayEmotion] = useState(true);
@@ -54,15 +54,17 @@ function ChooseProblem() {
               <>
                 <TextContainer>What makes you feel this way...?</TextContainer>
                 <LinkContainer>
-                  <LightButton
-                    onClick={() => handleSelectEvent("Study")}
-                  >
+                  <LightButton onClick={() => handleSelectEvent("Study")}>
                     Study
                   </LightButton>
-                  <LightButton onClick={() => handleSelectEvent("Work/Internship")}>
+                  <LightButton
+                    onClick={() => handleSelectEvent("Work/Internship")}
+                  >
                     Work/Internship
                   </LightButton>
-                  <LightButton onClick={() => handleSelectEvent("Private life")}>
+                  <LightButton
+                    onClick={() => handleSelectEvent("Private life")}
+                  >
                     Private life
                   </LightButton>
                 </LinkContainer>
