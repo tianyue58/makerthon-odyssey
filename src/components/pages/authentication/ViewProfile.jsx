@@ -62,7 +62,7 @@ const Item = styled.div`
 
 export default function ViewProfile(props) {
   const { currentUser } = useAuth();
-  const { gender, faculty, yearOfStudy } = props.moreUserInfo;
+  const { nickname, gender, faculty, yearOfStudy } = props.moreUserInfo;
 
   return (
     <ProfileWrapper>
@@ -72,7 +72,7 @@ export default function ViewProfile(props) {
           <Item>Email:</Item> {currentUser.email}
         </InfoRow>
         <InfoRow>
-          <Item>Username:</Item> {currentUser.uid}
+          <Item>Username:</Item> {nickname}
         </InfoRow>
         <InfoRow dark="true">
           <Item>Gender:</Item> {gender}

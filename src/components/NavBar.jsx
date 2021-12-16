@@ -2,13 +2,13 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import logo from "../images/odyssey-logo.png";
-import { LightButton } from "../globalStyles";
+import { LightButton } from "../styles/globalStyles";
 import { useAuth } from "./context/AuthContext";
 
 const NavContainer = styled.nav`
   position: absolute;
   width: 100%;
-  height: 80px;
+  height: 15%;
   top: 0;
   z-index: 999;
   display: flex;
