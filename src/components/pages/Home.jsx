@@ -6,8 +6,8 @@ import {
   LightButton,
   LinkContainer,
   VideoBackground,
-} from "../../globalStyles";
-import { TextContainer, InnerWrapper } from "../../globalStyles";
+} from "../../styles/globalStyles";
+import { TextContainer, InnerWrapper } from "../../styles/globalStyles";
 
 function Home() {
   return (

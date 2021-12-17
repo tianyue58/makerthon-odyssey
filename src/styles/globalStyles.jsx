@@ -2,14 +2,11 @@ import styled, { createGlobalStyle } from "styled-components/macro";
 import { Link } from "react-router-dom";
 
 export const GlobalStyle = createGlobalStyle`
-html,body
-{
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden; 
-}
+ body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+ } 
  button {
    :focus{
      outline: none;
@@ -17,7 +14,13 @@ html,body
  }
 `;
 
-
+export const Page = styled.div`
+  position: fixed;
+  top: 15%;
+  height: 85%;
+  width: 100%;
+  background-color: transparent;
+`;
 
 export const VideoBackground = styled.video`
   position: fixed;
@@ -94,14 +97,10 @@ export const CardWrapper = styled.div`
 `;
 
 export const Card = styled.div`
-  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px inset hotpink;
-  border-radius: 50%;
-  top: 30%;
-  width: 40%;
+  width: 70%;
   background-color: transparent;
 `;
 
@@ -110,7 +109,6 @@ export const Title = styled.h1`
   font-weight: 900;
   padding-top: 30px;
   font-family: Cambria;
-  color: white;
 `;
 
 export const Form = styled.form`
@@ -121,21 +119,26 @@ export const Form = styled.form`
   padding-bottom: 10px;
 `;
 
+export const GroupTitle = styled.h4`
+  color: gray;
+  padding-top: 10px;
+  margin: 10px;
+`;
+
 export const GroupInput = styled.input`
-  width: 100%;
+  width: 300px;
   height: 30px;
   outline: none;
+  border: none;
   font-size: 18px;
-  border: 1px solid gray;
-  border-radius: 10px;
-  margin: 20px;
-  margin-bottom: ${({ bottommargin }) => (bottommargin ? bottommargin : "0")};
-  padding-left: 10px;
-  background: rgba(255, 255, 255, 0.15);
+  background: lightskyblue;
+  margin-bottom: ${({ bottommargin }) =>
+    bottommargin ? bottommargin : "10px"};
   color: white;
   ::-webkit-input-placeholder {
-    color: gold;
-    opacity: 0.5;
+    color: gray;
+    font-size: 13px;
+    font-style: italic;
   }
 `;
 
@@ -155,29 +158,20 @@ export const MessageBlock = styled.div`
 export const Extra = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-bottom: 10px;
-  color: white;
 `;
 
 export const StyledLink = styled(Link)`
-  color: slateblue;
+  text-decoration: none;
   &:hover {
-    background: #fff;
-    font-size: 120%;
+    cursor: pointer;
+    font-size: 110%;
   }
   &:visited {
-    text-decoration: "none";
+    color: purple;
   }
 `;
 
 /** for profile pages */
-
-export const GroupTitle = styled.h3`
-  font-family: Cambria;
-  color: gray;
-  margin-bottom: 10px;
-`;
 
 export const Button = styled.button`
   margin: ${({ buttonmargin }) => (buttonmargin ? buttonmargin : "10px")};
@@ -202,13 +196,15 @@ export const ProfilePageWrapper = styled.div`
   align-items: center;
 `;
 
-export const PageWrapper = styled.div`
-  height: ${({ pageheight }) => (pageheight ? pageheight : "807px")};
-  display: flex;
-`;
-
 export const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
   width: ${({ width }) => (width ? width : "100%")};
+`;
+
+export const OptionsGroup = styled.div`
+  display: flex;
+  width: 250px;
+  height: 35px;
+  background: lightblue;
 `;

@@ -13,7 +13,7 @@ import {
   VideoBackground,
   CardWrapper,
   StyledLink,
-} from "../../../globalStyles";
+} from "../../../styles/globalStyles";
 
 function SignUp() {
   const emailRef = useRef();

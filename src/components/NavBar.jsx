@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import logo from "../images/odyssey-logo.png";
-import { LightButton } from "../globalStyles";
+import { LightButton } from "../styles/globalStyles";
 import { useAuth } from "./context/AuthContext";
 
 const NavContainer = styled.nav`

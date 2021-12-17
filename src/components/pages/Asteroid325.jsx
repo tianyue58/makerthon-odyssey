@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import image from "../../images/325.png"; 
 import '../../styles/Asteroid.css';
-import { InnerWrapper, LightButton} from "../../globalStyles";
+import { InnerWrapper, LightButton} from "../../styles/globalStyles";
 import { findByLabelText } from "@testing-library/react";
 
 

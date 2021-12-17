@@ -6,7 +6,7 @@ import {
   Button,
   Input,
   Container,
-} from "../../../globalStyles";
+} from "../../../styles/globalStyles";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import profile from "../../../images/unicorn.svg";

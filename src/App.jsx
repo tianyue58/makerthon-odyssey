@@ -1,4 +1,3 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/pages/Home";
@@ -65,6 +64,7 @@ function App() {
               </PrivateRoute>
             }
           />
+
           <Route path="Asteroid325" element={<Asteroid325 />} />
           <Route path="Asteroid326" element={<Asteroid326 />} />
           <Route path="Asteroid327" element={<Asteroid327 />} />

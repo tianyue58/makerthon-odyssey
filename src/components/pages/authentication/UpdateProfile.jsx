@@ -7,7 +7,7 @@ import {
   GroupInput,
   MessageBlock,
   Button,
-} from "../../../globalStyles";
+} from "../../../styles/globalStyles";
 import { db } from "../../../firebase";
 import { ProfileWrapper, TitleWrapper } from "./ViewProfile";
 import { doc, updateDoc } from "firebase/firestore";
