@@ -8,7 +8,7 @@ import { useAuth } from "./context/AuthContext";
 const NavContainer = styled.nav`
   position: absolute;
   width: 100%;
-  height: 80px;
+  height: 15%;
   top: 0;
   z-index: 999;
   display: flex;

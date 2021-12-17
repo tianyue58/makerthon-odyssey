@@ -42,15 +42,22 @@ export default function UpdateProfile(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const usernameRef = useRef();
-  const nicknameRef = useRef();
   const genderRef = useRef();
   const facultyRef = useRef();
   const yearOfStudyRef = useRef();
+
   const { currentUser, updatePassword, updateEmail } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const userRef = doc(db, "users", currentUser.uid);
   const { gender, faculty, yearOfStudy } = props.moreUserInfo;
+
+  //optional fields
+  // const nicknameRef = useRef();
+  // const [gender, setGender] = useState();
+  // const [yearOfStudy, setYearOfStudy] = useState();
+  // const facultyRef = useState();
+  // const [displayMoreInfo, setDisplayMoreInfo] = useState(false);
 
   async function updateAdditionalInfo(otherInfo) {
     const { newGender, newFaculty, newYearOfStudy } = otherInfo;
@@ -135,6 +142,62 @@ export default function UpdateProfile(props) {
           <GroupTitle>Year of Study</GroupTitle>
           <GroupInput ref={yearOfStudyRef} placeholder={yearOfStudy} />
         </FormGroup>
+
+        {/* <Title>More Information</Title>
+        <GroupInput type="text" ref={nicknameRef} placeholder="Nickname" />
+        <OptionsGroup>
+          <input
+            type="radio"
+            name="gender"
+            id="male"
+            onChange={() => setGender("Male")}
+          />
+          Male
+          <input
+            type="radio"
+            name="gender"
+            id="female"
+            onChange={() => setGender("Female")}
+          />
+          Female
+          <input
+            type="radio"
+            name="gender"
+            id="other"
+            onChange={() => setGender("Other")}
+          />
+          Other
+        </OptionsGroup>
+        <OptionsGroup>
+          <label for="yearOfStudy">Choose your year of study</label>
+          <select name="yearOfStudy" id="yearOfStudy">
+            <option
+              value="UY1"
+              onChange={() => setYearOfStudy("Undergraduate Year 1")}
+            >
+              Undergraduate Year 1
+            </option>
+            <option
+              value="UY2"
+              onChange={() => setYearOfStudy("Undergraduate Year 2")}
+            >
+              Undergraduate Year 2
+            </option>
+            <option
+              value="UY3"
+              onChange={() => setYearOfStudy("Undergraduate Year 2")}
+            >
+              Undergraduate Year 3
+            </option>
+            <option
+              value="UY4"
+              onChange={() => setYearOfStudy("Undergraduate Year 2")}
+            >
+              Undergraduate Year 4
+            </option>
+          </select>
+        </OptionsGroup> */}
+
         <Button
           buttoncolor="dodgerblue"
           buttonmargin="40px"

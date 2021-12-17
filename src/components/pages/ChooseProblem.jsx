@@ -58,15 +58,17 @@ function ChooseProblem() {
               <>
                 <TextContainer>What makes you feel this way...?</TextContainer>
                 <LinkContainer>
-                  <LightButton
-                    onClick={() => handleSelectEvent("Study")}
-                  >
+                  <LightButton onClick={() => handleSelectEvent("Study")}>
                     Study
                   </LightButton>
-                  <LightButton onClick={() => handleSelectEvent("Work/Internship")}>
+                  <LightButton
+                    onClick={() => handleSelectEvent("Work/Internship")}
+                  >
                     Work/Internship
                   </LightButton>
-                  <LightButton onClick={() => handleSelectEvent("Private life")}>
+                  <LightButton
+                    onClick={() => handleSelectEvent("Private life")}
+                  >
                     Private life
                   </LightButton>
                 </LinkContainer>

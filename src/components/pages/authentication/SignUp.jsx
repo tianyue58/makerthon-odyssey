@@ -7,18 +7,23 @@ import {
   Title,
   Form,
   GroupInput,
-  Extra,
-  LightButton,
   MessageBlock,
   VideoBackground,
-  CardWrapper,
-  StyledLink,
+  Page,
+  GroupTitle,
+  Button,
 } from "../../../styles/globalStyles";
+import {
+  MainPageRight,
+  SubPageLeft,
+} from "../../../styles/authenticationPageStyles";
 
 function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const nicknameRef = useRef();
+
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,7 +38,11 @@ function SignUp() {
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(
+        emailRef.current.value,
+        passwordRef.current.value,
+        nicknameRef.current.value
+      );
       navigate("/login");
     } catch (e) {
       if (e.code == "auth/email-already-in-use") {
@@ -52,42 +61,56 @@ function SignUp() {
       <VideoBackground autoPlay muted loop playsInline>
         <source src={background} type="video/mp4" />
       </VideoBackground>
-      <CardWrapper>
-        <Card>
-          <Title>Sign Up</Title>
-          {error && <MessageBlock type="bad">{error}</MessageBlock>}
-          <Form onSubmit={handleSubmit}>
-            <GroupInput
-              type="email"
-              ref={emailRef}
-              required
-              placeholder="Email"
-            />
-            <GroupInput
-              type="password"
-              ref={passwordRef}
-              required
-              placeholder="Password"
-            />
-            <GroupInput
-              type="password"
-              ref={passwordConfirmRef}
-              required
-              placeholder="Confirm Password"
-              bottommargin="20px"
-            />
-            <LightButton buttonmargin="0" type="submit" disabled={loading}>
-              Sign Up
-            </LightButton>
-          </Form>
-          <Extra>
-            <p>
-              Already have an account? <br />
-              <StyledLink to="/LogIn">Log In</StyledLink> instead
-            </p>
-          </Extra>
-        </Card>
-      </CardWrapper>
+      <Page>
+        <SubPageLeft>
+          <div>
+            <Title>One of us?</Title>
+            <GroupTitle>
+              If you already have an account, just sign in. <br />
+              We've missed you!
+            </GroupTitle>
+          </div>
+          <Link to="/LogIn">
+            <Button>LOG IN</Button>
+          </Link>
+        </SubPageLeft>
+        <MainPageRight>
+          <Card>
+            <Title>
+              One small step for you, <br />
+              One giant leap for your mentality...
+            </Title>
+            {error && <MessageBlock type="bad">{error}</MessageBlock>}
+            <Form onSubmit={handleSubmit}>
+              <GroupTitle>EMAIL</GroupTitle>
+              <GroupInput
+                type="email"
+                ref={emailRef}
+                required
+                placeholder="This is how we're gonna reach out for you"
+              />
+              <GroupTitle>PASSWORD</GroupTitle>
+              <GroupInput
+                type="password"
+                ref={passwordRef}
+                required
+                placeholder="Set a secure password for your account"
+              />
+              <GroupTitle>COMFIRM PASSWORD</GroupTitle>
+              <GroupInput
+                type="password"
+                ref={passwordConfirmRef}
+                required
+                placeholder="Re-enter the password you've just set"
+                bottommargin="50px"
+              />
+              <Button buttonmargin="0" type="submit" disabled={loading}>
+                SIGN UP
+              </Button>
+            </Form>
+          </Card>
+        </MainPageRight>
+      </Page>
     </>
   );
 }

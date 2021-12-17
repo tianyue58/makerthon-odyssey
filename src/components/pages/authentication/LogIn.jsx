@@ -3,17 +3,21 @@ import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import background from "../../../backgrounds/sign-up-galaxy.mp4";
 import {
-  Card,
   Title,
   Form,
   GroupInput,
-  Extra,
-  LightButton,
   MessageBlock,
   VideoBackground,
-  CardWrapper,
   StyledLink,
+  Button,
+  Page,
+  GroupTitle,
 } from "../../../styles/globalStyles";
+
+import {
+  MainPageLeft,
+  SubPageRight,
+} from "../../../styles/authenticationPageStyles";
 
 function LogIn() {
   const emailRef = useRef();
@@ -48,39 +52,40 @@ function LogIn() {
       <VideoBackground autoPlay muted loop playsInline>
         <source src={background} type="video/mp4" />
       </VideoBackground>
-      <CardWrapper>
-        <Card>
+      <Page>
+        <MainPageLeft>
           <Title>Log In</Title>
           {error && <MessageBlock type="bad">{error}</MessageBlock>}
           <Form onSubmit={handleSubmit}>
-            <GroupInput
-              type="email"
-              ref={emailRef}
-              required
-              placeholder="Email"
-            />
-
+            <GroupTitle>EMAIL</GroupTitle>
+            <GroupInput type="email" ref={emailRef} required />
+            <GroupTitle>PASSWORD</GroupTitle>
             <GroupInput
               type="password"
               ref={passwordRef}
               required
-              placeholder="Password"
               bottommargin="20px"
             />
 
-            <LightButton type="submit" disabled={loading}>
-              Log In
-            </LightButton>
+            <Button type="submit" disabled={loading}>
+              LOG IN
+            </Button>
           </Form>
-          <Extra>
-            <StyledLink to="/ForgotPassword">Forgot Password?</StyledLink>
-            <p>
-              Doesn't have an account yet? <br />
-              <StyledLink to="/SignUp">Sign Up</StyledLink> instead
-            </p>
-          </Extra>
-        </Card>
-      </CardWrapper>
+          <p>
+            Forget your password? Reset from
+            <StyledLink to="/ForgotPassword"> here </StyledLink>
+          </p>
+        </MainPageLeft>
+        <SubPageRight>
+          <div>
+            <Title>New here?</Title>
+            <GroupTitle>Sign up and uncover a brand new world...</GroupTitle>
+          </div>
+          <Link to="/SignUp">
+            <Button>SIGN UP</Button>
+          </Link>
+        </SubPageRight>
+      </Page>
     </>
   );
 }
