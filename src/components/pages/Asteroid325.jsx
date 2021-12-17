@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import image from "../../images/325.png"; 
 import '../../styles/Asteroid.css';
-import { InnerWrapper, LightButton} from "../../styles/globalStyles";
+import { InnerWrapper, LightButton} from "../../styles/Asteroid";
 import { findByLabelText } from "@testing-library/react";
 
 
@@ -17,19 +17,28 @@ function Asteroid325() {
     //   </InnerWrapper>
     //     );
     <>
-    
-    <img src = {image} style={{objectFit: 'cover', width: '100%', height: '100%'}}/>
-    <figcaption>You've landed on Asteriod 325! <br/>
-    79 earthlings have visited this planet today. <br/>
-    Click on the buttons below to find out tips related to your issue. <br/>
-    Click on the "Let's Talk" sticker to see how to seek help from others.
-    </figcaption>
+    <div class="container">
+      <img src = {image} style={{objectFit: 'cover', width: '100%', height: '100%'}}/>
+      <figcaption>You've landed on Asteriod 325! <br/>
+      79 earthlings have visited this planet today. <br/>
+      Click on the buttons below to find out tips related to your issue. <br/>
+      Click on the "Let's Talk" sticker to see how to seek help from others.
+      </figcaption>
 
-    <Link to="/ChooseProblem">
+      <button class="btn1">Button1</button>
+      <button class="btn2">Button2</button>
+      <button class="btn3">Button3</button>
+      <button class="btn4">Button4</button>
+      <button class="btn5">Button5</button>
+      <button class="btn6">Button6</button>
+
+    {/* <Link to="/ChooseProblem">
             <LightButton>
               Stay Active
             </LightButton>
-          </Link>
+          </Link> */}
+    </div>
+    
     </>
     
 

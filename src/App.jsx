@@ -16,6 +16,7 @@ import Asteroid327 from "./components/pages/Asteroid327";
 import Asteroid328 from "./components/pages/Asteroid328";
 import Asteroid329 from "./components/pages/Asteroid329";
 import Asteroid330 from "./components/pages/Asteroid330";
+import ViewPlanets from "./components/pages/ViewPlanets";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
           <Route path="Asteroid328" element={<Asteroid328 />} />
           <Route path="Asteroid329" element={<Asteroid329 />} />
           <Route path="Asteroid330" element={<Asteroid330 />} />
+          <Route path="ViewPlanets" element={<ViewPlanets />} />
           <Route path="SignUp" element={<SignUp />} />
           <Route path="LogIn" element={<LogIn />} />
           <Route path="ForgotPassword" element={<ForgotPassword />} />
