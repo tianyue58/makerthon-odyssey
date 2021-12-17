@@ -68,7 +68,7 @@ function NavBar() {
       </LogoContainer>
       {currentUser ? (
         <Functionalities>
-          <Link to="/UserProfile">
+          <Link to="/ViewPlanets">
             <LightButton>View Planets</LightButton>
           </Link>
           <Link to="/UserProfile">

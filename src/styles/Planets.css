@@ -5,7 +5,7 @@
 }
 
 /* Style the button and place it in the middle of the container/image */
-.container .btn1 {
+.container .bn1 {
   position: absolute;
   top: 54%;
   left: 21%;
@@ -20,11 +20,11 @@
   border-radius: 5px;
 }
 
-.container .btn1:hover {
+.container .bn1:hover {
   background-color: black;
 }
 
-.container .btn2 {
+.container .bn2 {
   position: absolute;
   top: 54%;
   left: 51%;
@@ -39,11 +39,11 @@
   border-radius: 5px;
 }
 
-.container .btn2:hover {
+.container .bn2:hover {
   background-color: black;
 }
 
-.container .btn3 {
+.container .bn3 {
   position: absolute;
   top: 54%;
   left: 80%;
@@ -58,11 +58,11 @@
   border-radius: 5px;
 }
 
-.container .btn3:hover {
+.container .bn3:hover {
   background-color: black;
 }
 
-.container .btn4 {
+.container .bn4 {
   position: absolute;
   top: 94%;
   left: 21%;
@@ -77,11 +77,11 @@
   border-radius: 5px;
 }
 
-.container .btn4:hover {
+.container .bn4:hover {
   background-color: black;
 }
 
-.container .btn5 {
+.container .bn5 {
   position: absolute;
   top: 94%;
   left: 51%;
@@ -96,10 +96,10 @@
   border-radius: 5px;
 }
 
-.container .btn5:hover {
+.container .bn5:hover {
   background-color: black;
 }
-.container .btn6 {
+.container .bn6 {
   position: absolute;
   top: 94%;
   left: 80%;
@@ -114,6 +114,6 @@
   border-radius: 5px;
 }
 
-.container .btn6:hover {
+.container .bn6:hover {
   background-color: black;
 }
