@@ -17,7 +17,7 @@ function Home() {
       </VideoBackground>
       <InnerWrapper>
         <TextContainer>
-          Hey Earthing! <br />
+          Hey Earthling! <br />
           How are you feeling today?
         </TextContainer>
         <LinkContainer>

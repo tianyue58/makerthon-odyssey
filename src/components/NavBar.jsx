@@ -69,6 +69,9 @@ function NavBar() {
       {currentUser ? (
         <Functionalities>
           <Link to="/UserProfile">
+            <LightButton>View Planets</LightButton>
+          </Link>
+          <Link to="/UserProfile">
             <LightButton>My Profile</LightButton>
           </Link>
           <LightButton onClick={handleLogout}>Log Out</LightButton>

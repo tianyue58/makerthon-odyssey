@@ -2,17 +2,22 @@ import styled, { createGlobalStyle } from "styled-components/macro";
 import { Link } from "react-router-dom";
 
 export const GlobalStyle = createGlobalStyle`
- body {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
- } 
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
  button {
    :focus{
      outline: none;
    }
  }
 `;
+
+
 
 export const VideoBackground = styled.video`
   position: fixed;
