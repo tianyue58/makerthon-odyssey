@@ -1,74 +1,48 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components/macro";
-import {
-  VideoBackground,
-  ProfilePageWrapper,
-  Button,
-  Input,
-  Container,
-} from "../../../styles/globalStyles";
 import { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
 import profile from "../../../images/unicorn.svg";
-import loadingImage from "../../../images/unicorn.svg";
+import loadingIcon from "../../../gifs/loading-colorful.gif";
+import waitingForChoiceIcon from "../../../images/waiting.svg";
 import { db, storage } from "../../../firebase";
 import ViewProfile from "./UpdateProfile";
 import UpdateProfile from "./ViewProfile";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import background from "../../../backgrounds/profile-page-galaxy.mp4";
-
-const LeftPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  align-items: flex-end;
-`;
-
-export const RightPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  width: 50%;
-  height: 100%;
-  padding-left: 25px;
-`;
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  height: 75%;
-`;
-
-const ProfilePhoto = styled.img`
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  margin-bottom: 30px;
-`;
+import {
+  MainPageRight,
+  SubPageLeft,
+  Input,
+} from "../../../styles/authenticationPageStyles";
+import {
+  VideoBackground,
+  Button,
+  PageBelowNavBar,
+  Wrapper,
+} from "../../../styles/globalStyles";
+import { ProfilePhoto } from "../../../styles/profilePageStyles";
 
 export default function UserProfile() {
   const [image, setImage] = useState();
   const [imageChosen, setImageChosen] = useState(false);
   const { currentUser } = useAuth();
   const [waitingForImageUpload, setWaitingForImageUpload] = useState(false);
+  const [uploadClicked, setUploadClicked] = useState(false);
   const imageRef = useRef();
   const [imageURL, setImageURL] = useState();
   const [isViewingProfile, setIsViewingProfile] = useState(true);
   const [uploadImageURL, setUploadImageURL] = useState();
   const [nickname, setNickname] = useState();
-  const [gender, setGender] = useState();
   const [faculty, setFaculty] = useState();
   const [yearOfStudy, setYearOfStudy] = useState();
+  const [residence, setResidence] = useState();
   const userRef = doc(db, "users", currentUser.uid);
   const moreUserInfo = {
     nickname: nickname,
-    gender: gender,
     faculty: faculty,
     yearOfStudy: yearOfStudy,
+    residence: residence,
   };
 
   async function getUser() {
@@ -77,9 +51,9 @@ export default function UserProfile() {
       const data = userSnap.data();
       setUploadImageURL(data.uploadImageURL ? data.uploadImageURL : profile);
       setNickname(data.nickname);
-      setGender(data.gender);
       setFaculty(data.faulty);
       setYearOfStudy(data.yearOfStudy);
+      setResidence(data.residence);
     }
   }
 
@@ -97,7 +71,9 @@ export default function UserProfile() {
     if (!waitingForImageUpload) {
       setWaitingForImageUpload(true);
     } else {
-      const uploadTask = storage.ref(`${imageURL.name}`).put(imageURL);
+      setUploadClicked(true);
+      const storageRef = ref(storage, `${imageURL.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, imageURL);
       uploadTask.on(
         "state_changed",
         (snapshot) => {},
@@ -105,23 +81,29 @@ export default function UserProfile() {
           console.log(error);
         },
         () => {
-          storage
-            .ref(imageURL.name)
-            .getDownloadURL()
-            .then((url) => {
-              db.collection("UserProfile")
-                .doc(currentUser.uid)
-                .update({ uploadImageURL: url })
-                .then(() => {
-                  setUploadImageURL(image);
-                  alert("Updated successfully!");
-                  setWaitingForImageUpload(false);
-                  setImageChosen(false);
-                });
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            updateDoc(userRef, { uploadImageURL: url }).then(() => {
+              setUploadImageURL(image);
+              setWaitingForImageUpload(false);
+              setImageChosen(false);
+              setUploadClicked(false);
             });
+          });
         }
       );
     }
+  };
+
+  const displayedPhoto = () => {
+    if (waitingForImageUpload) {
+      if (!imageChosen) {
+        return waitingForChoiceIcon;
+      } else {
+        if (uploadClicked) {
+          return loadingIcon;
+        } else return image;
+      }
+    } else return uploadImageURL;
   };
 
   return (
@@ -129,19 +111,10 @@ export default function UserProfile() {
       <VideoBackground autoPlay muted loop playsInline>
         <source src={background} type="video/mp4" />
       </VideoBackground>
-      <ProfilePageWrapper>
-        <LeftPage>
+      <PageBelowNavBar>
+        <SubPageLeft>
           <Wrapper>
-            <ProfilePhoto
-              src={
-                waitingForImageUpload
-                  ? imageChosen
-                    ? image
-                    : loadingImage
-                  : uploadImageURL
-              }
-              alt="photo"
-            />
+            <ProfilePhoto src={displayedPhoto()} alt="photo" />
             {waitingForImageUpload ? (
               <Input
                 type="file"
@@ -159,24 +132,25 @@ export default function UserProfile() {
               {waitingForImageUpload ? "Upload" : "Change"} Profile Photo
             </Button>
           </Wrapper>
-        </LeftPage>
-        <RightPage>
-          <Wrapper>
+        </SubPageLeft>
+        <MainPageRight>
+          <Wrapper width="60%" height="70%">
             {isViewingProfile ? (
-              <ViewProfile moreUserInfo={moreUserInfo} />
-            ) : (
               <UpdateProfile moreUserInfo={moreUserInfo} />
+            ) : (
+              <ViewProfile moreUserInfo={moreUserInfo} />
             )}
-            <Button
-              onClick={() => setIsViewingProfile(!isViewingProfile)}
-              buttonwidth="130px"
-              buttonmargin="20px"
-            >
-              {isViewingProfile ? "View" : "Update"} Profile
-            </Button>
           </Wrapper>
-        </RightPage>
-      </ProfilePageWrapper>
+
+          <Button
+            onClick={() => setIsViewingProfile(!isViewingProfile)}
+            buttonwidth="130px"
+            buttonmargin="20px"
+          >
+            {isViewingProfile ? "Update" : "View"} Profile
+          </Button>
+        </MainPageRight>
+      </PageBelowNavBar>
     </>
   );
 }

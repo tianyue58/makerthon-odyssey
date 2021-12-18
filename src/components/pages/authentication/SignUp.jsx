@@ -3,19 +3,19 @@ import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import background from "../../../backgrounds/sign-up-galaxy.mp4";
 import {
-  Card,
-  Title,
-  Form,
-  GroupInput,
-  MessageBlock,
-  VideoBackground,
-  Page,
-  GroupTitle,
   Button,
+  PageBelowNavBar,
+  VideoBackground,
 } from "../../../styles/globalStyles";
 import {
   MainPageRight,
   SubPageLeft,
+  Card,
+  Title,
+  MessageBlock,
+  Form,
+  GroupInput,
+  GroupTitle,
 } from "../../../styles/authenticationPageStyles";
 
 function SignUp() {
@@ -61,7 +61,7 @@ function SignUp() {
       <VideoBackground autoPlay muted loop playsInline>
         <source src={background} type="video/mp4" />
       </VideoBackground>
-      <Page>
+      <PageBelowNavBar>
         <SubPageLeft>
           <div>
             <Title>One of us?</Title>
@@ -110,7 +110,7 @@ function SignUp() {
             </Form>
           </Card>
         </MainPageRight>
-      </Page>
+      </PageBelowNavBar>
     </>
   );
 }
