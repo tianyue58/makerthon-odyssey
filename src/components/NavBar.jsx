@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import logo from "../images/odyssey-logo.png";
+import sparklingLogo from "../gifs/sparkling-planet-logo.gif";
+import planetLogo from "../gifs/planet.gif";
 import { LightButton } from "../styles/globalStyles";
 import { useAuth } from "./context/AuthContext";
 import { useLocation } from "react-router";
@@ -23,9 +25,9 @@ const LogoContainer = styled.div`
 `;
 
 const NavIcon = styled.img`
-  padding: 15px;
-  width: 55px;
-  height: 55px;
+  padding: 0 10px 0 15px;
+  width: 49.8px;
+  height: 46.1px;
 `;
 
 const Title = styled.button`
@@ -65,7 +67,7 @@ function NavBar() {
     <NavContainer>
       <LogoContainer>
         <Link to={currentUser ? "/" : "/login"}>
-          <NavIcon src={logo} alt="logo" />
+          <NavIcon src={sparklingLogo} alt="logo" />
         </Link>
         <Link to={currentUser ? "/" : "/login"}>
           <Title>ODYSSEY</Title>
