@@ -5,10 +5,12 @@ import background from "../../backgrounds/emotion-planet.mp4";
 import styled from "styled-components/macro";
 import {
   LightButton,
-  LinkContainer,
   VideoBackground,
+  WholePage,
+  Wrapper,
 } from "../../styles/globalStyles";
-import { TextContainer, InnerWrapper } from "../../styles/globalStyles";
+
+import { TextContainer, LinkContainer } from "../../styles/featurePageStyles";
 
 function EmotionPlanet() {
   const [displayPlanet, setDisplayPlanet] = useState(false);
@@ -38,46 +40,49 @@ function EmotionPlanet() {
           <VideoBackground autoPlay muted loop playsInline>
             <source src={background} type="video/mp4" />
           </VideoBackground>
-          {showDetail ? (
-            <>
-              {showSolution ? (
-                <InnerWrapper>
-                  <TextContainer>{solution}</TextContainer>
-                  <Link to="/">
-                    <LightButton>Go it!</LightButton>
-                  </Link>
-                </InnerWrapper>
-              ) : (
-                <InnerWrapper>
-                  <TextContainer>
-                    Here are some relics left by those who had visited this
-                    planet before... <br />
-                    Pick one to explore!
-                  </TextContainer>
-                  <LinkContainer>
-                    <LightButton onClick={() => handleDisplaySolution("1")}>
-                      Solution 1
-                    </LightButton>
-                    <LightButton>Solution 2</LightButton>
-                    <LightButton>Solution 3</LightButton>
-                  </LinkContainer>
-                </InnerWrapper>
-              )}
-            </>
-          ) : (
-            <InnerWrapper>
-              <TextContainer>
-                You're on Planet XYZ, 1000 light years away from the Earth{" "}
-                <br />
-                Currently there are 100 other earthlings on this planet, <br />
-                who are experiencing the same emotion as you <br />
-                Click to explore more
-              </TextContainer>
-              <LightButton onClick={() => setShowDetail(true)}>
-                Explore the planet
-              </LightButton>
-            </InnerWrapper>
-          )}
+          <WholePage>
+            {showDetail ? (
+              <>
+                {showSolution ? (
+                  <Wrapper>
+                    <TextContainer>{solution}</TextContainer>
+                    <Link to="/">
+                      <LightButton>Go it!</LightButton>
+                    </Link>
+                  </Wrapper>
+                ) : (
+                  <Wrapper>
+                    <TextContainer>
+                      Here are some relics left by those who had visited this
+                      planet before... <br />
+                      Pick one to explore!
+                    </TextContainer>
+                    <LinkContainer>
+                      <LightButton onClick={() => handleDisplaySolution("1")}>
+                        Solution 1
+                      </LightButton>
+                      <LightButton>Solution 2</LightButton>
+                      <LightButton>Solution 3</LightButton>
+                    </LinkContainer>
+                  </Wrapper>
+                )}
+              </>
+            ) : (
+              <Wrapper>
+                <TextContainer>
+                  You're on Planet XYZ, 1000 light years away from the Earth{" "}
+                  <br />
+                  Currently there are 100 other earthlings on this planet,{" "}
+                  <br />
+                  who are experiencing the same emotion as you <br />
+                  Click to explore more
+                </TextContainer>
+                <LightButton onClick={() => setShowDetail(true)}>
+                  Explore the planet
+                </LightButton>
+              </Wrapper>
+            )}
+          </WholePage>
         </>
       )}
     </>

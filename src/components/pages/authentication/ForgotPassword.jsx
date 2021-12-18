@@ -1,19 +1,46 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import styled from "styled-components/macro";
 import background from "../../../backgrounds/sign-up-galaxy.mp4";
 import {
-  Card,
   Title,
   Form,
   GroupInput,
-  Extra,
-  LightButton,
   MessageBlock,
-  VideoBackground,
-  CardWrapper,
   StyledLink,
+  Card,
+} from "../../../styles/authenticationPageStyles";
+import {
+  Button,
+  PageBelowNavBar,
+  VideoBackground,
+  Wrapper,
+  ToolTip,
+  ToolTipText,
+  QuestionIcon,
+  TitleWrapper,
 } from "../../../styles/globalStyles";
+
+const CardWithBackground = styled(Card)`
+  background: lightyellow;
+  opacity: 80%;
+  width: 40%;
+  border: 1px solid transparent;
+  border-radius: 2rem;
+`;
+
+const SmallCardWrapper = styled(Wrapper)`
+  justify-content: flex-start;
+  top: 15%;
+`;
+
+const Question = styled(QuestionIcon)`
+  top: -10px;
+  right: -40px;
+  width: 20px;
+  height: 20px;
+  color: hotpink;
+`;
 
 function ForgotPassword() {
   const emailRef = useRef();
@@ -30,9 +57,29 @@ function ForgotPassword() {
       setError("");
       setLoading(true);
       await resetPassword(emailRef.current.value);
-      setMessage("Check your inbox for further instructions.");
+      setMessage(
+        <TitleWrapper>
+          <ToolTip>
+            Check your inbox for further instructions
+            <Question />
+            <ToolTipText width="100px" background="gray">
+              In case it's not in your inbox, please check the junk mail
+            </ToolTipText>
+          </ToolTip>
+        </TitleWrapper>
+      );
     } catch (e) {
-      setError(e.message);
+      if (e.code == "auth/user-not-found") {
+        setError("This email hasn't been registered yet");
+      } else if (e.code == "auth/invalid-email") {
+        setError("The email provided is invalid");
+      } else if (e.code == "auth/too-many-requests") {
+        setError(
+          "You have reset your password too frequently... Hold back for a while!"
+        );
+      } else {
+        setError(e.message);
+      }
     }
 
     setLoading(false);
@@ -43,33 +90,41 @@ function ForgotPassword() {
       <VideoBackground autoPlay muted loop playsInline>
         <source src={background} type="video/mp4" />
       </VideoBackground>
-      <CardWrapper>
-        <Card>
-          <Title>Reset Password</Title>
-          {error && <MessageBlock type="bad">{error}</MessageBlock>}
-          {message && <MessageBlock type="good">{message}</MessageBlock>}
-          <Form onSubmit={handleSubmit}>
-            <GroupInput
-              type="email"
-              ref={emailRef}
-              required
-              placeholder="Email"
-              bottommargin="20px"
-            />
+      <PageBelowNavBar>
+        <SmallCardWrapper>
+          <CardWithBackground>
+            <Title>Reset Password</Title>
+            {error && <MessageBlock type="bad">{error}</MessageBlock>}
+            {message && (
+              <MessageBlock type="good" marginBottom="20px">
+                {message}
+              </MessageBlock>
+            )}
+            <Form onSubmit={handleSubmit}>
+              <GroupInput
+                type="email"
+                ref={emailRef}
+                required
+                placeholder="Email"
+                bottommargin="20px"
+              />
 
-            <LightButton type="submit" disabled={loading}>
-              Reset Password
-            </LightButton>
-          </Form>
-          <Extra>
-            <StyledLink to="/LogIn">Log In</StyledLink>
-            <p>
-              Need a new account? <br />
-              <StyledLink to="/SignUp">Sign Up</StyledLink> here
-            </p>
-          </Extra>
-        </Card>
-      </CardWrapper>
+              <Button
+                type="submit"
+                disabled={loading}
+                buttonwidth="150px"
+                buttonmargin="20px"
+              >
+                Reset Password
+              </Button>
+              <p>
+                Already reset your password? Log in from
+                <StyledLink to="/LogIn"> here </StyledLink>
+              </p>
+            </Form>
+          </CardWithBackground>
+        </SmallCardWrapper>
+      </PageBelowNavBar>
     </>
   );
 }
