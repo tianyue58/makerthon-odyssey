@@ -10,12 +10,12 @@ import LogIn from "./components/pages/authentication/LogIn";
 import ForgotPassword from "./components/pages/authentication/ForgotPassword";
 import UserProfile from "./components/pages/authentication/UserProfile";
 import UpdateProfile from "./components/pages/authentication/UpdateProfile";
-import Asteroid325 from "./components/pages/Asteroid325";
-import Asteroid326 from "./components/pages/Asteroid326";
-import Asteroid327 from "./components/pages/Asteroid327";
-import Asteroid328 from "./components/pages/Asteroid328";
-import Asteroid329 from "./components/pages/Asteroid329";
-import Asteroid330 from "./components/pages/Asteroid330";
+import Asteroid325 from "./components/pages/planets/Asteroid325";
+import Asteroid326 from "./components/pages/planets/Asteroid326";
+import Asteroid327 from "./components/pages/planets/Asteroid327";
+import Asteroid328 from "./components/pages/planets/Asteroid328";
+import Asteroid329 from "./components/pages/planets/Asteroid329";
+import Asteroid330 from "./components/pages/planets/Asteroid330";
 import ViewPlanets from "./components/pages/ViewPlanets";
 import A3251 from "./components/pages/solutions/A3251";
 import A3252 from "./components/pages/solutions/A3252";
@@ -107,38 +107,38 @@ function App() {
           <Route path="Asteroid330" element={<Asteroid330 />} />
           <Route path="ViewPlanets" element={<ViewPlanets />} />
           <Route path="A3251" element={<A3251 />} />
-          <Route path="A3252" element={<A3252/>} />
-          <Route path="A3253" element={<A3253/>} />
-          <Route path="A3254" element={<A3254/>} />
-          <Route path="A3255" element={<A3255/>} />
-          <Route path="A3256" element={<A3256/>} />
-          <Route path="A3261" element={<A3261/>} />
-          <Route path="A3262" element={<A3262/>} />
-          <Route path="A3263" element={<A3263/>} />
-          <Route path="A3264" element={<A3264/>} />
-          <Route path="A3265" element={<A3265/>} />
-          <Route path="A3266" element={<A3266/>} />
-          <Route path="A3271" element={<A3271/>} />
-          <Route path="A3272" element={<A3272/>} />
-          <Route path="A3273" element={<A3273/>} />
-          <Route path="A3274" element={<A3274/>} />
-          <Route path="A3275" element={<A3275/>} />
-          <Route path="A3276" element={<A3276/>} />
-          <Route path="A3281" element={<A3281/>} />
-          <Route path="A3282" element={<A3282/>} />
-          <Route path="A3283" element={<A3283/>} />
-          <Route path="A3291" element={<A3291/>} />
-          <Route path="A3292" element={<A3292/>} />
-          <Route path="A3293" element={<A3293/>} />
-          <Route path="A3301" element={<A3301/>} />
-          <Route path="A3302" element={<A3302/>} />
-          <Route path="A3303" element={<A3303/>} />
-          <Route path="A3257" element={<A3257/>} />
-          <Route path="A3267" element={<A3267/>} />
-          <Route path="A3277" element={<A3277/>} />
-          <Route path="A3284" element={<A3284/>} />
-          <Route path="A3294" element={<A3294/>} />
-          <Route path="A3304" element={<A3304/>} />
+          <Route path="A3252" element={<A3252 />} />
+          <Route path="A3253" element={<A3253 />} />
+          <Route path="A3254" element={<A3254 />} />
+          <Route path="A3255" element={<A3255 />} />
+          <Route path="A3256" element={<A3256 />} />
+          <Route path="A3261" element={<A3261 />} />
+          <Route path="A3262" element={<A3262 />} />
+          <Route path="A3263" element={<A3263 />} />
+          <Route path="A3264" element={<A3264 />} />
+          <Route path="A3265" element={<A3265 />} />
+          <Route path="A3266" element={<A3266 />} />
+          <Route path="A3271" element={<A3271 />} />
+          <Route path="A3272" element={<A3272 />} />
+          <Route path="A3273" element={<A3273 />} />
+          <Route path="A3274" element={<A3274 />} />
+          <Route path="A3275" element={<A3275 />} />
+          <Route path="A3276" element={<A3276 />} />
+          <Route path="A3281" element={<A3281 />} />
+          <Route path="A3282" element={<A3282 />} />
+          <Route path="A3283" element={<A3283 />} />
+          <Route path="A3291" element={<A3291 />} />
+          <Route path="A3292" element={<A3292 />} />
+          <Route path="A3293" element={<A3293 />} />
+          <Route path="A3301" element={<A3301 />} />
+          <Route path="A3302" element={<A3302 />} />
+          <Route path="A3303" element={<A3303 />} />
+          <Route path="A3257" element={<A3257 />} />
+          <Route path="A3267" element={<A3267 />} />
+          <Route path="A3277" element={<A3277 />} />
+          <Route path="A3284" element={<A3284 />} />
+          <Route path="A3294" element={<A3294 />} />
+          <Route path="A3304" element={<A3304 />} />
           <Route path="SignUp" element={<SignUp />} />
           <Route path="LogIn" element={<LogIn />} />
           <Route path="ForgotPassword" element={<ForgotPassword />} />
