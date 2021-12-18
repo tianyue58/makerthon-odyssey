@@ -16,11 +16,12 @@ function Asteroid326() {
     <>
     <div class="container">
     <img src = {image} style={{objectFit: 'cover', width: '100%', height: '100%'}}/>
-    <figcaption>You've landed on Asteriod 326! <br/>
+    <div class = "figcaption">You've landed on Asteriod 326! 
     86 earthlings have visited this planet today. <br/>
-    Click on the buttons below to find out tips related to your issue. <br/>
+    <br/>
+    Click on the buttons below to find out tips related to your issue. 
     Click on the "Let's Talk" sticker to see how to seek help from others.
-    </figcaption>
+    </div>
 
     <button class="btn1">Button1</button>
       <button class="btn2">Button2</button>

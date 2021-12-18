@@ -1,22 +1,22 @@
-figcaption {
-  position: absolute;
-  bottom: 6.5em;
-  margin: 0 1.5em;
-  color: rgb(192, 237, 248);
-  font-size: 2.5em;
-  line-height: 160%;
-  width: 50%;
-}
-
 .container {
-  /* position: relative;
-  width: 50%; */
+  position: relative;
 }
 
 /* Make the image responsive */
 .container img {
   width: 100%;
   height: auto;
+}
+
+.container .figcaption {
+  position: absolute;
+  top: 18%;
+  left: 6%;
+  bottom: 30%;
+  color: rgb(192, 237, 248);
+  font-size: 34px;
+  line-height: 160%;
+  width: 45%;
 }
 
 /* Style the button and place it in the middle of the container/image */
