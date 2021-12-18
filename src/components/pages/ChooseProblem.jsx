@@ -58,16 +58,16 @@ function ChooseProblem() {
               <Wrapper>
                 <TextContainer>What makes you feel this way...?</TextContainer>
                 <LinkContainer>
-                  <LightButton onClick={() => handleSelectEvent("Study")}>
-                    Study
+                  <LightButton onClick={() => handleSelectEvent("school")}>
+                    School
                   </LightButton>
                   <LightButton
-                    onClick={() => handleSelectEvent("Work/Internship")}
+                    onClick={() => handleSelectEvent("work/internship")}
                   >
                     Work/Internship
                   </LightButton>
                   <LightButton
-                    onClick={() => handleSelectEvent("Private life")}
+                    onClick={() => handleSelectEvent("private life")}
                   >
                     Private life
                   </LightButton>
