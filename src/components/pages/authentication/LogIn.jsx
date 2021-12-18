@@ -7,6 +7,7 @@ import {
   Button,
   PageBelowNavBar,
 } from "../../../styles/globalStyles";
+
 import {
   MainPageLeft,
   SubPageRight,

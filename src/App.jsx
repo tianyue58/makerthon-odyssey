@@ -10,6 +10,13 @@ import LogIn from "./components/pages/authentication/LogIn";
 import ForgotPassword from "./components/pages/authentication/ForgotPassword";
 import UserProfile from "./components/pages/authentication/UserProfile";
 import UpdateProfile from "./components/pages/authentication/UpdateProfile";
+import Asteroid325 from "./components/pages/Asteroid325";
+import Asteroid326 from "./components/pages/Asteroid326";
+import Asteroid327 from "./components/pages/Asteroid327";
+import Asteroid328 from "./components/pages/Asteroid328";
+import Asteroid329 from "./components/pages/Asteroid329";
+import Asteroid330 from "./components/pages/Asteroid330";
+import ViewPlanets from "./components/pages/ViewPlanets";
 
 function App() {
   return (
@@ -59,6 +66,13 @@ function App() {
             }
           />
 
+          <Route path="Asteroid325" element={<Asteroid325 />} />
+          <Route path="Asteroid326" element={<Asteroid326 />} />
+          <Route path="Asteroid327" element={<Asteroid327 />} />
+          <Route path="Asteroid328" element={<Asteroid328 />} />
+          <Route path="Asteroid329" element={<Asteroid329 />} />
+          <Route path="Asteroid330" element={<Asteroid330 />} />
+          <Route path="ViewPlanets" element={<ViewPlanets />} />
           <Route path="SignUp" element={<SignUp />} />
           <Route path="LogIn" element={<LogIn />} />
           <Route path="ForgotPassword" element={<ForgotPassword />} />

@@ -1,0 +1,134 @@
+figcaption {
+  position: absolute;
+  bottom: 6.5em;
+  margin: 0 1.5em;
+  color: rgb(192, 237, 248);
+  font-size: 2.5em;
+  line-height: 160%;
+  width: 50%;
+}
+
+.container {
+  /* position: relative;
+  width: 50%; */
+}
+
+/* Make the image responsive */
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.container .btn1 {
+  position: absolute;
+  top: 75%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn1:hover {
+  background-color: black;
+}
+
+.container .btn2 {
+  position: absolute;
+  top: 75%;
+  left: 24%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn2:hover {
+  background-color: black;
+}
+
+.container .btn3 {
+  position: absolute;
+  top: 75%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn3:hover {
+  background-color: black;
+}
+
+.container .btn4 {
+  position: absolute;
+  top: 88%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn4:hover {
+  background-color: black;
+}
+
+.container .btn5 {
+  position: absolute;
+  top: 88%;
+  left: 24%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn5:hover {
+  background-color: black;
+}
+.container .btn6 {
+  position: absolute;
+  top: 88%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn6:hover {
+  background-color: black;
+}

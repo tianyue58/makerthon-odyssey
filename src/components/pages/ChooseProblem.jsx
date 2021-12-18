@@ -27,6 +27,10 @@ function ChooseProblem() {
     setDisplayEvent(false);
   };
 
+  // let myHashMap = new Map([
+  //   [work]
+  // ])
+
   return (
     <>
       <VideoBackground autoPlay muted loop playsInline>
@@ -37,15 +41,15 @@ function ChooseProblem() {
           <Wrapper>
             <TextContainer>Tell me how you feel...</TextContainer>
             <LinkContainer>
-              <LightButton onClick={() => handleSelectEmotion("Sad")}>
-                Sad
+              <LightButton onClick={() => handleSelectEmotion("a bit sad")}>
+                a bit sad...
               </LightButton>
-              <LightButton onClick={() => handleSelectEmotion("Anxious")}>
-                Anxious
+              <LightButton onClick={() => handleSelectEmotion("very sad")}>
+                very sad...
               </LightButton>
-              <LightButton onClick={() => handleSelectEmotion("Angry")}>
+              {/* <LightButton onClick={() => handleSelectEmotion("Angry")}>
                 Angry
-              </LightButton>
+              </LightButton> */}
             </LinkContainer>
           </Wrapper>
         ) : (
