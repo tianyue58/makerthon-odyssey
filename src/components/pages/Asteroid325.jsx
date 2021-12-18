@@ -26,12 +26,26 @@ function Asteroid325() {
       Click on the "Let's Talk" sticker to see how to seek help from others.
       </div>
 
+      <Link to="/A3251">
       <button class="btn1">Button1</button>
+      </Link>
+      
+      <Link to="/A3252">
       <button class="btn2">Button2</button>
+      </Link>
+      <Link to="/A3253">
       <button class="btn3">Button3</button>
+      </Link>
+      <Link to="/A3254">
       <button class="btn4">Button4</button>
+      </Link>
+      <Link to="/A3255">
       <button class="btn5">Button5</button>
+      </Link>
+      <Link to="/A3256">
       <button class="btn6">Button6</button>
+      </Link>
+      
 
     {/* <Link to="/ChooseProblem">
             <LightButton>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 import image from "../../images/330.png"; 
 import '../../styles/Asteroid.css';
 
@@ -16,12 +16,15 @@ function Asteroid330() {
       Click on the buttons below to find out tips related to your issue. 
       Click on the "Let's Talk" sticker to see how to seek help from others.
     </div>
-      <button class="btn1">Button1</button>
-      <button class="btn2">Button2</button>
-      <button class="btn3">Button3</button>
-      <button class="btn4">Button4</button>
-      <button class="btn5">Button5</button>
-      <button class="btn6">Button6</button>
+    <Link to="/A3301">
+    <button class="btn1">Button1</button>
+    </Link>
+    <Link to="/A3302">
+    <button class="btn2">Button2</button>
+    </Link>
+    <Link to="/A3303">
+    <button class="btn3">Button3</button>
+    </Link>
     </div>
     </>
   );
