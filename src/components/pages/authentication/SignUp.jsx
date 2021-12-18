@@ -22,7 +22,6 @@ function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const nicknameRef = useRef();
 
   const { signup } = useAuth();
   const [error, setError] = useState("");
@@ -38,11 +37,7 @@ function SignUp() {
     try {
       setError("");
       setLoading(true);
-      await signup(
-        emailRef.current.value,
-        passwordRef.current.value,
-        nicknameRef.current.value
-      );
+      await signup(emailRef.current.value, passwordRef.current.value);
       navigate("/login");
     } catch (e) {
       if (e.code == "auth/email-already-in-use") {

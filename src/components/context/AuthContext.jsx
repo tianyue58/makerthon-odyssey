@@ -21,16 +21,11 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  function signup(email, password, nickname) {
+  function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password).then(
       (registeredUser) =>
         setDoc(doc(db, "users", registeredUser.user.uid), {
-          nickname: nickname,
           email: registeredUser.user.email,
-          gender: "",
-          yearOfStudy: "",
-          faculty: "",
-          residence: "",
         })
     );
   }
