@@ -6,6 +6,8 @@ import {
   signOut,
   sendPasswordResetEmail,
   onAuthStateChanged,
+  updateEmail,
+  updatePassword,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -45,12 +47,12 @@ export function AuthProvider({ children }) {
     return sendPasswordResetEmail(auth, email);
   }
 
-  function updateEmail(email) {
-    return currentUser.updateEmail(auth, email);
-  }
+  // function updateUserEmail(email) {
+  //   return updateEmail(currentUser, email);
+  // }
 
-  function updatePassword(password) {
-    return currentUser.updatePassword(auth, password);
+  function updateUserPassword(password) {
+    return updatePassword(currentUser, password);
   }
 
   useEffect(() => {
@@ -67,8 +69,7 @@ export function AuthProvider({ children }) {
     signup,
     logout,
     resetPassword,
-    updateEmail,
-    updatePassword,
+    updateUserPassword,
   };
 
   return (
