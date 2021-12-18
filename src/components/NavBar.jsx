@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import logo from "../images/odyssey-logo.png";
 import { LightButton } from "../styles/globalStyles";
 import { useAuth } from "./context/AuthContext";
+import { useLocation } from "react-router";
 
 const NavContainer = styled.nav`
   position: absolute;
@@ -46,6 +47,10 @@ const Functionalities = styled.div`
 function NavBar() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [currentPath, setCurrentPath] = useState();
+
+  useEffect(() => setCurrentPath(location.pathname), [location.pathname]);
 
   async function handleLogout() {
     try {
@@ -68,12 +73,21 @@ function NavBar() {
       </LogoContainer>
       {currentUser ? (
         <Functionalities>
-          <Link to="/ViewPlanets">
-            <LightButton>View Planets</LightButton>
-          </Link>
-          <Link to="/UserProfile">
-            <LightButton>My Profile</LightButton>
-          </Link>
+          {currentPath != "/" ? (
+            <Link to="/">
+              <LightButton>Back to Home</LightButton>
+            </Link>
+          ) : null}
+          {currentPath != "/ViewPlanets" ? (
+            <Link to="/ViewPlanets">
+              <LightButton>View Planets</LightButton>
+            </Link>
+          ) : null}
+          {currentPath != "/UserProfile" ? (
+            <Link to="/UserProfile">
+              <LightButton>My Profile</LightButton>
+            </Link>
+          ) : null}
           <LightButton onClick={handleLogout}>Log Out</LightButton>
         </Functionalities>
       ) : null}
