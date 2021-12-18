@@ -1,74 +1,85 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components/macro";
 import { useAuth } from "../../context/AuthContext";
+import { Button, QuestionIcon } from "../../../styles/globalStyles";
+import { db } from "../../../firebase";
+import { doc, updateDoc } from "firebase/firestore";
 import {
+  ProfileWrapper,
   FormGroup,
-  GroupTitle,
+  MainForm,
+  Item,
+} from "../../../styles/profilePageStyles";
+import {
   GroupInput,
   MessageBlock,
-  Button,
+  Title,
+} from "../../../styles/authenticationPageStyles";
+import {
+  ToolTip,
+  ToolTipText,
+  TitleWrapper,
 } from "../../../styles/globalStyles";
-import { db } from "../../../firebase";
-import { ProfileWrapper, TitleWrapper } from "./ViewProfile";
-import { doc, updateDoc } from "firebase/firestore";
 
-const MainForm = styled.form`
-  display: flex;
-  flex-direction: column;
+const UpdateProfileWrapper = styled(ProfileWrapper)`
   align-items: center;
-  height: 80%;
-  padding: 0 20px 10px 20px;
-  overflow-y: scroll;
-  &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    background-color: #f5f5f5;
-  }
-  &::-webkit-scrollbar {
-    width: 10px;
-    background-color: #f5f5f5;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: radial-gradient(
-      circle,
-      rgba(206, 250, 107, 1) 0%,
-      rgba(93, 206, 242, 1) 100%
-    );
-  }
+`;
+
+const LongGroupInput = styled(GroupInput)`
+  display: flex;
+  justify-content: center;
+  width: 400px;
+  height: 40px;
+  margin-bottom: 0;
+  border: 1px solid transparent;
+  border-radius: 0.8rem;
+`;
+
+const FieldItem = styled(Item)`
+  width: 120px;
+  text-align: center;
+`;
+
+const MessageBox = styled(MessageBlock)`
+  margin-bottom: 30px;
+  height: 50px;
+`;
+
+const Question = styled(QuestionIcon)`
+  top: 40px;
+  right: -20px;
+  width: 20px;
+  height: 20px;
+  color: hotpink;
 `;
 
 export default function UpdateProfile(props) {
-  const emailRef = useRef();
   const passwordRef = useRef();
-  const usernameRef = useRef();
-  const genderRef = useRef();
+  const nicknameRef = useRef();
   const facultyRef = useRef();
   const yearOfStudyRef = useRef();
+  const residenceRef = useRef();
 
-  const { currentUser, updatePassword, updateEmail } = useAuth();
+  const { currentUser, updateUserPassword } = useAuth();
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const userRef = doc(db, "users", currentUser.uid);
-  const { gender, faculty, yearOfStudy } = props.moreUserInfo;
-
-  //optional fields
-  // const nicknameRef = useRef();
-  // const [gender, setGender] = useState();
-  // const [yearOfStudy, setYearOfStudy] = useState();
-  // const facultyRef = useState();
-  // const [displayMoreInfo, setDisplayMoreInfo] = useState(false);
+  const { nickname, faculty, yearOfStudy, residence } = props.moreUserInfo;
 
   async function updateAdditionalInfo(otherInfo) {
-    const { newGender, newFaculty, newYearOfStudy } = otherInfo;
-    if (newGender) {
-      await updateDoc(userRef, { gender: newGender });
+    const { newNickname, newFaculty, newYearOfStudy, newResidence } = otherInfo;
+    if (newNickname) {
+      await updateDoc(userRef, { nickname: newNickname });
     }
     if (newFaculty) {
-      await updateDoc(userRef, { gender: newFaculty });
+      await updateDoc(userRef, { faculty: newFaculty });
     }
     if (newYearOfStudy) {
-      await updateDoc(userRef, { gender: newYearOfStudy });
+      await updateDoc(userRef, { yearOfStudy: newYearOfStudy });
+    }
+    if (newResidence) {
+      await updateDoc(userRef, { residence: newResidence });
     }
   }
 
@@ -76,29 +87,25 @@ export default function UpdateProfile(props) {
     e.preventDefault();
     const promises = [];
     setLoading(true);
+    setMessage("");
     setError("");
 
-    if (
-      emailRef.current.value &&
-      emailRef.current.value !== currentUser.email
-    ) {
-      promises.push(updateEmail(emailRef.current.value));
-    }
     if (passwordRef.current.value) {
-      promises.push(updatePassword(passwordRef.current.value));
+      promises.push(updateUserPassword(passwordRef.current.value));
     }
 
     const otherInfo = {
-      newGender: genderRef.current.value,
+      newNickname: nicknameRef.current.value,
       newFaculty: facultyRef.current.value,
       newYearOfStudy: yearOfStudyRef.current.value,
+      newResidence: residenceRef.current.value,
     };
 
     promises.push(updateAdditionalInfo(otherInfo));
 
     Promise.all(promises)
       .then(() => {
-        alert("Updated successfully!");
+        setMessage("Updated successfully :D");
       })
       .catch((e) => {
         setError(e.message);
@@ -110,41 +117,46 @@ export default function UpdateProfile(props) {
   }
 
   return (
-    <ProfileWrapper>
-      <TitleWrapper titleheight="10%">Update Profile</TitleWrapper>
-      {error && <MessageBlock type="bad">{error}</MessageBlock>}
+    <UpdateProfileWrapper>
+      <TitleWrapper>
+        <ToolTip>
+          <Title>Update Profile</Title>
+          <Question />
+          <ToolTipText>
+            For the field that you don't wanna edit, simply leave it blank
+          </ToolTipText>
+        </ToolTip>
+      </TitleWrapper>
+      {error && <MessageBox type="bad">{error}</MessageBox>}
+      {message && <MessageBox type="good">{message}</MessageBox>}
       <MainForm onSubmit={handleSubmit}>
         <FormGroup>
-          <GroupTitle>Email</GroupTitle>
-          <GroupInput
-            type="email"
-            ref={emailRef}
-            placeholder={currentUser.email}
+          <FieldItem>Password</FieldItem>
+          <LongGroupInput
+            type="password"
+            ref={passwordRef}
+            placeholder="******"
           />
         </FormGroup>
         <FormGroup>
-          <GroupTitle>Password</GroupTitle>
-          <GroupInput type="password" ref={passwordRef} placeholder="******" />
+          <FieldItem>Nickname</FieldItem>
+          <LongGroupInput ref={nicknameRef} placeholder={nickname} />
         </FormGroup>
         <FormGroup>
-          <GroupTitle>Username</GroupTitle>
-          <GroupInput ref={usernameRef} placeholder={currentUser.displayName} />
+          <FieldItem>Faculty</FieldItem>
+          <LongGroupInput ref={facultyRef} placeholder={faculty} />
         </FormGroup>
         <FormGroup>
-          <GroupTitle>Gender</GroupTitle>
-          <GroupInput ref={genderRef} placeholder={gender} />
+          <FieldItem>Year of Study</FieldItem>
+          <LongGroupInput ref={yearOfStudyRef} placeholder={yearOfStudy} />
         </FormGroup>
         <FormGroup>
-          <GroupTitle>Faculty</GroupTitle>
-          <GroupInput ref={facultyRef} placeholder={faculty} />
-        </FormGroup>
-        <FormGroup>
-          <GroupTitle>Year of Study</GroupTitle>
-          <GroupInput ref={yearOfStudyRef} placeholder={yearOfStudy} />
+          <FieldItem>Residence</FieldItem>
+          <LongGroupInput ref={residenceRef} placeholder={residence} />
         </FormGroup>
 
         {/* <Title>More Information</Title>
-        <GroupInput type="text" ref={nicknameRef} placeholder="Nickname" />
+        <LongGroupInput type="text" ref={nicknameRef} placeholder="Nickname" />
         <OptionsGroup>
           <input
             type="radio"
@@ -198,16 +210,10 @@ export default function UpdateProfile(props) {
           </select>
         </OptionsGroup> */}
 
-        <Button
-          buttoncolor="dodgerblue"
-          buttonmargin="40px"
-          buttonwidth="50%"
-          type="submit"
-          disabled={loading}
-        >
+        <Button buttoncolor="dodgerblue" type="submit" disabled={loading}>
           Update
         </Button>
       </MainForm>
-    </ProfileWrapper>
+    </UpdateProfileWrapper>
   );
 }

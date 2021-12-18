@@ -1,22 +1,22 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import background from "../../../backgrounds/sign-up-galaxy.mp4";
 import {
-  Title,
-  Form,
-  GroupInput,
-  MessageBlock,
   VideoBackground,
-  StyledLink,
   Button,
-  Page,
-  GroupTitle,
+  PageBelowNavBar,
 } from "../../../styles/globalStyles";
 
 import {
   MainPageLeft,
   SubPageRight,
+  Title,
+  Form,
+  GroupInput,
+  MessageBlock,
+  StyledLink,
+  GroupTitle,
 } from "../../../styles/authenticationPageStyles";
 
 function LogIn() {
@@ -29,7 +29,6 @@ function LogIn() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
       setError("");
       await login(emailRef.current.value, passwordRef.current.value);
@@ -42,9 +41,8 @@ function LogIn() {
       } else {
         setError(e.message);
       }
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
@@ -52,7 +50,7 @@ function LogIn() {
       <VideoBackground autoPlay muted loop playsInline>
         <source src={background} type="video/mp4" />
       </VideoBackground>
-      <Page>
+      <PageBelowNavBar>
         <MainPageLeft>
           <Title>Log In</Title>
           {error && <MessageBlock type="bad">{error}</MessageBlock>}
@@ -66,7 +64,6 @@ function LogIn() {
               required
               bottommargin="20px"
             />
-
             <Button type="submit" disabled={loading}>
               LOG IN
             </Button>
@@ -85,7 +82,7 @@ function LogIn() {
             <Button>SIGN UP</Button>
           </Link>
         </SubPageRight>
-      </Page>
+      </PageBelowNavBar>
     </>
   );
 }
