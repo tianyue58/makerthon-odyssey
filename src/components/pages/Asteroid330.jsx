@@ -10,7 +10,7 @@ function Asteroid330() {
     <div class="container">
     <img src = {image} style={{objectFit: 'cover', width: '100%', height: '100%'}}/>
     <div class = "figcaption">
-      You've landed on Asteriod 330! 
+    Welcome to Asteroid 330! 
       72 earthlings have visited this planet today. <br/>
       <br/>
       Click on the buttons below to find out tips related to your issue. 
@@ -24,6 +24,9 @@ function Asteroid330() {
     </Link>
     <Link to="/A3303">
     <button class="btn3">Button3</button>
+    </Link>
+    <Link to="/A3304">
+    <button class="btn7">Talking Tips</button>
     </Link>
     </div>
     </>

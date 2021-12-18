@@ -44,6 +44,12 @@ import A3293 from "./components/pages/solutions/A3293";
 import A3301 from "./components/pages/solutions/A3301";
 import A3302 from "./components/pages/solutions/A3302";
 import A3303 from "./components/pages/solutions/A3303";
+import A3257 from "./components/pages/solutions/A3257";
+import A3267 from "./components/pages/solutions/A3267";
+import A3277 from "./components/pages/solutions/A3277";
+import A3284 from "./components/pages/solutions/A3284";
+import A3294 from "./components/pages/solutions/A3294";
+import A3304 from "./components/pages/solutions/A330-4";
 
 function App() {
   return (
@@ -127,6 +133,12 @@ function App() {
           <Route path="A3301" element={<A3301/>} />
           <Route path="A3302" element={<A3302/>} />
           <Route path="A3303" element={<A3303/>} />
+          <Route path="A3257" element={<A3257/>} />
+          <Route path="A3267" element={<A3267/>} />
+          <Route path="A3277" element={<A3277/>} />
+          <Route path="A3284" element={<A3284/>} />
+          <Route path="A3294" element={<A3294/>} />
+          <Route path="A3304" element={<A3304/>} />
           <Route path="SignUp" element={<SignUp />} />
           <Route path="LogIn" element={<LogIn />} />
           <Route path="ForgotPassword" element={<ForgotPassword />} />

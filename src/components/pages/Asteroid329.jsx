@@ -9,7 +9,7 @@ function Asteroid329() {
     <>
     <div class="container">
     <img src = {image} style={{objectFit: 'cover', width: '100%', height: '100%'}}/>
-    <div class = "figcaption">You've landed on Asteriod 329! 
+    <div class = "figcaption">Welcome to Asteroid 329! 
     74 earthlings have visited this planet today. <br/>
     <br/>
     Click on the buttons below to find out tips related to your issue. 
@@ -25,6 +25,9 @@ function Asteroid329() {
     <Link to="/A3293">
     <button class="btn3">Button3</button>
     </Link>
+    <Link to="/A3294">
+    <button class="btn7">Talking Tips</button>
+      </Link>
     </div>
     </>
      
