@@ -9,8 +9,10 @@ import {
   WholePage,
   Wrapper,
 } from "../../styles/globalStyles";
-
 import { TextContainer, LinkContainer } from "../../styles/featurePageStyles";
+import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import { containerVariants } from "../../styles/animatedStyles";
+import "../../styles/animations.css";
 
 function EmotionPlanet() {
   const [displayPlanet, setDisplayPlanet] = useState(false);
@@ -36,7 +38,13 @@ function EmotionPlanet() {
           <source src={travelling} type="video/mp4" />
         </VideoBackground>
       ) : (
-        <>
+        <motion.div
+          className="page"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+        >
           <VideoBackground autoPlay muted loop playsInline>
             <source src={background} type="video/mp4" />
           </VideoBackground>
@@ -83,7 +91,7 @@ function EmotionPlanet() {
               </Wrapper>
             )}
           </WholePage>
-        </>
+        </motion.div>
       )}
     </>
   );

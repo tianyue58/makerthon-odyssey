@@ -38,6 +38,10 @@ const Title = styled.button`
   outline: none;
   border: none;
   background: none;
+  transition: color 0.5s;
+  &:hover {
+    color: purple;
+  }
 `;
 
 const Functionalities = styled.div`
@@ -46,13 +50,10 @@ const Functionalities = styled.div`
   margin: 10px;
 `;
 
-function NavBar() {
+function NavBar(props) {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const [currentPath, setCurrentPath] = useState();
-
-  useEffect(() => setCurrentPath(location.pathname), [location.pathname]);
+  const currentPath = props.currentPath;
 
   async function handleLogout() {
     try {

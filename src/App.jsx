@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/pages/Home";
@@ -50,13 +51,19 @@ import A3277 from "./components/pages/solutions/A3277";
 import A3284 from "./components/pages/solutions/A3284";
 import A3294 from "./components/pages/solutions/A3294";
 import A3304 from "./components/pages/solutions/A330-4";
+import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import { useLocation } from "react-router";
 
 function App() {
+  const [currentPath, setCurrentPath] = useState();
+  const location = useLocation();
+
+  useEffect(() => setCurrentPath(location.pathname), [location.pathname]);
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
+      <NavBar currentPath={currentPath} />
+      <AnimatePresence exitBeforeEnter>
+        <Routes location={location} key={location.key}>
           <Route
             path="/"
             element={
@@ -143,7 +150,7 @@ function App() {
           <Route path="LogIn" element={<LogIn />} />
           <Route path="ForgotPassword" element={<ForgotPassword />} />
         </Routes>
-      </BrowserRouter>
+      </AnimatePresence>
     </AuthProvider>
   );
 }

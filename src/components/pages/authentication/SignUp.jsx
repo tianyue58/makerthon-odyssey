@@ -16,7 +16,17 @@ import {
   Form,
   GroupInput,
   GroupTitle,
+  SubPageRight,
 } from "../../../styles/authenticationPageStyles";
+import {
+  AnimatedSubmitButton,
+  AnimatedButton,
+  AnimatedSubPageLeft,
+  AnimatedMainPageRight,
+  containerVariants,
+} from "../../../styles/animatedStyles";
+import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import "../../../styles/animations.css";
 
 function SignUp() {
   const emailRef = useRef();
@@ -52,61 +62,67 @@ function SignUp() {
   }
 
   return (
-    <>
+    <motion.div
+      className="page"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <VideoBackground autoPlay muted loop playsInline>
         <source src={background} type="video/mp4" />
       </VideoBackground>
       <PageBelowNavBar>
-        <SubPageLeft>
-          <div>
-            <Title>One of us?</Title>
-            <GroupTitle>
-              If you already have an account, just sign in. <br />
-              We've missed you!
-            </GroupTitle>
-          </div>
-          <Link to="/LogIn">
-            <Button>LOG IN</Button>
-          </Link>
-        </SubPageLeft>
-        <MainPageRight>
-          <Card>
-            <Title>
-              One small step for you, <br />
-              One giant leap for your mentality...
-            </Title>
-            {error && <MessageBlock type="bad">{error}</MessageBlock>}
-            <Form onSubmit={handleSubmit}>
-              <GroupTitle>EMAIL</GroupTitle>
-              <GroupInput
-                type="email"
-                ref={emailRef}
-                required
-                placeholder="This is how we're gonna reach out for you"
-              />
-              <GroupTitle>PASSWORD</GroupTitle>
-              <GroupInput
-                type="password"
-                ref={passwordRef}
-                required
-                placeholder="Set a secure password for your account"
-              />
-              <GroupTitle>COMFIRM PASSWORD</GroupTitle>
-              <GroupInput
-                type="password"
-                ref={passwordConfirmRef}
-                required
-                placeholder="Re-enter the password you've just set"
-                bottommargin="50px"
-              />
-              <Button buttonmargin="0" type="submit" disabled={loading}>
-                SIGN UP
-              </Button>
-            </Form>
-          </Card>
-        </MainPageRight>
+        {AnimatedSubPageLeft(
+          <>
+            <div>
+              <Title>One of us?</Title>
+              <GroupTitle>
+                If you already have an account, just sign in. <br />
+                We've missed you!
+              </GroupTitle>
+            </div>
+            <Link to="/LogIn">{AnimatedButton("LOG IN")}</Link>
+          </>
+        )}
+        {AnimatedMainPageRight(
+          <>
+            <Card>
+              <Title>
+                One small step for you, <br />
+                One giant leap for your mentality...
+              </Title>
+              {error && <MessageBlock type="bad">{error}</MessageBlock>}
+              <Form onSubmit={handleSubmit}>
+                <GroupTitle>EMAIL</GroupTitle>
+                <GroupInput
+                  type="email"
+                  ref={emailRef}
+                  required
+                  placeholder="This is how we're gonna reach out for you"
+                />
+                <GroupTitle>PASSWORD</GroupTitle>
+                <GroupInput
+                  type="password"
+                  ref={passwordRef}
+                  required
+                  placeholder="Set a secure password for your account"
+                />
+                <GroupTitle>COMFIRM PASSWORD</GroupTitle>
+                <GroupInput
+                  type="password"
+                  ref={passwordConfirmRef}
+                  required
+                  placeholder="Re-enter the password you've just set"
+                  bottommargin="50px"
+                />
+                {AnimatedSubmitButton("SIGN UP", loading)}
+              </Form>
+            </Card>
+          </>
+        )}
       </PageBelowNavBar>
-    </>
+    </motion.div>
   );
 }
 
