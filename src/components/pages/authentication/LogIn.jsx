@@ -18,6 +18,15 @@ import {
   StyledLink,
   GroupTitle,
 } from "../../../styles/authenticationPageStyles";
+import {
+  AnimatedButton,
+  AnimatedMainPageLeft,
+  AnimatedSubmitButton,
+  AnimatedSubPageRight,
+  containerVariants,
+} from "../../../styles/animatedStyles";
+import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import "../../../styles/animations.css";
 
 function LogIn() {
   const emailRef = useRef();
@@ -51,37 +60,37 @@ function LogIn() {
         <source src={background} type="video/mp4" />
       </VideoBackground>
       <PageBelowNavBar>
-        <MainPageLeft>
-          <Title>Log In</Title>
-          {error && <MessageBlock type="bad">{error}</MessageBlock>}
-          <Form onSubmit={handleSubmit}>
-            <GroupTitle>EMAIL</GroupTitle>
-            <GroupInput type="email" ref={emailRef} required />
-            <GroupTitle>PASSWORD</GroupTitle>
-            <GroupInput
-              type="password"
-              ref={passwordRef}
-              required
-              bottommargin="20px"
-            />
-            <Button type="submit" disabled={loading}>
-              LOG IN
-            </Button>
-          </Form>
-          <p>
-            Forget your password? Reset from
-            <StyledLink to="/ForgotPassword"> here </StyledLink>
-          </p>
-        </MainPageLeft>
-        <SubPageRight>
-          <div>
-            <Title>New here?</Title>
-            <GroupTitle>Sign up and uncover a brand new world...</GroupTitle>
-          </div>
-          <Link to="/SignUp">
-            <Button>SIGN UP</Button>
-          </Link>
-        </SubPageRight>
+        {AnimatedMainPageLeft(
+          <>
+            <Title>Log In</Title>
+            {error && <MessageBlock type="bad">{error}</MessageBlock>}
+            <Form onSubmit={handleSubmit}>
+              <GroupTitle>EMAIL</GroupTitle>
+              <GroupInput type="email" ref={emailRef} required />
+              <GroupTitle>PASSWORD</GroupTitle>
+              <GroupInput
+                type="password"
+                ref={passwordRef}
+                required
+                bottommargin="20px"
+              />
+              {AnimatedSubmitButton("LOG IN", loading)}
+            </Form>
+            <p>
+              Forget your password? Reset from
+              <StyledLink to="/ForgotPassword"> here </StyledLink>
+            </p>
+          </>
+        )}
+        {AnimatedSubPageRight(
+          <>
+            <div>
+              <Title>New here?</Title>
+              <GroupTitle>Sign up and uncover a brand new world...</GroupTitle>
+            </div>
+            <Link to="/SignUp">{AnimatedButton("SIGN UP")}</Link>
+          </>
+        )}
       </PageBelowNavBar>
     </>
   );

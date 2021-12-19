@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from "styled-components/macro";
 import { Link } from "react-router-dom";
 import { BsPatchQuestion } from "react-icons/bs";
+import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 
 export const GlobalStyle = createGlobalStyle`
  body {

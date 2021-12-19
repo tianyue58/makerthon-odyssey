@@ -22,6 +22,13 @@ import {
   Wrapper,
 } from "../../../styles/globalStyles";
 import { ProfilePhoto } from "../../../styles/profilePageStyles";
+import {
+  AnimatedMainPageRight,
+  AnimatedSubPageLeft,
+  containerVariants,
+} from "../../../styles/animatedStyles";
+import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import "../../../styles/animations.css";
 
 export default function UserProfile() {
   const [image, setImage] = useState();
@@ -106,13 +113,49 @@ export default function UserProfile() {
     } else return uploadImageURL;
   };
 
+  const ChangeProfilePhotoButton = () => {
+    return (
+      <Button
+        as={motion.button}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        buttonwidth="180px"
+        onClick={handleUploadImage}
+        disabled={waitingForImageUpload && !imageChosen}
+      >
+        {waitingForImageUpload ? "Upload" : "Change"} Profile Photo
+      </Button>
+    );
+  };
+
+  const UpdateProfileButton = () => {
+    return (
+      <Button
+        as={motion.button}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setIsViewingProfile(!isViewingProfile)}
+        buttonwidth="130px"
+        buttonmargin="20px"
+      >
+        {isViewingProfile ? "Update" : "View"} Profile
+      </Button>
+    );
+  };
+
   return (
-    <>
+    <motion.div
+      className="page"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <VideoBackground autoPlay muted loop playsInline>
         <source src={background} type="video/mp4" />
       </VideoBackground>
       <PageBelowNavBar>
-        <SubPageLeft>
+        {AnimatedSubPageLeft(
           <Wrapper>
             <ProfilePhoto src={displayedPhoto()} alt="photo" />
             {waitingForImageUpload ? (
@@ -124,33 +167,22 @@ export default function UserProfile() {
                 noBorder="true"
               />
             ) : null}
-            <Button
-              buttonwidth="180px"
-              onClick={handleUploadImage}
-              disabled={waitingForImageUpload && !imageChosen}
-            >
-              {waitingForImageUpload ? "Upload" : "Change"} Profile Photo
-            </Button>
+            {ChangeProfilePhotoButton()}
           </Wrapper>
-        </SubPageLeft>
-        <MainPageRight>
-          <Wrapper width="60%" height="70%">
-            {isViewingProfile ? (
-              <UpdateProfile moreUserInfo={moreUserInfo} />
-            ) : (
-              <ViewProfile moreUserInfo={moreUserInfo} />
-            )}
-          </Wrapper>
-
-          <Button
-            onClick={() => setIsViewingProfile(!isViewingProfile)}
-            buttonwidth="130px"
-            buttonmargin="20px"
-          >
-            {isViewingProfile ? "Update" : "View"} Profile
-          </Button>
-        </MainPageRight>
+        )}
+        {AnimatedMainPageRight(
+          <>
+            <Wrapper width="60%" height="70%">
+              {isViewingProfile ? (
+                <UpdateProfile moreUserInfo={moreUserInfo} />
+              ) : (
+                <ViewProfile moreUserInfo={moreUserInfo} />
+              )}
+            </Wrapper>
+            {UpdateProfileButton()}
+          </>
+        )}
       </PageBelowNavBar>
-    </>
+    </motion.div>
   );
 }

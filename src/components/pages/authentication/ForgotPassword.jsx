@@ -19,7 +19,11 @@ import {
   ToolTipText,
   QuestionIcon,
   TitleWrapper,
+  WholePage,
 } from "../../../styles/globalStyles";
+import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import { containerVariants } from "../../../styles/animatedStyles";
+import "../../../styles/animations.css";
 
 const CardWithBackground = styled(Card)`
   background: lightyellow;
@@ -27,12 +31,23 @@ const CardWithBackground = styled(Card)`
   width: 40%;
   border: 1px solid transparent;
   border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-const SmallCardWrapper = styled(Wrapper)`
-  justify-content: flex-start;
-  top: 15%;
-`;
+const AnimatedCard = (children) => {
+  return (
+    <CardWithBackground
+      as={motion.div}
+      initial={{ y: -200 }}
+      animate={{ y: -10 }}
+      transition={{ type: "spring", stiffness: 100, duration: 1.5 }}
+    >
+      {children}
+    </CardWithBackground>
+  );
+};
 
 const Question = styled(QuestionIcon)`
   top: -10px;
@@ -41,6 +56,22 @@ const Question = styled(QuestionIcon)`
   height: 20px;
   color: hotpink;
 `;
+
+const ResetPasswordButton = (loading) => {
+  return (
+    <Button
+      as={motion.button}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      type="submit"
+      disabled={loading}
+      buttonwidth="150px"
+      buttonmargin="20px"
+    >
+      Reset Password
+    </Button>
+  );
+};
 
 function ForgotPassword() {
   const emailRef = useRef();
@@ -86,13 +117,20 @@ function ForgotPassword() {
   }
 
   return (
-    <>
+    <motion.div
+      className="page"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <VideoBackground autoPlay muted loop playsInline>
         <source src={background} type="video/mp4" />
       </VideoBackground>
-      <PageBelowNavBar>
-        <SmallCardWrapper>
-          <CardWithBackground>
+
+      <Wrapper>
+        {AnimatedCard(
+          <>
             <Title>Reset Password</Title>
             {error && <MessageBlock type="bad">{error}</MessageBlock>}
             {message && (
@@ -108,24 +146,16 @@ function ForgotPassword() {
                 placeholder="Email"
                 bottommargin="20px"
               />
-
-              <Button
-                type="submit"
-                disabled={loading}
-                buttonwidth="150px"
-                buttonmargin="20px"
-              >
-                Reset Password
-              </Button>
+              {ResetPasswordButton(loading)}
               <p>
                 Already reset your password? Log in from
                 <StyledLink to="/LogIn"> here </StyledLink>
               </p>
             </Form>
-          </CardWithBackground>
-        </SmallCardWrapper>
-      </PageBelowNavBar>
-    </>
+          </>
+        )}
+      </Wrapper>
+    </motion.div>
   );
 }
 
