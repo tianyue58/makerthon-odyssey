@@ -17,7 +17,6 @@ import Asteroid327 from "./components/pages/planets/Asteroid327";
 import Asteroid328 from "./components/pages/planets/Asteroid328";
 import Asteroid329 from "./components/pages/planets/Asteroid329";
 import Asteroid330 from "./components/pages/planets/Asteroid330";
-import ViewPlanets from "./components/pages/ViewPlanets";
 import A3251 from "./components/pages/solutions/A3251";
 import A3252 from "./components/pages/solutions/A3252";
 import A3253 from "./components/pages/solutions/A3253";
@@ -115,13 +114,6 @@ function App() {
             }
           />
 
-          <Route path="Asteroid325" element={<Asteroid325 />} />
-          <Route path="Asteroid326" element={<Asteroid326 />} />
-          <Route path="Asteroid327" element={<Asteroid327 />} />
-          <Route path="Asteroid328" element={<Asteroid328 />} />
-          <Route path="Asteroid329" element={<Asteroid329 />} />
-          <Route path="Asteroid330" element={<Asteroid330 />} />
-          <Route path="ViewPlanets" element={<ViewPlanets />} />
           <Route path="A3251" element={<A3251 />} />
           <Route path="A3252" element={<A3252 />} />
           <Route path="A3253" element={<A3253 />} />

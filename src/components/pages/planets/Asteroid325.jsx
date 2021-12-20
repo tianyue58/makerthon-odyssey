@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import image from "../../../images/325.png";
+import image from "../../../images/326.png";
 import "../../../styles/Asteroid.css";
 
 function Asteroid325() {
@@ -18,45 +18,42 @@ function Asteroid325() {
           style={{ objectFit: "cover", width: "100%", height: "100%" }}
         />
         <div class="figcaption">
-          Welcome to Asteroid 325! 79 earthlings have visited this planet today.{" "}
+          Welcome to Asteroid 326! 86 earthlings have visited this planet today.{" "}
           <br />
           <br />
           Click on the buttons below to find out tips related to your issue.
           Click on the "Let's Talk" sticker to see how to seek help from others.
         </div>
 
-        <Link to="/A3251">
+        <Link to="/A3261">
           <button class="btn1">Button1</button>
         </Link>
 
-        <Link to="/A3252">
+        <Link to="/A3262">
           <button class="btn2">Button2</button>
         </Link>
-        <Link to="/A3253">
+
+        <Link to="/A3263">
           <button class="btn3">Button3</button>
         </Link>
-        <Link to="/A3254">
+
+        <Link to="/A3264">
           <button class="btn4">Button4</button>
         </Link>
-        <Link to="/A3255">
+
+        <Link to="/A3265">
           <button class="btn5">Button5</button>
         </Link>
-        <Link to="/A3256">
+
+        <Link to="/A3266">
           <button class="btn6">Button6</button>
         </Link>
-        <Link to="/A3257">
+
+        <Link to="/A3267">
           <button class="btn7">Talking Tips</button>
         </Link>
-
-        {/* <Link to="/ChooseProblem">
-            <LightButton>
-              Stay Active
-            </LightButton>
-          </Link> */}
       </div>
     </>
-
-    // <backgroundImage src = {image} style={{backgroundSize: 'cover'}}/>
   );
 }
 

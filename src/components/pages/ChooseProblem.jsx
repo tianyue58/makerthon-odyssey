@@ -16,7 +16,10 @@ import {
   SelectedLightButton,
 } from "../../styles/featurePageStyles";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
-import { containerVariants } from "../../styles/animatedStyles";
+import {
+  containerVariants,
+  AnimatedSelectionButton,
+} from "../../styles/animatedStyles";
 import "../../styles/animations.css";
 
 function ChooseProblem() {
@@ -68,19 +71,6 @@ function ChooseProblem() {
     () => calculate && calculateDestination(emotion, event),
     [calculate]
   );
-
-  const AnimatedSelectionButton = (label, selection) => {
-    return (
-      <SelectedLightButton
-        as={motion.button}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => selection(label)}
-      >
-        {label}
-      </SelectedLightButton>
-    );
-  };
 
   return (
     <motion.div
