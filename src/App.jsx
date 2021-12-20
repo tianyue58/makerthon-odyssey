@@ -53,6 +53,7 @@ import A3294 from "./components/pages/solutions/A3294";
 import A3304 from "./components/pages/solutions/A330-4";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { useLocation } from "react-router";
+import ViewAllPlanets from "./components/pages/ViewAllPlanets";
 
 function App() {
   const [currentPath, setCurrentPath] = useState();
@@ -102,6 +103,14 @@ function App() {
             element={
               <PrivateRoute>
                 <UserProfile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ViewAllPlanets"
+            element={
+              <PrivateRoute>
+                <ViewAllPlanets />
               </PrivateRoute>
             }
           />

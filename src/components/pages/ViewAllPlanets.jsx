@@ -18,9 +18,13 @@ import {
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { containerVariants } from "../../styles/animatedStyles";
 import "../../styles/animations.css";
-import planet from "../../images/odyssey-logo.png";
-import anotherplanet from "../../images/unicorn.svg";
-import Asteroid325 from "./planets/Asteroid325";
+import logo325 from "../../gifs/planets/Asteroid325.gif";
+import logo326 from "../../gifs/planets/Asteroid326.gif";
+import logo327 from "../../gifs/planets/Asteroid327.gif";
+import logo328 from "../../gifs/planets/Asteroid328.gif";
+import logo329 from "../../gifs/planets/Asteroid329.gif";
+import logo330 from "../../gifs/planets/Asteroid330.gif";
+import "../../styles/animations.css";
 
 const GridContainer = styled.div`
   display: grid;
@@ -37,11 +41,6 @@ const GridItem = styled.div`
   padding: 20px;
   font-size: 30px;
   text-align: center;
-`;
-
-const Planet = styled.img`
-  width: 100px;
-  height: 100px;
 `;
 
 function ViewAllPlanets() {
@@ -62,30 +61,40 @@ function ViewAllPlanets() {
         <Wrapper>
           <GridContainer>
             <GridItem>
-              <Planet src={planet} alt="planet" />
+              <img className="planet" src={logo325} alt="img" />
               <Link to="/Asteroid325">
-                <Button>Planet name</Button>
+                <Button>Asteroid 325</Button>
               </Link>
             </GridItem>
             <GridItem>
-              <Planet src={planet} alt="planet" />
-              <Button>Planet name</Button>
+              <img className="planet" src={logo326} alt="img" />
+              <Link to="/Asteroid326">
+                <Button>Asteroid 326</Button>
+              </Link>
             </GridItem>
             <GridItem>
-              <Planet src={planet} alt="planet" />
-              <Button>Planet name</Button>
+              <img className="planet" src={logo327} alt="img" />
+              <Link to="/Asteroid327">
+                <Button>Asteroid 327</Button>
+              </Link>
             </GridItem>
             <GridItem>
-              <Planet src={planet} alt="planet" />
-              <Button>Planet name</Button>
+              <img className="planet" src={logo328} alt="img" />
+              <Link to="/Asteroid328">
+                <Button>Asteroid 328</Button>
+              </Link>
             </GridItem>
             <GridItem>
-              <Planet src={planet} alt="planet" />
-              <Button>Planet name</Button>
+              <img className="planet" src={logo329} alt="img" />
+              <Link to="/Asteroid329">
+                <Button>Asteroid 329</Button>
+              </Link>
             </GridItem>
             <GridItem>
-              <Planet src={anotherplanet} alt="planet" />
-              <Button>Planet name</Button>
+              <img className="planet" src={logo330} alt="img" />
+              <Link to="/Asteroid330">
+                <Button>Asteroid 330</Button>
+              </Link>
             </GridItem>
           </GridContainer>
         </Wrapper>
