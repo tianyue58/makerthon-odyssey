@@ -37,3 +37,22 @@ export const SelectedLightButton = styled(LightButton)`
     font-size: 110%;
   }
 `;
+
+export const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: transparent;
+  position: absolute;
+  top: 15%;
+  width: 100%;
+  height: 80%;
+`;
+
+export const GridItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  padding: 20px;
+`;

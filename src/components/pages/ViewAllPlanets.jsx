@@ -19,25 +19,7 @@ import logo328 from "../../gifs/planets/Asteroid328.gif";
 import logo329 from "../../gifs/planets/Asteroid329.gif";
 import logo330 from "../../gifs/planets/Asteroid330.gif";
 import "../../styles/animations.css";
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: transparent;
-  position: absolute;
-  top: 15%;
-  width: 100%;
-  height: 80%;
-`;
-
-const GridItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  padding: 20px;
-`;
+import { GridContainer, GridItem } from "../../styles/featurePageStyles";
 
 function ViewAllPlanets() {
   const navigate = useNavigate();
@@ -60,7 +42,7 @@ function ViewAllPlanets() {
               <img className="planet" src={logo325} alt="img" />
               <LightButton
                 onClick={() =>
-                  navigate("/EmotionPlanet", { state: "Asteroid 325" })
+                  navigate("/EmotionPlanet", { state: "Asteroid325" })
                 }
               >
                 Asteroid 325
@@ -70,7 +52,7 @@ function ViewAllPlanets() {
               <img className="planet" src={logo326} alt="img" />
               <LightButton
                 onClick={() =>
-                  navigate("/EmotionPlanet", { state: "Asteroid 326" })
+                  navigate("/EmotionPlanet", { state: "Asteroid326" })
                 }
               >
                 Asteroid 326
@@ -80,7 +62,7 @@ function ViewAllPlanets() {
               <img className="planet" src={logo327} alt="img" />
               <LightButton
                 onClick={() =>
-                  navigate("/EmotionPlanet", { state: "Asteroid 327" })
+                  navigate("/EmotionPlanet", { state: "Asteroid327" })
                 }
               >
                 Asteroid 327
@@ -90,7 +72,7 @@ function ViewAllPlanets() {
               <img className="planet" src={logo328} alt="img" />
               <LightButton
                 onClick={() =>
-                  navigate("/EmotionPlanet", { state: "Asteroid 328" })
+                  navigate("/EmotionPlanet", { state: "Asteroid328" })
                 }
               >
                 Asteroid 328
@@ -100,7 +82,7 @@ function ViewAllPlanets() {
               <img className="planet" src={logo329} alt="img" />
               <LightButton
                 onClick={() =>
-                  navigate("/EmotionPlanet", { state: "Asteroid 329" })
+                  navigate("/EmotionPlanet", { state: "Asteroid329" })
                 }
               >
                 Asteroid 329
@@ -110,7 +92,7 @@ function ViewAllPlanets() {
               <img className="planet" src={logo330} alt="img" />
               <LightButton
                 onClick={() =>
-                  navigate("/EmotionPlanet", { state: "Asteroid 330" })
+                  navigate("/EmotionPlanet", { state: "Asteroid330" })
                 }
               >
                 Asteroid 330

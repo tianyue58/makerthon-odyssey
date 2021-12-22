@@ -11,12 +11,7 @@ import LogIn from "./components/pages/authentication/LogIn";
 import ForgotPassword from "./components/pages/authentication/ForgotPassword";
 import UserProfile from "./components/pages/authentication/UserProfile";
 import UpdateProfile from "./components/pages/authentication/UpdateProfile";
-import Asteroid325 from "./components/pages/planets/Asteroid325";
-import Asteroid326 from "./components/pages/planets/Asteroid326";
-import Asteroid327 from "./components/pages/planets/Asteroid327";
-import Asteroid328 from "./components/pages/planets/Asteroid328";
-import Asteroid329 from "./components/pages/planets/Asteroid329";
-import Asteroid330 from "./components/pages/planets/Asteroid330";
+
 import A3251 from "./components/pages/solutions/A3251";
 import A3252 from "./components/pages/solutions/A3252";
 import A3253 from "./components/pages/solutions/A3253";
@@ -53,6 +48,7 @@ import A3304 from "./components/pages/solutions/A330-4";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { useLocation } from "react-router";
 import ViewAllPlanets from "./components/pages/ViewAllPlanets";
+import SolutionPlanet from "./components/pages/SolutionPlanet";
 
 function App() {
   const [currentPath, setCurrentPath] = useState();
@@ -110,6 +106,14 @@ function App() {
             element={
               <PrivateRoute>
                 <ViewAllPlanets />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/SolutionPlanet"
+            element={
+              <PrivateRoute>
+                <SolutionPlanet />
               </PrivateRoute>
             }
           />
