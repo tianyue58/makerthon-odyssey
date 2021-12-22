@@ -9,6 +9,7 @@ import { ProfileInfo } from "./profilePageStyles";
 import { LightButton, Button, WholePage } from "./globalStyles";
 import { keyframes } from "styled-components";
 import styled from "styled-components/macro";
+import { SelectedLightButton } from "./featurePageStyles";
 
 export const AnimatedLightButton = (label) => {
   return (
