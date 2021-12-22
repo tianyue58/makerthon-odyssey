@@ -14,6 +14,17 @@ import {
 } from "../../styles/globalStyles";
 import SolutionIcon from "./SolutionIcon";
 
+const PlanetPageWrapper = styled(Wrapper)`
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 50%;
+  left: 25%;
+  right: 25%;
+  top: 5%;
+  height: 85%;
+`;
+
 const PlanetWrapper = styled.div`
   position: fixed;
   display: grid;
@@ -54,19 +65,13 @@ function SolutionPlanet() {
         <source src={background} type="video/mp4" />
       </VideoBackground>
       <PageBelowNavBar>
-        <Wrapper
+        <PlanetPageWrapper
           style={{
             backgroundImage: `url('${planetImage}')`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            backgroundSize: "contain",
-            width: "50%",
-            left: "25%",
-            right: "25%",
           }}
         >
           <PlanetWrapper>{displayedResult}</PlanetWrapper>
-        </Wrapper>
+        </PlanetPageWrapper>
       </PageBelowNavBar>
     </motion.div>
   );

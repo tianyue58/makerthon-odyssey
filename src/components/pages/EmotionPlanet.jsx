@@ -39,6 +39,7 @@ function EmotionPlanet() {
   const [people, setPeople] = useState();
   const [image, setImage] = useState();
   const [solutionCollectionName, setSolutionCollectionName] = useState();
+  const [solutionPlanetImage, setSolutionPlanetImage] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,6 +57,7 @@ function EmotionPlanet() {
       setPeople(data.people);
       const imageRef = ref(storage, data.image);
       getDownloadURL(imageRef).then((url) => setImage(url));
+      setSolutionPlanetImage(data.solutionPlanet);
       setSolutionCollectionName(data.solution);
     }
   }
@@ -110,7 +112,7 @@ function EmotionPlanet() {
                   onClick={() =>
                     navigate("/SolutionPlanet", {
                       state: {
-                        planetImage: image,
+                        planetImage: solutionPlanetImage,
                         solutionCollectionName: solutionCollectionName,
                       },
                     })
