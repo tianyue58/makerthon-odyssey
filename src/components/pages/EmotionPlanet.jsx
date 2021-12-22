@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import travelling from "../../backgrounds/go-to-planet.mp4";
-import background from "../../backgrounds/emotion-planet.mp4";
+import background from "../../backgrounds/emotion-planet-galaxy.mp4";
 import styled from "styled-components/macro";
 import {
   LightButton,
@@ -13,18 +13,52 @@ import { TextContainer, LinkContainer } from "../../styles/featurePageStyles";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { containerVariants } from "../../styles/animatedStyles";
 import "../../styles/animations.css";
+import { db, storage } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { ref, getDownloadURL } from "firebase/storage";
+import { ProfilePhoto } from "../../styles/profilePageStyles";
+import SolutionPlanet from "./SolutionPlanet";
 
 function EmotionPlanet() {
   const [displayPlanet, setDisplayPlanet] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
-  const [solution, setSolution] = useState("");
+  const [solution, setSolution] = useState();
 
   const handleDisplaySolution = (index) => {
     const solution = "Don't worry! No boyfriend, no problems :D";
     setSolution(solution);
     setShowSolution(true);
   };
+
+  const location = useLocation();
+
+  const [planetRef, setPlanetRef] = useState();
+
+  const [name, setName] = useState();
+  const [people, setPeople] = useState();
+  const [image, setImage] = useState();
+  const [solutionCollectionName, setSolutionCollectionName] = useState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const currentPlanet = location.state;
+    setPlanetRef(doc(db, "planets", currentPlanet));
+  }, []);
+
+  useEffect(() => planetRef && getPlanet(), [planetRef]);
+
+  async function getPlanet() {
+    const planetSnap = await getDoc(planetRef);
+    if (planetSnap.exists()) {
+      const data = planetSnap.data();
+      setName(data.name);
+      setPeople(data.people);
+      const imageRef = ref(storage, data.image);
+      getDownloadURL(imageRef).then((url) => setImage(url));
+      setSolutionCollectionName(data.solution);
+    }
+  }
 
   return (
     <>
@@ -59,33 +93,29 @@ function EmotionPlanet() {
                     </Link>
                   </Wrapper>
                 ) : (
-                  <Wrapper>
-                    <TextContainer>
-                      Here are some relics left by those who had visited this
-                      planet before... <br />
-                      Pick one to explore!
-                    </TextContainer>
-                    <LinkContainer>
-                      <LightButton onClick={() => handleDisplaySolution("1")}>
-                        Solution 1
-                      </LightButton>
-                      <LightButton>Solution 2</LightButton>
-                      <LightButton>Solution 3</LightButton>
-                    </LinkContainer>
-                  </Wrapper>
+                  <Wrapper></Wrapper>
                 )}
               </>
             ) : (
               <Wrapper>
+                <ProfilePhoto src={image} alt="planet"></ProfilePhoto>
                 <TextContainer>
-                  You're on Planet XYZ, 1000 light years away from the Earth{" "}
+                  You're on {name}
                   <br />
-                  Currently there are 100 other earthlings on this planet,{" "}
+                  Currently there are {people} other earthlings on this planet,
                   <br />
                   who are experiencing the same emotion as you <br />
-                  Click to explore more
                 </TextContainer>
-                <LightButton onClick={() => setShowDetail(true)}>
+                <LightButton
+                  onClick={() =>
+                    navigate("/SolutionPlanet", {
+                      state: {
+                        planetImage: image,
+                        solutionCollectionName: solutionCollectionName,
+                      },
+                    })
+                  }
+                >
                   Explore the planet
                 </LightButton>
               </Wrapper>

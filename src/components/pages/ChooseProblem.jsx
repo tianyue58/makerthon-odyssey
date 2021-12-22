@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import background from "../../backgrounds/choose-page-galaxy.mp4";
 import styled from "styled-components/macro";
 import {
@@ -16,7 +16,10 @@ import {
   SelectedLightButton,
 } from "../../styles/featurePageStyles";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
-import { containerVariants } from "../../styles/animatedStyles";
+import {
+  containerVariants,
+  AnimatedSelectionButton,
+} from "../../styles/animatedStyles";
 import "../../styles/animations.css";
 
 function ChooseProblem() {
@@ -24,6 +27,8 @@ function ChooseProblem() {
   const [emotion, setEmotion] = useState("");
   const [displayEvent, setDisplayEvent] = useState(false);
   const [event, setEvent] = useState("");
+  const [calculate, setCalculate] = useState(false);
+  const navigate = useNavigate();
 
   const handleSelectEmotion = (emotion) => {
     setEmotion(emotion);
@@ -54,18 +59,18 @@ function ChooseProblem() {
     setDisplayEvent(true);
   };
 
-  const AnimatedSelectionButton = (label, selection) => {
-    return (
-      <SelectedLightButton
-        as={motion.button}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => selection(label)}
-      >
-        {label}
-      </SelectedLightButton>
-    );
+  const calculateDestination = (emotion, event) => {
+    if (emotion === "a bit sad") {
+      if (event === "School") navigate("/Asteroid325");
+      else if (event === "Work/Internship") navigate("/Asteroid326");
+      else if (event === "Private Life") navigate("/Asteroid327");
+    } else navigate("/Asteroid328");
   };
+
+  useEffect(
+    () => calculate && calculateDestination(emotion, event),
+    [calculate]
+  );
 
   return (
     <motion.div
@@ -115,9 +120,7 @@ function ChooseProblem() {
                 </TextContainer>
                 <NavigationButtonContainer>
                   <Button onClick={handleBackToSelectEvent}>PREVIOUS</Button>
-                  <Link to="/EmotionPlanet">
-                    <Button>CONFIRM</Button>
-                  </Link>
+                  <Button onClick={() => setCalculate(true)}>CONFIRM</Button>
                 </NavigationButtonContainer>
               </Wrapper>
             )}

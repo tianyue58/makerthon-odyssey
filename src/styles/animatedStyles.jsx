@@ -113,3 +113,16 @@ export const containerVariants = {
     transition: { ease: "easeIn", duration: 0.7 },
   },
 };
+
+export const AnimatedSelectionButton = (label, selection) => {
+  return (
+    <SelectedLightButton
+      as={motion.button}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      onClick={() => selection(label)}
+    >
+      {label}
+    </SelectedLightButton>
+  );
+};

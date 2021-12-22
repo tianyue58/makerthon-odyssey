@@ -81,8 +81,8 @@ function NavBar(props) {
               <LightButton>Back to Home</LightButton>
             </Link>
           ) : null}
-          {currentPath != "/ViewPlanets" ? (
-            <Link to="/ViewPlanets">
+          {currentPath != "/ViewAllPlanets" ? (
+            <Link to="/ViewAllPlanets">
               <LightButton>View Planets</LightButton>
             </Link>
           ) : null}

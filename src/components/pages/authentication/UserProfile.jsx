@@ -58,7 +58,7 @@ export default function UserProfile() {
       const data = userSnap.data();
       setUploadImageURL(data.uploadImageURL ? data.uploadImageURL : profile);
       setNickname(data.nickname);
-      setFaculty(data.faulty);
+      setFaculty(data.faculty);
       setYearOfStudy(data.yearOfStudy);
       setResidence(data.residence);
     }
