@@ -7,6 +7,7 @@ import waitingForChoiceIcon from "../../../images/waiting.svg";
 import { db, storage } from "../../../firebase";
 import ViewProfile from "./UpdateProfile";
 import UpdateProfile from "./ViewProfile";
+import DefaultProfilePhoto from "../../../images/unicorn.svg";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import background from "../../../backgrounds/profile-page-galaxy.mp4";
@@ -110,7 +111,7 @@ export default function UserProfile() {
           return loadingIcon;
         } else return image;
       }
-    } else return uploadImageURL;
+    } else return uploadImageURL ? uploadImageURL : DefaultProfilePhoto;
   };
 
   const ChangeProfilePhotoButton = () => {
