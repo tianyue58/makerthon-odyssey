@@ -44,7 +44,7 @@ export const LightButton = styled.button`
   cursor: pointer;
   &:hover {
     background: #fff;
-    color: #00bfff;
+    color: ${({ themeColor }) => (themeColor ? themeColor : "#00bfff")};
   }
 `;
 
@@ -68,7 +68,7 @@ export const Wrapper = styled.div`
   width: ${({ width }) => (width ? width : "100%")};
   height: ${({ height }) => (height ? height : "100%")};
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ alignment }) => (alignment ? alignment : "column")};
   align-items: center;
   justify-content: center;
 `;

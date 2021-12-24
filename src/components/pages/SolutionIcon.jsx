@@ -1,33 +1,25 @@
 import React from "react";
 import styled from "styled-components/macro";
+import "../../styles/animations.css";
 
 function SolutionIcon(props) {
   const { name, content, icon, link } = props.solutionObject;
 
-  const Solution = styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    width: 150px;
-    height: 150px;
-    border: none;
-    outline: none;
-    background: none;
-  `;
+  const handleClick = () => {
+    link && window.open(link);
+    props.onClick(props.index);
+  };
 
   return (
-    <Solution
+    <button
+      className="solutionIcon"
       style={{
         backgroundImage: `url('${icon}')`,
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
         backgroundSize: "contain",
       }}
-      onClick={() => link && window.open(link)}
-    >
-      {name}
-    </Solution>
+      onClick={handleClick}
+    />
   );
 }
 
