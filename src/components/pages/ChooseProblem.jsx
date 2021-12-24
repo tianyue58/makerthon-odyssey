@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
 import background from "../../backgrounds/choose-page-galaxy.mp4";
 import styled from "styled-components/macro";
 import {
@@ -23,31 +23,20 @@ import {
 import "../../styles/animations.css";
 
 function ChooseProblem() {
-  const [displayEmotion, setDisplayEmotion] = useState(true);
-  const [emotion, setEmotion] = useState("");
-  const [displayEvent, setDisplayEvent] = useState(false);
+  const [displayEvent, setDisplayEvent] = useState(true);
   const [event, setEvent] = useState("");
   const [calculate, setCalculate] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [aboutMyself, setAboutMyself] = useState();
 
-  const handleSelectEmotion = (emotion) => {
-    setEmotion(emotion);
-  };
-
-  const handleConfirmEmotion = () => {
-    setDisplayEmotion(false);
-    setDisplayEvent(true);
+  const componentOnMount = () => {
+    const { aboutMyself } = location.state;
+    setAboutMyself(aboutMyself);
   };
 
   const handleSelectEvent = (event) => {
     setEvent(event);
-  };
-
-  const handleBackToSelectEmotion = () => {
-    setEmotion("");
-    setEvent("");
-    setDisplayEmotion(true);
-    setDisplayEvent(false);
   };
 
   const handleConfirmEvent = () => {
@@ -59,18 +48,25 @@ function ChooseProblem() {
     setDisplayEvent(true);
   };
 
-  const calculateDestination = (emotion, event) => {
-    if (emotion === "a bit sad") {
-      if (event === "School") navigate("/Asteroid325");
-      else if (event === "Work/Internship") navigate("/Asteroid326");
-      else if (event === "Private Life") navigate("/Asteroid327");
-    } else navigate("/Asteroid328");
+  const calculateDestination = (event) => {
+    if (aboutMyself) {
+      if (event === "School")
+        navigate("/EmotionPlanet", { state: "Asteroid325" });
+      else if (event === "Work/Internship")
+        navigate("/EmotionPlanet", { state: "Asteroid326" });
+      else navigate("/EmotionPlanet", { state: "Asteroid327" });
+    } else {
+      if (event === "School")
+        navigate("/EmotionPlanet", { state: "Asteroid328" });
+      else if (event === "Work/Internship")
+        navigate("/EmotionPlanet", { state: "Asteroid329" });
+      else navigate("/EmotionPlanet", { state: "Asteroid330" });
+    }
   };
 
-  useEffect(
-    () => calculate && calculateDestination(emotion, event),
-    [calculate]
-  );
+  useEffect(() => componentOnMount(), []);
+
+  useEffect(() => calculate && calculateDestination(event), [calculate]);
 
   return (
     <motion.div
@@ -84,47 +80,33 @@ function ChooseProblem() {
         <source src={background} type="video/mp4" />
       </VideoBackground>
       <WholePage>
-        {displayEmotion ? (
+        {displayEvent ? (
           <Wrapper>
-            <TextContainer>Tell me how you feel...</TextContainer>
+            <TextContainer>
+              {aboutMyself
+                ? "Where does the problem come from?"
+                : "How do you know him/her?"}
+            </TextContainer>
             <LinkContainer>
-              {AnimatedSelectionButton("a bit sad", handleSelectEmotion)}
-              {AnimatedSelectionButton("very sad", handleSelectEmotion)}
+              {AnimatedSelectionButton("At School", handleSelectEvent)}
+              {AnimatedSelectionButton("At Work/Internship", handleSelectEvent)}
+              {AnimatedSelectionButton("In Private Life", handleSelectEvent)}
             </LinkContainer>
             <NavigationButtonContainer>
-              {emotion && <Button onClick={handleConfirmEmotion}>NEXT</Button>}
+              {event && <Button onClick={handleConfirmEvent}>NEXT</Button>}
             </NavigationButtonContainer>
           </Wrapper>
         ) : (
-          <>
-            {displayEvent ? (
-              <Wrapper>
-                <TextContainer>What makes you feel this way...?</TextContainer>
-                <LinkContainer>
-                  {AnimatedSelectionButton("School", handleSelectEvent)}
-                  {AnimatedSelectionButton(
-                    "Work/Internship",
-                    handleSelectEvent
-                  )}
-                  {AnimatedSelectionButton("Private Life", handleSelectEvent)}
-                </LinkContainer>
-                <NavigationButtonContainer>
-                  <Button onClick={handleBackToSelectEmotion}>PREVIOUS</Button>
-                  {event && <Button onClick={handleConfirmEvent}>NEXT</Button>}
-                </NavigationButtonContainer>
-              </Wrapper>
-            ) : (
-              <Wrapper>
-                <TextContainer>
-                  You're {emotion} about {event}
-                </TextContainer>
-                <NavigationButtonContainer>
-                  <Button onClick={handleBackToSelectEvent}>PREVIOUS</Button>
-                  <Button onClick={() => setCalculate(true)}>CONFIRM</Button>
-                </NavigationButtonContainer>
-              </Wrapper>
-            )}
-          </>
+          <Wrapper>
+            <TextContainer>
+              You're worrying about{" "}
+              {aboutMyself ? "Your problem" : "Someone you know"} {event}
+            </TextContainer>
+            <NavigationButtonContainer>
+              <Button onClick={handleBackToSelectEvent}>PREVIOUS</Button>
+              <Button onClick={() => setCalculate(true)}>CONFIRM</Button>
+            </NavigationButtonContainer>
+          </Wrapper>
         )}
       </WholePage>
     </motion.div>
