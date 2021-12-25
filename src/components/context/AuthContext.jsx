@@ -26,6 +26,7 @@ export function AuthProvider({ children }) {
       (registeredUser) =>
         setDoc(doc(db, "users", registeredUser.user.uid), {
           email: registeredUser.user.email,
+          likedSolutions: [],
         })
     );
   }

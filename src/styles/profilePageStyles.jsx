@@ -35,7 +35,7 @@ export const MainForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80%;
+  height: ${({ height }) => (height ? height : "80%")};
   padding: 0 20px 10px 20px;
   overflow-y: scroll;
   &::-webkit-scrollbar-track {

@@ -94,6 +94,19 @@ export const Button = styled.button`
   }
 `;
 
+export const RoundButton = styled.button`
+  width: ${({ width }) => (width ? width : "25px")};
+  height: ${({ height }) => (height ? height : "25px")};
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  text-align: center;
+  font-size: large;
+  color: white;
+  background-color: red;
+  margin-left: 20px;
+`;
+
 export const Wrapper = styled.div`
   position: relative;
   width: ${({ width }) => (width ? width : "100%")};

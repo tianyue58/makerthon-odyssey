@@ -123,7 +123,6 @@ function SolutionPlanet() {
     const solutionSnap = await getDoc(currentSolutionRef);
     if (solutionSnap.exists) {
       const likeStatus = solutionSnap.data().likes;
-      console.log(likeStatus);
       if (likeStatus && likeStatus.includes(currentUser.uid)) {
         updateDoc(currentSolutionRef, {
           likes: arrayRemove(currentUser.uid),
