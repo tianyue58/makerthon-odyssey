@@ -91,6 +91,11 @@ function NavBar(props) {
               <LightButton>My Profile</LightButton>
             </Link>
           ) : null}
+          {currentPath != "/MyCollections" ? (
+            <Link to="/MyCollections">
+              <LightButton>My Collections</LightButton>
+            </Link>
+          ) : null}
           <LightButton onClick={handleLogout}>Log Out</LightButton>
         </Functionalities>
       ) : null}

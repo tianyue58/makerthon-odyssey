@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import { Link, useLocation } from "react-router-dom";
-import { getDocs, collection } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  updateDoc,
+  arrayUnion,
+  doc,
+  arrayRemove,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import background from "../../backgrounds/emotion-planet-galaxy.mp4";
 import { containerVariants } from "../../styles/animatedStyles";
 import {
   Button,
+  LightButton,
   PageBelowNavBar,
   VideoBackground,
   Wrapper,
+  IconButton,
+  LikeIcon,
+  IconButtonContainer,
 } from "../../styles/globalStyles";
 import SolutionIcon from "./SolutionIcon";
 import {
@@ -19,6 +31,7 @@ import {
   Title,
 } from "../../styles/authenticationPageStyles";
 import "../../styles/animations.css";
+import { useAuth } from "../context/AuthContext";
 
 const PlanetWrapper = styled.div`
   position: relative;
@@ -34,7 +47,7 @@ const PlanetWrapper = styled.div`
 `;
 
 const SolutionContentWrapper = styled.div`
-  padding: 20% 5% 0 5%;
+  padding: 15% 5% 0 5%;
   width: 50%;
   height: 100%;
   color: white;
@@ -60,28 +73,81 @@ const PlanetSolutionsWrapper = styled.div`
 `;
 
 function SolutionPlanet() {
+  const [solutionCollectionName, setSolutionCollectionName] = useState();
   const [solutions, setSolutions] = useState();
   const location = useLocation();
   const [planetImage, setPlanetImage] = useState();
   const [showContent, setShowContent] = useState(false);
   const [currentSolution, setCurrentSolution] = useState();
+  const { currentUser } = useAuth();
+  const [isLiked, setIsLiked] = useState(false);
+  const [noOfLikes, setNoOfLikes] = useState();
+  const userRef = doc(db, "users", currentUser.uid);
 
   async function componentOnMount() {
     const { planetImage, solutionCollectionName } = location.state;
     setPlanetImage(planetImage);
+    setSolutionCollectionName(solutionCollectionName);
     const solutionsSnap = await getDocs(collection(db, solutionCollectionName));
     const solutionArray = [];
     solutionsSnap.forEach((solution) => solutionArray.push(solution.data()));
+    // solutionsSnap.forEach((solution) => {
+    //   const currentSolutionRef = doc(db, solutionCollectionName, solution.id);
+    //   updateDoc(currentSolutionRef, { likes: [], id: solution.id });
+    // });
     setSolutions(solutionArray);
   }
 
   useEffect(() => componentOnMount(), []);
 
   const handleShowContent = (index) => {
+    setIsLiked(false);
+    const solution = solutions[index];
     setShowContent(true);
-    setCurrentSolution(solutions[index]);
-    console.log(index);
+    setCurrentSolution(solution);
+    const likeStatus = solution.likes;
+    setNoOfLikes(likeStatus.length);
+    if (likeStatus != null) setIsLiked(likeStatus.includes(currentUser.uid));
   };
+
+  async function updateRatingCount() {
+    const currentSolutionRef = doc(
+      db,
+      solutionCollectionName,
+      currentSolution.id
+    );
+    const currentSolutionObject = {
+      collection: solutionCollectionName,
+      document: currentSolution.id,
+    };
+    const solutionSnap = await getDoc(currentSolutionRef);
+    if (solutionSnap.exists) {
+      const likeStatus = solutionSnap.data().likes;
+      if (likeStatus && likeStatus.includes(currentUser.uid)) {
+        updateDoc(currentSolutionRef, {
+          likes: arrayRemove(currentUser.uid),
+        })
+          .then(setIsLiked(false))
+          .then(setNoOfLikes(noOfLikes - 1))
+          .then(
+            updateDoc(userRef, {
+              likedSolutions: arrayRemove(currentSolutionObject),
+            })
+          );
+      } else {
+        updateDoc(currentSolutionRef, {
+          likes: arrayUnion(currentUser.uid),
+        })
+          .then(setIsLiked(true))
+          .then(setNoOfLikes(noOfLikes + 1))
+          .then(
+            updateDoc(userRef, {
+              likedSolutions: arrayUnion(currentSolutionObject),
+            })
+          );
+      }
+    }
+  }
 
   const displayedResult =
     solutions &&
@@ -110,7 +176,10 @@ function SolutionPlanet() {
       <PageBelowNavBar>
         {showContent ? (
           <Wrapper alignment="row">
-            <SolutionContentWrapper className="slideInLeft" key={Math.random()}>
+            <SolutionContentWrapper
+              className="slideInLeft"
+              key={currentSolution.id}
+            >
               <Title
                 as={motion.h1}
                 initial={{ opacity: 0 }}
@@ -132,6 +201,17 @@ function SolutionPlanet() {
               >
                 {currentSolution.content}
               </SolutionTextWrapper>
+              <IconButtonContainer
+                as={motion.div}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 2 }}
+              >
+                <IconButton onClick={() => updateRatingCount()}>
+                  <LikeIcon liked={isLiked} />
+                </IconButton>
+                <p>Liked by: {noOfLikes}</p>
+              </IconButtonContainer>
             </SolutionContentWrapper>
             <PlanetWrapper
               style={{

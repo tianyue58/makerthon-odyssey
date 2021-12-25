@@ -2,6 +2,7 @@ import styled, { createGlobalStyle } from "styled-components/macro";
 import { Link } from "react-router-dom";
 import { BsPatchQuestion } from "react-icons/bs";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import { FaHeart } from "react-icons/fa";
 
 export const GlobalStyle = createGlobalStyle`
  body {
@@ -48,6 +49,36 @@ export const LightButton = styled.button`
   }
 `;
 
+export const IconButton = styled.button`
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const IconButtonContainer = styled.div`
+  margin: ${({ margin }) => (margin ? margin : "60px")};
+  padding: 10px 13px 10px 0;
+  background: rgba(255, 255, 255, 0.4);
+  transition: 0.3s;
+  color: black;
+  font-size: 16px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  width: 150px;
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &:hover {
+    background: rgba(255, 255, 255, 0.7);
+  }
+`;
+
 export const Button = styled.button`
   margin: ${({ buttonmargin }) => (buttonmargin ? buttonmargin : "10px")};
   width: ${({ buttonwidth }) => (buttonwidth ? buttonwidth : "100px")};
@@ -61,6 +92,19 @@ export const Button = styled.button`
   &:hover {
     color: #a52a2a;
   }
+`;
+
+export const RoundButton = styled.button`
+  width: ${({ width }) => (width ? width : "25px")};
+  height: ${({ height }) => (height ? height : "25px")};
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  text-align: center;
+  font-size: large;
+  color: white;
+  background-color: red;
+  margin-left: 20px;
 `;
 
 export const Wrapper = styled.div`
@@ -115,4 +159,15 @@ export const TitleWrapper = styled.div`
 export const QuestionIcon = styled(BsPatchQuestion)`
   position: absolute;
   border-radius: 1rem;
+`;
+
+export const LikeIcon = styled(FaHeart)`
+  color: ${({ liked }) => (liked ? "red" : "black")};
+  width: 25px;
+  height: 25px;
+  transition: 0.1s;
+  &:hover {
+    width: 30px;
+    height: 30px;
+  }
 `;

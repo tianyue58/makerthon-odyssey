@@ -54,7 +54,7 @@ function Home() {
       <WholePage>
         <Wrapper>
           <TextContainer>
-            <p class="line anim-typewriter">
+            <p className="line anim-typewriter">
               Hey Earthling! How are you feeling today?
             </p>
           </TextContainer>

@@ -15,6 +15,7 @@ import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { useLocation } from "react-router";
 import ViewAllPlanets from "./components/pages/ViewAllPlanets";
 import SolutionPlanet from "./components/pages/SolutionPlanet";
+import MyCollections from "./components/pages/MyCollections";
 
 function App() {
   const [currentPath, setCurrentPath] = useState();
@@ -80,6 +81,14 @@ function App() {
             element={
               <PrivateRoute>
                 <SolutionPlanet />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/MyCollections"
+            element={
+              <PrivateRoute>
+                <MyCollections />
               </PrivateRoute>
             }
           />
