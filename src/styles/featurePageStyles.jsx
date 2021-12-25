@@ -56,3 +56,14 @@ export const GridItem = styled.div`
   border: none;
   padding: 20px;
 `;
+
+export const GridItem2 = styled.div`
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+`;

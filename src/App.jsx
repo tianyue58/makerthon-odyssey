@@ -16,6 +16,9 @@ import { useLocation } from "react-router";
 import ViewAllPlanets from "./components/pages/ViewAllPlanets";
 import SolutionPlanet from "./components/pages/SolutionPlanet";
 import MyCollections from "./components/pages/MyCollections";
+import TipsToStayHealthy from "./components/pages/TipsToStayHealthy";
+import Tips from "./components/pages/Tips";
+import TipsState from "./components/pages/TipsState";
 
 function App() {
   const [currentPath, setCurrentPath] = useState();
@@ -89,6 +92,30 @@ function App() {
             element={
               <PrivateRoute>
                 <MyCollections />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/TipsToStayHealthy"
+            element={
+              <PrivateRoute>
+                <TipsToStayHealthy />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/Tips"
+            element={
+              <PrivateRoute>
+                <Tips />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/TipsState"
+            element={
+              <PrivateRoute>
+                <TipsState />
               </PrivateRoute>
             }
           />
