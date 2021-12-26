@@ -47,8 +47,9 @@ const PlanetWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 40%;
-  height: 80%;
+  width: 25%;
+  height: 60%;
+  margin-right: 15%;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -82,7 +83,6 @@ const PlanetSolutionsWrapper = styled.div`
 `;
 
 function TipsState() {
-  const [displayPlanet, setDisplayPlanet] = useState(false);
   
   const location = useLocation();
 
@@ -108,6 +108,7 @@ function TipsState() {
       setContent(data.content);
       const imageRef = ref(storage, data.icon);
       getDownloadURL(imageRef).then((url) => setImage(url));
+      console.log(image);
     }
   }
 
@@ -115,16 +116,6 @@ function TipsState() {
 
   return (
     <>
-      {!displayPlanet ? (
-        <VideoBackground
-          autoPlay
-          muted
-          playsInline
-          onEnded={() => setDisplayPlanet(true)}
-        >
-          <source src={travelling} type="video/mp4" />
-        </VideoBackground>
-      ) : (
         <motion.div
           className="page"
           variants={containerVariants}
@@ -136,17 +127,34 @@ function TipsState() {
             <source src={background} type="video/mp4" />
           </VideoBackground>
           <Wrapper alignment="row">
-            <SolutionContentWrapper>
-              <Title>
+            <SolutionContentWrapper
+              className="slideInLeft">
+              <Title  as={motion.h1}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}>
                 {name}
               </Title>
-              <SolutionTextWrapper>
+              <SolutionTextWrapper as={motion.div}
+                initial={{ x: -1000 }}
+                animate={{ x: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 30,
+                  duration: 2.5,
+                  delay: 1,
+                }}>
                 {content}
               </SolutionTextWrapper> 
               <LightButton
+               as={motion.div}
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               transition={{ duration: 0.5, delay: 2 }}
               onClick={() =>
                 navigate("/")
-              }>
+              }
+              buttonmargin = "50px">
                   Got it!
                   </LightButton>
             </SolutionContentWrapper>
@@ -155,11 +163,9 @@ function TipsState() {
                 backgroundImage: `url('${image}')`,
               }}
             >
-              <PlanetSolutionsWrapper>{image}</PlanetSolutionsWrapper>
             </PlanetWrapper>
           </Wrapper>
         </motion.div>
-      )}
     </>
   );
 }
