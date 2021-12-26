@@ -32,6 +32,7 @@ import {
 } from "../../styles/authenticationPageStyles";
 import "../../styles/animations.css";
 import { useAuth } from "../context/AuthContext";
+import talk from "../../images/talk.png";
 
 const PlanetWrapper = styled.div`
   position: relative;
@@ -41,6 +42,21 @@ const PlanetWrapper = styled.div`
   justify-content: center;
   width: 40%;
   height: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+`;
+
+const TalkIconWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  bottom: -32%;
+  left: -22%;
+  width: 15%;
+  height: 15%;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -222,7 +238,15 @@ function SolutionPlanet() {
             </PlanetWrapper>
           </Wrapper>
         ) : (
-          <Wrapper>
+          <Wrapper alignment="row">
+            <TalkIconWrapper
+            style={{
+              backgroundImage: `url('${talk}')`,
+            }}
+            >
+
+            </TalkIconWrapper>
+
             <PlanetWrapper
               style={{
                 backgroundImage: `url('${planetImage}')`,
