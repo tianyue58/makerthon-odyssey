@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/pages/Home";
 import ChooseProblem from "./components/pages/ChooseProblem";
@@ -16,6 +16,18 @@ import { useLocation } from "react-router";
 import ViewAllPlanets from "./components/pages/ViewAllPlanets";
 import SolutionPlanet from "./components/pages/SolutionPlanet";
 import MyCollections from "./components/pages/MyCollections";
+import TipsToStayHealthy from "./components/pages/TipsToStayHealthy";
+import Tips from "./components/pages/Tips";
+import TipsState from "./components/pages/TipsState";
+import TalkingTips from "./components/pages/TalkingTips";
+import Before from "./components/pages/MeBefore";
+import Conversation from "./components/pages/MeDuring";
+import TalkingState from "./components/pages/TalkingStates";
+import MeBefore from "./components/pages/MeBefore";
+import MeDuring from "./components/pages/MeDuring";
+import OtherBefore from "./components/pages/OtherBefore";
+import OtherDuring from "./components/pages/OtherDuring";
+import TalkingTipsOther from "./components/pages/TalkinkTipsOther";
 
 function App() {
   const [currentPath, setCurrentPath] = useState();
@@ -92,6 +104,95 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/TipsToStayHealthy"
+            element={
+              <PrivateRoute>
+                <TipsToStayHealthy />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/Tips"
+            element={
+              <PrivateRoute>
+                <Tips />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/TipsState"
+            element={
+              <PrivateRoute>
+                <TipsState />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/TalkingTips"
+            element={
+              <PrivateRoute>
+                <TalkingTips />
+              </PrivateRoute>
+            }
+          />
+
+<Route
+            path="/TalkingTipsOther"
+            element={
+              <PrivateRoute>
+                <TalkingTipsOther />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/MeBefore"
+            element={
+              <PrivateRoute>
+                <MeBefore />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/MeDuring"
+            element={
+              <PrivateRoute>
+                <MeDuring />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/OtherBefore"
+            element={
+              <PrivateRoute>
+                <OtherBefore />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/OtherDuring"
+            element={
+              <PrivateRoute>
+                <OtherDuring />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/TalkingState"
+            element={
+              <PrivateRoute>
+                <TalkingState />
+              </PrivateRoute>
+            }
+          />
+
+
 
           <Route path="SignUp" element={<SignUp />} />
           <Route path="LogIn" element={<LogIn />} />

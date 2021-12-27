@@ -72,8 +72,8 @@ function Home() {
             )}
             {AnimatedColorfulButton(
               "I'm in a good mood",
-              "/",
-              false,
+              "/TipsToStayHealthy",
+              true,
               "lightgreen"
             )}
             {/* <LightButton
