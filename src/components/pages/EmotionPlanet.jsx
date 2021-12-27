@@ -48,15 +48,6 @@ function EmotionPlanet() {
     setShowSolution(true);
   };
 
-  const isAboutOneself = (name) => {
-    if (name === "Asteroid 325" || name === "Asteroid 326" || name === "Asteroid 327") {
-      navigate("/TalkingTips");
-    } else {
-      navigate("/TalkingTipsOther");
-    }
-  };
-
-  useEffect(() => calculate && isAboutOneself(name));
 
   
 
@@ -70,6 +61,17 @@ function EmotionPlanet() {
   const [solutionCollectionName, setSolutionCollectionName] = useState();
   const [solutionPlanetImage, setSolutionPlanetImage] = useState();
   const navigate = useNavigate();
+
+  const isAboutOneself = (name) => {
+    if (name === "Asteroid 325" || name === "Asteroid 326" || name === "Asteroid 327") {
+      navigate("/TalkingTips");
+    } else {
+      navigate("/TalkingTipsOther");
+    }
+  };
+
+  useEffect(() => calculate && isAboutOneself(name), [calculate]);
+
 
   useEffect(() => {
     const currentPlanet = location.state;
