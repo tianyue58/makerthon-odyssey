@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/pages/Home";
 import ChooseProblem from "./components/pages/ChooseProblem";

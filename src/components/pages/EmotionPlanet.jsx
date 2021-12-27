@@ -56,8 +56,6 @@ function EmotionPlanet() {
     }
   };
 
-  
-
   useEffect(() => calculate && isAboutOneself(name));
 
   

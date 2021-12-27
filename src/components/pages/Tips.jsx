@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import background from "../../backgrounds/view-galaxy.mp4";
-import styled from "styled-components/macro";
 import {
   VideoBackground,
   WholePage,
-  Wrapper,
-  Button,
-  LightButton,
+  Wrapper
 } from "../../styles/globalStyles";
-import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion/dist/framer-motion";
 import { containerVariants } from "../../styles/animatedStyles";
 import "../../styles/animations.css";
 import tip1 from "../../images/tips/tip1.png";

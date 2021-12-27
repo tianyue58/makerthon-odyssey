@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   getDocs,
   collection,
@@ -11,12 +11,10 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion/dist/framer-motion";
 import background from "../../backgrounds/emotion-planet-galaxy.mp4";
 import { containerVariants } from "../../styles/animatedStyles";
 import {
-  Button,
-  LightButton,
   PageBelowNavBar,
   VideoBackground,
   Wrapper,

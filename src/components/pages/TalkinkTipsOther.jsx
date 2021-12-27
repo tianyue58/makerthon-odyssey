@@ -1,6 +1,5 @@
 import React from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import styled from "styled-components/macro";
+import { useNavigate } from "react-router-dom";
 import background from "../../backgrounds/tips-galaxy.mp4";
 import {
   LightButton,
@@ -10,11 +9,10 @@ import {
 } from "../../styles/globalStyles";
 import { LinkContainer, TextContainer } from "../../styles/featurePageStyles";
 import {
-  AnimatedLightButton,
   containerVariants,
 } from "../../styles/animatedStyles";
 import "../../styles/animations.css";
-import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion/dist/framer-motion";
 
 function TalkingTipsOther() {
   const navigate = useNavigate();
