@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   getDocs,
   collection,
@@ -32,7 +32,7 @@ import {
 } from "../../styles/authenticationPageStyles";
 import "../../styles/animations.css";
 import { useAuth } from "../context/AuthContext";
-import talk from "../../images/talk.png";
+
 
 const PlanetWrapper = styled.div`
   position: relative;
@@ -47,20 +47,6 @@ const PlanetWrapper = styled.div`
   background-size: contain;
 `;
 
-const TalkIconWrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  bottom: -32%;
-  left: -22%;
-  width: 15%;
-  height: 15%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-`;
 
 const SolutionContentWrapper = styled.div`
   padding: 15% 5% 0 5%;
@@ -98,6 +84,7 @@ function SolutionPlanet() {
   const { currentUser } = useAuth();
   const [isLiked, setIsLiked] = useState(false);
   const [noOfLikes, setNoOfLikes] = useState();
+  const navigate = useNavigate();
   const userRef = doc(db, "users", currentUser.uid);
 
   async function componentOnMount() {
@@ -178,6 +165,8 @@ function SolutionPlanet() {
       );
     });
 
+    
+
   return (
     <motion.div
       className="page"
@@ -238,15 +227,10 @@ function SolutionPlanet() {
             </PlanetWrapper>
           </Wrapper>
         ) : (
-          <Wrapper alignment="row">
-            <TalkIconWrapper
-            style={{
-              backgroundImage: `url('${talk}')`,
-            }}
-            >
+          
+           
 
-            </TalkIconWrapper>
-
+            
             <PlanetWrapper
               style={{
                 backgroundImage: `url('${planetImage}')`,
@@ -254,7 +238,9 @@ function SolutionPlanet() {
             >
               <PlanetSolutionsWrapper>{displayedResult}</PlanetSolutionsWrapper>
             </PlanetWrapper>
-          </Wrapper>
+            
+
+          
         )}
       </PageBelowNavBar>
     </motion.div>

@@ -18,18 +18,49 @@ import { doc, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { ProfilePhoto } from "../../styles/profilePageStyles";
 import SolutionPlanet from "./SolutionPlanet";
+import talk from "../../images/talk.png";
+
+const TalkIconWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  bottom: -36%;
+  left: 1%;
+  width: 14%;
+  height: 14%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+`;
 
 function EmotionPlanet() {
   const [displayPlanet, setDisplayPlanet] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
   const [solution, setSolution] = useState();
+  const [calculate, setCalculate] = useState(false);
 
   const handleDisplaySolution = (index) => {
     const solution = "Don't worry! No boyfriend, no problems :D";
     setSolution(solution);
     setShowSolution(true);
   };
+
+  const isAboutOneself = (name) => {
+    if (name === "Asteroid 325" || name === "Asteroid 326" || name === "Asteroid 327") {
+      navigate("/TalkingTips");
+    } else {
+      navigate("/TalkingTipsOther");
+    }
+  };
+
+  
+
+  useEffect(() => calculate && isAboutOneself(name));
+
+  
 
   const location = useLocation();
 
@@ -99,6 +130,7 @@ function EmotionPlanet() {
                 )}
               </>
             ) : (
+              <Wrapper alignment="row">
               <Wrapper>
                 <ProfilePhoto src={image} alt="planet"></ProfilePhoto>
                 <TextContainer>
@@ -120,6 +152,16 @@ function EmotionPlanet() {
                 >
                   Explore the planet
                 </LightButton>
+                
+              </Wrapper>
+              <TalkIconWrapper
+            style={{
+              backgroundImage: `url('${talk}')`,
+            }}
+            onClick={() => setCalculate(true)}
+            className="planet"
+            >
+            </TalkIconWrapper>
               </Wrapper>
             )}
           </WholePage>
