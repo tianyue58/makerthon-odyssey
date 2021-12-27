@@ -16,6 +16,7 @@ import { useLocation } from "react-router";
 import ViewAllPlanets from "./components/pages/ViewAllPlanets";
 import SolutionPlanet from "./components/pages/SolutionPlanet";
 import MyCollections from "./components/pages/MyCollections";
+import GratitudeJournal from "./components/pages/GratitudeJournal";
 
 function App() {
   const [currentPath, setCurrentPath] = useState();
@@ -89,6 +90,14 @@ function App() {
             element={
               <PrivateRoute>
                 <MyCollections />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/GratitudeJournal"
+            element={
+              <PrivateRoute>
+                <GratitudeJournal />
               </PrivateRoute>
             }
           />
