@@ -11,12 +11,10 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion/dist/framer-motion";
 import background from "../../backgrounds/emotion-planet-galaxy.mp4";
 import { containerVariants } from "../../styles/animatedStyles";
 import {
-  Button,
-  LightButton,
   PageBelowNavBar,
   VideoBackground,
   Wrapper,
@@ -34,6 +32,7 @@ import "../../styles/animations.css";
 import { useAuth } from "../context/AuthContext";
 import magicBox from "../../gifs/magic-box.gif";
 
+
 const PlanetWrapper = styled.div`
   position: relative;
   display: flex;
@@ -46,6 +45,7 @@ const PlanetWrapper = styled.div`
   background-position: center;
   background-size: contain;
 `;
+
 
 const SolutionContentWrapper = styled.div`
   padding: 15% 5% 0 5%;
@@ -100,6 +100,7 @@ function SolutionPlanet() {
   const { currentUser } = useAuth();
   const [isLiked, setIsLiked] = useState(false);
   const [noOfLikes, setNoOfLikes] = useState();
+  const navigate = useNavigate();
   const userRef = doc(db, "users", currentUser.uid);
 
   async function componentOnMount() {
@@ -181,6 +182,8 @@ function SolutionPlanet() {
       );
     });
 
+    
+
   return (
     <motion.div
       className="page"
@@ -241,7 +244,10 @@ function SolutionPlanet() {
             </PlanetWrapper>
           </Wrapper>
         ) : (
-          <Wrapper>
+          
+           
+
+            
             <PlanetWrapper
               style={{
                 backgroundImage: `url('${planetImage}')`,
@@ -256,7 +262,9 @@ function SolutionPlanet() {
                 onClick={() => navigate("/ViewRelics", { state: planetName })}
               />
             </PlanetWrapper>
-          </Wrapper>
+            
+
+          
         )}
       </PageBelowNavBar>
     </motion.div>
