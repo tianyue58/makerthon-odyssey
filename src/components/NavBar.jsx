@@ -96,9 +96,9 @@ function NavBar(props) {
               <LightButton>My Collections</LightButton>
             </Link>
           ) : null}
-          {currentPath != "/GratitudeJournal" ? (
-            <Link to="/GratitudeJournal">
-              <LightButton>Gratitude Journal</LightButton>
+          {currentPath != "/MyRelics" ? (
+            <Link to="/MyRelics">
+              <LightButton>My Relics</LightButton>
             </Link>
           ) : null}
           <LightButton onClick={handleLogout}>Log Out</LightButton>

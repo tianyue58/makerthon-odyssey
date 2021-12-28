@@ -18,6 +18,7 @@ import SolutionPlanet from "./components/pages/SolutionPlanet";
 import MyCollections from "./components/pages/MyCollections";
 import ViewRelics from "./components/pages/ViewRelics";
 import LeaveRelics from "./components/pages/LeaveRelics";
+import MyRelics from "./components/pages/MyRelics";
 
 function App() {
   const [currentPath, setCurrentPath] = useState();
@@ -108,6 +109,14 @@ function App() {
             element={
               <PrivateRoute>
                 <LeaveRelics />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/MyRelics"
+            element={
+              <PrivateRoute>
+                <MyRelics />
               </PrivateRoute>
             }
           />

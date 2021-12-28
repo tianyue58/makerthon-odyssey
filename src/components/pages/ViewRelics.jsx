@@ -15,50 +15,21 @@ import {
 import { db } from "../../firebase";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import background from "../../backgrounds/relic-page-background.mp4";
-import {
-  containerVariants,
-  refreshContainer,
-} from "../../styles/animatedStyles";
+import { containerVariants } from "../../styles/animatedStyles";
 import {
   Button,
   LightButton,
   PageBelowNavBar,
   VideoBackground,
-  Wrapper,
-  IconButton,
-  LikeIcon,
-  IconButtonContainer,
 } from "../../styles/globalStyles";
 import "../../styles/animations.css";
-import { useAuth } from "../context/AuthContext";
-import SolutionItem from "./SolutionItem";
-import { MainForm } from "../../styles/profilePageStyles";
 import RelicItem from "./RelicItem";
 import { LinkContainer } from "../../styles/featurePageStyles";
-
-const RelicsWrapper = styled.div`
-  width: 100%;
-  height: 80%;
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(3, 400px);
-  grid-template-rows: repeat(1, 400px);
-  background-color: transparent;
-  padding: 5%;
-`;
-
-const LeaveARelicButton = styled(Button)`
-  position: absolute;
-  bottom: 5%;
-  right: 2%;
-  width: 150px;
-`;
-
-const NavigationButtons = styled(LinkContainer)`
-  position: absolute;
-  bottom: 0;
-  right: 50%;
-`;
+import {
+  RelicsWrapper,
+  LeaveARelicButton,
+  NavigationButtons,
+} from "../../styles/relicPageStyles";
 
 function ViewRelics() {
   const location = useLocation();
@@ -67,7 +38,7 @@ function ViewRelics() {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(0);
   const [maxPage, setMaxPage] = useState();
-  const [currentContent, setCurrentContent] = useState();
+  const [displayedResult, setDisplayedResult] = useState();
 
   async function loadRelics() {
     const q = query(
@@ -77,37 +48,29 @@ function ViewRelics() {
     );
     const relicsSnap = await getDocs(q);
     const fetchedRelicsData = [];
-    relicsSnap.forEach((relic) => fetchedRelicsData.push(relic.data()));
-    setRelics(fetchedRelicsData);
+    relicsSnap.forEach((relic) => {
+      fetchedRelicsData.push(relic.data());
+    });
     const max = Math.ceil(fetchedRelicsData.length / 3);
     setMaxPage(max);
-    setCurrentContent(fetchedRelicsData.slice(0, 3));
+
+    const displayedRelics = await Promise.all(
+      fetchedRelicsData.map((relic, index) => {
+        return <RelicItem relicObject={relic} key={index} />;
+      })
+    );
+    setRelics(displayedRelics);
+    setDisplayedResult(displayedRelics.slice(0, 3));
   }
 
   useEffect(() => loadRelics(), []);
 
-  //   const pagination = () => {
-  //     const noOfPages = relics.length / 3;
-  //     const pages = [];
-  //     for (let i = 0; i < noOfPages; i = i + 3) {
-  //       const page = [];
-  //       for (let j = 0; j < 3; j++) page.push(displayedResult[i + j]);
-  //       pages.push(page);
-  //     }
-  //     setAllPages(pages);
-  //   };
+  useEffect(() => displayedResult && handleRefresh(), [currentPage]);
 
-  const displayedResult =
-    currentContent &&
-    currentContent.map((relic) => {
-      return <RelicItem relicObject={relic} key={relic} />;
-    });
-
-  const handleClick = (pageToTurn) => {
-    const newPage = currentPage + pageToTurn;
-    setCurrentPage(newPage);
-    const max = Math.min(newPage * 3 + 3, relics.length);
-    setCurrentContent(relics.slice(newPage * 3, max));
+  const handleRefresh = () => {
+    const start = currentPage * 3;
+    const end = Math.min(currentPage * 3 + 3, relics.length);
+    relics && setDisplayedResult(relics.slice(start, end));
   };
 
   return (
@@ -125,10 +88,14 @@ function ViewRelics() {
         <RelicsWrapper>{displayedResult}</RelicsWrapper>
         <NavigationButtons>
           {currentPage > 0 && (
-            <LightButton onClick={() => handleClick(-1)}>Prev</LightButton>
+            <LightButton onClick={() => setCurrentPage(currentPage - 1)}>
+              Prev
+            </LightButton>
           )}
           {currentPage < maxPage - 1 && (
-            <LightButton onClick={() => handleClick(1)}>Next</LightButton>
+            <LightButton onClick={() => setCurrentPage(currentPage + 1)}>
+              Next
+            </LightButton>
           )}
         </NavigationButtons>
         <LeaveARelicButton
