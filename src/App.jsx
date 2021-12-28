@@ -16,6 +16,9 @@ import { useLocation } from "react-router";
 import ViewAllPlanets from "./components/pages/ViewAllPlanets";
 import SolutionPlanet from "./components/pages/SolutionPlanet";
 import MyCollections from "./components/pages/MyCollections";
+import ViewRelics from "./components/pages/ViewRelics";
+import LeaveRelics from "./components/pages/LeaveRelics";
+import MyRelics from "./components/pages/MyRelics";
 import TipsToStayHealthy from "./components/pages/TipsToStayHealthy";
 import Tips from "./components/pages/Tips";
 import TipsState from "./components/pages/TipsState";
@@ -28,6 +31,7 @@ import MeDuring from "./components/pages/MeDuring";
 import OtherBefore from "./components/pages/OtherBefore";
 import OtherDuring from "./components/pages/OtherDuring";
 import TalkingTipsOther from "./components/pages/TalkinkTipsOther";
+
 
 function App() {
   const [currentPath, setCurrentPath] = useState();
@@ -47,7 +51,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
           <Route
             path="/ChooseProblem"
             element={
@@ -194,6 +197,31 @@ function App() {
 
 
 
+          <Route
+            path="/ViewRelics"
+            element={
+              <PrivateRoute>
+                <ViewRelics />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/LeaveRelics"
+            element={
+              <PrivateRoute>
+                <LeaveRelics />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/MyRelics"
+            element={
+              <PrivateRoute>
+                <MyRelics />
+              </PrivateRoute>
+            }
+          />
           <Route path="SignUp" element={<SignUp />} />
           <Route path="LogIn" element={<LogIn />} />
           <Route path="ForgotPassword" element={<ForgotPassword />} />

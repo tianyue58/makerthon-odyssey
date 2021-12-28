@@ -145,6 +145,7 @@ function EmotionPlanet() {
                     navigate("/SolutionPlanet", {
                       state: {
                         planetImage: solutionPlanetImage,
+                        planetName: name,
                         solutionCollectionName: solutionCollectionName,
                       },
                     })
