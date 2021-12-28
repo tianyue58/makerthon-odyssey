@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   getDocs,
   collection,
@@ -32,6 +32,7 @@ import {
 } from "../../styles/authenticationPageStyles";
 import "../../styles/animations.css";
 import { useAuth } from "../context/AuthContext";
+import magicBox from "../../gifs/magic-box.gif";
 
 const PlanetWrapper = styled.div`
   position: relative;
@@ -72,9 +73,26 @@ const PlanetSolutionsWrapper = styled.div`
   background-color: transparent;
 `;
 
+const BoxWrapper = styled.button`
+  border: none;
+  outline: none;
+  background: none;
+  position: absolute;
+  bottom: 3%;
+  right: 35%;
+  width: 80px;
+  height: 80px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url(${magicBox});
+`;
+
 function SolutionPlanet() {
+  const [planetName, setPlanetName] = useState();
   const [solutionCollectionName, setSolutionCollectionName] = useState();
   const [solutions, setSolutions] = useState();
+  const navigate = useNavigate();
   const location = useLocation();
   const [planetImage, setPlanetImage] = useState();
   const [showContent, setShowContent] = useState(false);
@@ -85,9 +103,10 @@ function SolutionPlanet() {
   const userRef = doc(db, "users", currentUser.uid);
 
   async function componentOnMount() {
-    const { planetImage, solutionCollectionName } = location.state;
+    const { planetImage, solutionCollectionName, planetName } = location.state;
     setPlanetImage(planetImage);
     setSolutionCollectionName(solutionCollectionName);
+    setPlanetName(planetName);
     const solutionsSnap = await getDocs(collection(db, solutionCollectionName));
     const solutionArray = [];
     solutionsSnap.forEach((solution) => solutionArray.push(solution.data()));
@@ -229,6 +248,13 @@ function SolutionPlanet() {
               }}
             >
               <PlanetSolutionsWrapper>{displayedResult}</PlanetSolutionsWrapper>
+              <BoxWrapper
+                as={motion.button}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 2 }}
+                onClick={() => navigate("/ViewRelics", { state: planetName })}
+              />
             </PlanetWrapper>
           </Wrapper>
         )}
