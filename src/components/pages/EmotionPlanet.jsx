@@ -42,15 +42,6 @@ function EmotionPlanet() {
   const [solution, setSolution] = useState();
   const [calculate, setCalculate] = useState(false);
 
-  const handleDisplaySolution = (index) => {
-    const solution = "Don't worry! No boyfriend, no problems :D";
-    setSolution(solution);
-    setShowSolution(true);
-  };
-
-
-  
-
   const location = useLocation();
 
   const [planetRef, setPlanetRef] = useState();
@@ -63,7 +54,11 @@ function EmotionPlanet() {
   const navigate = useNavigate();
 
   const isAboutOneself = (name) => {
-    if (name === "Asteroid 325" || name === "Asteroid 326" || name === "Asteroid 327") {
+    if (
+      name === "Asteroid 325" ||
+      name === "Asteroid 326" ||
+      name === "Asteroid 327"
+    ) {
       navigate("/TalkingTips");
     } else {
       navigate("/TalkingTipsOther");
@@ -71,7 +66,6 @@ function EmotionPlanet() {
   };
 
   useEffect(() => calculate && isAboutOneself(name), [calculate]);
-
 
   useEffect(() => {
     const currentPlanet = location.state;
@@ -131,38 +125,37 @@ function EmotionPlanet() {
               </>
             ) : (
               <Wrapper alignment="row">
-              <Wrapper>
-                <ProfilePhoto src={image} alt="planet"></ProfilePhoto>
-                <TextContainer>
-                  You're on {name}
-                  <br />
-                  Currently there are {people} other earthlings on this planet,
-                  <br />
-                  who are experiencing the same emotion as you <br />
-                </TextContainer>
-                <LightButton
-                  onClick={() =>
-                    navigate("/SolutionPlanet", {
-                      state: {
-                        planetImage: solutionPlanetImage,
-                        planetName: name,
-                        solutionCollectionName: solutionCollectionName,
-                      },
-                    })
-                  }
-                >
-                  Explore the planet
-                </LightButton>
-                
-              </Wrapper>
-              <TalkIconWrapper
-            style={{
-              backgroundImage: `url('${talk}')`,
-            }}
-            onClick={() => setCalculate(true)}
-            className="planet"
-            >
-            </TalkIconWrapper>
+                <Wrapper>
+                  <ProfilePhoto src={image} alt="planet"></ProfilePhoto>
+                  <TextContainer>
+                    You're on {name}
+                    <br />
+                    Currently there are {people} other earthlings on this
+                    planet,
+                    <br />
+                    who are experiencing the same emotion as you <br />
+                  </TextContainer>
+                  <LightButton
+                    onClick={() =>
+                      navigate("/SolutionPlanet", {
+                        state: {
+                          planetImage: solutionPlanetImage,
+                          planetName: name,
+                          solutionCollectionName: solutionCollectionName,
+                        },
+                      })
+                    }
+                  >
+                    Explore the planet
+                  </LightButton>
+                </Wrapper>
+                <TalkIconWrapper
+                  style={{
+                    backgroundImage: `url('${talk}')`,
+                  }}
+                  onClick={() => setCalculate(true)}
+                  className="planet"
+                ></TalkIconWrapper>
               </Wrapper>
             )}
           </WholePage>
