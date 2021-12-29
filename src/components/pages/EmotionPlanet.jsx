@@ -19,8 +19,9 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { ProfilePhoto } from "../../styles/profilePageStyles";
 import { useAuth } from "../context/AuthContext";
 import SolutionPlanet from "./SolutionPlanet";
-import talk from "../../images/talk.png";
-import { getDefaultNormalizer } from "@testing-library/react";
+import letsTalk from "../../images/letsTalk.png";
+import backToPlanet from "../../images/backToPlanet.png";
+
 
 const TalkIconWrapper = styled.div`
   position: relative;
@@ -39,9 +40,7 @@ const TalkIconWrapper = styled.div`
 
 function EmotionPlanet() {
   const [displayPlanet, setDisplayPlanet] = useState(false);
-  const [showDetail, setShowDetail] = useState(false);
-  const [showSolution, setShowSolution] = useState(false);
-  const [solution, setSolution] = useState();
+
   const [calculate, setCalculate] = useState(false);
 
   const location = useLocation();
@@ -54,24 +53,38 @@ function EmotionPlanet() {
   const [solutionCollectionName, setSolutionCollectionName] = useState();
   const [solutionPlanetImage, setSolutionPlanetImage] = useState();
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+  const [showTalkingTips, setShowTalkingTips] = useState(false);
+  const [aboutWhom, setAboutWhom] = useState();
 
-  const isAboutOneself = (name) => {
-    if (
-      name === "Asteroid 325" ||
-      name === "Asteroid 326" ||
-      name === "Asteroid 327"
-    ) {
-      navigate("/TalkingTips");
-    } else {
-      navigate("/TalkingTipsOther");
-    }
+  const AnimatedColorfulButton = (label, phase, themeColor) => {
+    return (
+      <LightButton
+        as={motion.button}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() =>
+          navigate("/ChooseTalkingTips", {
+            state: { aboutWhom: aboutWhom, phase: phase },
+          })
+        }
+        themeColor={themeColor}
+      >
+        {label}
+      </LightButton>
+    );
   };
-
-  useEffect(() => calculate && isAboutOneself(name), [calculate]);
 
   useEffect(() => {
     const currentPlanet = location.state;
     setPlanetRef(doc(db, "planets", currentPlanet));
+    if (
+      currentPlanet === "Asteroid 325" ||
+      currentPlanet === "Asteroid 326" ||
+      currentPlanet === "Asteroid 327"
+    ) {
+      setAboutWhom("me");
+    } else setAboutWhom("other");
   }, []);
 
   useEffect(() => planetRef && getPlanet(), [planetRef]);
@@ -100,12 +113,6 @@ function EmotionPlanet() {
     })
   }
 
-
-
-  //visit count
-  const { currentUser } = useAuth();
-
-
   async function updateVisitorCount() {
   
     const planetSnap = await getDoc(planetRef);
@@ -118,9 +125,6 @@ function EmotionPlanet() {
       }     
     }
   }
-
-  
-
 
   return (
     <>
@@ -145,21 +149,30 @@ function EmotionPlanet() {
             <source src={background} type="video/mp4" />
           </VideoBackground>
           <WholePage>
-            {showDetail ? (
-              <>
-                {showSolution ? (
-                  <Wrapper>
-                    <TextContainer>{solution}</TextContainer>
-                    <Link to="/">
-                      <LightButton>Go it!</LightButton>
-                    </Link>
-                  </Wrapper>
-                ) : (
-                  <Wrapper></Wrapper>
-                )}
-              </>
-            ) : (
-              <Wrapper alignment="row">
+            <Wrapper alignment="row">
+              {showTalkingTips ? (
+                <Wrapper>
+                  <TextContainer>
+                    <div className="css-typing">
+                      <p>The first step towards alleviating negative </p>
+                      <p>feelings is to talk about them.</p>
+                      <p>Check out the conversation tips now.</p>
+                    </div>
+                  </TextContainer>
+                  <LinkContainer>
+                    {AnimatedColorfulButton(
+                      "Before the conversation",
+                      "before",
+                      "red"
+                    )}
+                    {AnimatedColorfulButton(
+                      "The Conversation",
+                      "during",
+                      "blue"
+                    )}
+                  </LinkContainer>
+                </Wrapper>
+              ) : (
                 <Wrapper>
                   <ProfilePhoto src={image} alt="planet"></ProfilePhoto>
                   <TextContainer>
@@ -176,15 +189,18 @@ function EmotionPlanet() {
                     Explore the planet
                   </LightButton>
                 </Wrapper>
-                <TalkIconWrapper
-                  style={{
-                    backgroundImage: `url('${talk}')`,
-                  }}
-                  onClick={() => setCalculate(true)}
-                  className="planet"
-                ></TalkIconWrapper>
-              </Wrapper>)
-            }
+              )}
+              <TalkIconWrapper
+                style={{
+                  backgroundImage: showTalkingTips
+                    ? `url('${backToPlanet}')`
+                    : `url('${letsTalk}')`,
+                }}
+                onClick={() => setShowTalkingTips(!showTalkingTips)}
+                className="planet"
+              ></TalkIconWrapper>
+            </Wrapper>
+
           </WholePage>
         </motion.div>
       )}

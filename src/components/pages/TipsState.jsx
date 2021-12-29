@@ -3,9 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import travelling from "../../backgrounds/go-to-planet.mp4";
 import background from "../../backgrounds/emotion-planet-galaxy.mp4";
 import styled from "styled-components/macro";
-import {
-    Title,
-  } from "../../styles/authenticationPageStyles";
+import { Title } from "../../styles/authenticationPageStyles";
 import {
   LightButton,
   VideoBackground,
@@ -83,7 +81,6 @@ const PlanetSolutionsWrapper = styled.div`
 `;
 
 function TipsState() {
-  
   const location = useLocation();
 
   const [tipRef, setTipRef] = useState();
@@ -112,60 +109,59 @@ function TipsState() {
     }
   }
 
-  
-
   return (
     <>
-        <motion.div
-          className="page"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
-          <VideoBackground autoPlay muted loop playsInline>
-            <source src={background} type="video/mp4" />
-          </VideoBackground>
-          <Wrapper alignment="row">
-            <SolutionContentWrapper
-              className="slideInLeft">
-              <Title  as={motion.h1}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}>
-                {name}
-              </Title>
-              <SolutionTextWrapper as={motion.div}
-                initial={{ x: -1000 }}
-                animate={{ x: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 30,
-                  duration: 2.5,
-                  delay: 1,
-                }}>
-                {content}
-              </SolutionTextWrapper> 
-              <LightButton
-               as={motion.div}
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               transition={{ duration: 0.5, delay: 2 }}
-              onClick={() =>
-                navigate("/")
-              }
-              buttonmargin = "50px">
-                  Got it!
-                  </LightButton>
-            </SolutionContentWrapper>
-            <PlanetWrapper
-              style={{
-                backgroundImage: `url('${image}')`,
+      <motion.div
+        className="page"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
+        <VideoBackground autoPlay muted loop playsInline>
+          <source src={background} type="video/mp4" />
+        </VideoBackground>
+        <Wrapper alignment="row">
+          <SolutionContentWrapper className="slideInLeft">
+            <Title
+              as={motion.h1}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              {name}
+            </Title>
+            <SolutionTextWrapper
+              as={motion.div}
+              initial={{ x: -1000 }}
+              animate={{ x: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 30,
+                duration: 2.5,
+                delay: 1,
               }}
             >
-            </PlanetWrapper>
-          </Wrapper>
-        </motion.div>
+              {content}
+            </SolutionTextWrapper>
+            <LightButton
+              as={motion.div}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 2 }}
+              onClick={() => navigate("/")}
+              buttonmargin="50px"
+            >
+              Got it!
+            </LightButton>
+          </SolutionContentWrapper>
+          <PlanetWrapper
+            style={{
+              backgroundImage: `url('${image}')`,
+            }}
+          ></PlanetWrapper>
+        </Wrapper>
+      </motion.div>
     </>
   );
 }
