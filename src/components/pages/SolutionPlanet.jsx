@@ -30,61 +30,14 @@ import {
 } from "../../styles/authenticationPageStyles";
 import "../../styles/animations.css";
 import { useAuth } from "../context/AuthContext";
-import magicBox from "../../gifs/magic-box.gif";
 
-const PlanetWrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 40%;
-  height: 80%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-`;
-
-const SolutionContentWrapper = styled.div`
-  padding: 15% 5% 0 5%;
-  width: 50%;
-  height: 100%;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-`;
-
-const SolutionTextWrapper = styled.div`
-  width: 70%;
-`;
-
-const PlanetSolutionsWrapper = styled.div`
-  position: absolute;
-  width: 70%;
-  height: 70%;
-  display: grid;
-  align-items: center;
-  grid-template-columns: auto auto auto;
-  grid-template-rows: auto auto;
-  background-color: transparent;
-`;
-
-const BoxWrapper = styled.button`
-  border: none;
-  outline: none;
-  background: none;
-  position: absolute;
-  bottom: 3%;
-  right: 35%;
-  width: 80px;
-  height: 80px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  background-image: url(${magicBox});
-`;
+import {
+  PlanetSolutionsWrapper,
+  PlanetWrapper,
+  SolutionContentWrapper,
+  SolutionTextWrapper,
+  BoxWrapper,
+} from "../../styles/featurePageStyles";
 
 function SolutionPlanet() {
   const [planetName, setPlanetName] = useState();

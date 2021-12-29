@@ -1,11 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import background from "../../backgrounds/view-galaxy.mp4";
-import {
-  VideoBackground,
-  WholePage,
-  Wrapper
-} from "../../styles/globalStyles";
+import { VideoBackground, WholePage, Wrapper } from "../../styles/globalStyles";
 import { motion } from "framer-motion/dist/framer-motion";
 import { containerVariants } from "../../styles/animatedStyles";
 import "../../styles/animations.css";
@@ -40,55 +36,76 @@ function Tips() {
         <Wrapper>
           <GridContainer>
             <GridItem2>
-              <img className="planet" src={tip1} alt="img" onClick={() =>
-                  navigate("/TipsState", { state: "tip1" })
-                }/>
+              <img
+                className="planet"
+                src={tip1}
+                alt="img"
+                onClick={() => navigate("/TipsState", { state: "tip1" })}
+              />
             </GridItem2>
             <GridItem2>
-              <img className="planet" src={tip2} alt="img" onClick={() =>
-                  navigate("/TipsState", { state: "tip2" })
-                }/>
-              
+              <img
+                className="planet"
+                src={tip2}
+                alt="img"
+                onClick={() => navigate("/TipsState", { state: "tip2" })}
+              />
             </GridItem2>
             <GridItem2>
-              <img className="planet" src={tip3} alt="img" onClick={() =>
-                  navigate("/TipsState", { state: "tip3" })
-                }/>
+              <img
+                className="planet"
+                src={tip3}
+                alt="img"
+                onClick={() => navigate("/TipsState", { state: "tip3" })}
+              />
             </GridItem2>
             <GridItem2>
-              <img className="planet" src={tip4} alt="img" onClick={() =>
-                  navigate("/TipsState", { state: "tip4" })}/>
-              
+              <img
+                className="planet"
+                src={tip4}
+                alt="img"
+                onClick={() => navigate("/TipsState", { state: "tip4" })}
+              />
             </GridItem2>
             <GridItem2>
-              <img className="planet" src={tip5} alt="img" onClick={() =>
-                  navigate("/TipsState", { state: "tip5" })
-                }/>
-              
+              <img
+                className="planet"
+                src={tip5}
+                alt="img"
+                onClick={() => navigate("/TipsState", { state: "tip5" })}
+              />
             </GridItem2>
             <GridItem2>
-              <img className="planet" src={tip6} alt="img" onClick={() =>
-                  navigate("/TipsState", { state: "tip6" })
-                }/>
-              
+              <img
+                className="planet"
+                src={tip6}
+                alt="img"
+                onClick={() => navigate("/TipsState", { state: "tip6" })}
+              />
             </GridItem2>
             <GridItem2>
-              <img className="planet" src={tip7} alt="img" onClick={() =>
-                  navigate("/TipsState", { state: "tip7" })
-                }/>
-              
+              <img
+                className="planet"
+                src={tip7}
+                alt="img"
+                onClick={() => navigate("/TipsState", { state: "tip7" })}
+              />
             </GridItem2>
             <GridItem2>
-              <img className="planet" src={tip8} alt="img" onClick={() =>
-                  navigate("/TipsState", { state: "tip8" })
-                }/>
-             
+              <img
+                className="planet"
+                src={tip8}
+                alt="img"
+                onClick={() => navigate("/TipsState", { state: "tip8" })}
+              />
             </GridItem2>
             <GridItem2>
-              <img className="planet" src={tip9} alt="img" onClick={() =>
-                  navigate("/TipsState", { state: "tip9" })
-                }/>
-              
+              <img
+                className="planet"
+                src={tip9}
+                alt="img"
+                onClick={() => navigate("/TipsState", { state: "tip9" })}
+              />
             </GridItem2>
           </GridContainer>
         </Wrapper>

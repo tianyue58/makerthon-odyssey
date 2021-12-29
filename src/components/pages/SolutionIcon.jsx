@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import "../../styles/animations.css";
 
 function SolutionIcon(props) {
-  const { name, content, icon, link } = props.solutionObject;
+  const { icon, link } = props.solutionObject;
 
   const handleClick = () => {
     link && window.open(link);
