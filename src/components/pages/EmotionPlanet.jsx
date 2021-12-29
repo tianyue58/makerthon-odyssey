@@ -14,11 +14,13 @@ import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { containerVariants } from "../../styles/animatedStyles";
 import "../../styles/animations.css";
 import { db, storage } from "../../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { ProfilePhoto } from "../../styles/profilePageStyles";
+import { useAuth } from "../context/AuthContext";
 import SolutionPlanet from "./SolutionPlanet";
 import talk from "../../images/talk.png";
+import { getDefaultNormalizer } from "@testing-library/react";
 
 const TalkIconWrapper = styled.div`
   position: relative;
@@ -79,13 +81,46 @@ function EmotionPlanet() {
     if (planetSnap.exists()) {
       const data = planetSnap.data();
       setName(data.name);
-      setPeople(data.people);
+      setPeople(data.visitors.length);
       const imageRef = ref(storage, data.image);
       getDownloadURL(imageRef).then((url) => setImage(url));
       setSolutionPlanetImage(data.solutionPlanet);
       setSolutionCollectionName(data.solution);
     }
   }
+
+  async function handleClick() {
+    await updateVisitorCount();
+    navigate("/SolutionPlanet", {
+      state: {
+        planetImage: solutionPlanetImage,
+        planetName: name,
+        solutionCollectionName: solutionCollectionName,
+      },
+    })
+  }
+
+
+
+  //visit count
+  const { currentUser } = useAuth();
+
+
+  async function updateVisitorCount() {
+  
+    const planetSnap = await getDoc(planetRef);
+    if (planetSnap.exists) {
+      const visitors = planetSnap.data().visitors;
+      if (!visitors.includes(currentUser.uid)) {
+        updateDoc(planetRef, {
+          visitors: arrayUnion(currentUser.uid),
+        })
+      }     
+    }
+  }
+
+  
+
 
   return (
     <>
@@ -130,21 +165,13 @@ function EmotionPlanet() {
                   <TextContainer>
                     You're on {name}
                     <br />
-                    Currently there are {people} other earthlings on this
-                    planet,
+                    Until now, {people} earthlings have visited this
+                    planet.
                     <br />
-                    who are experiencing the same emotion as you <br />
+                    They have experienced the same emotion as you <br />
                   </TextContainer>
                   <LightButton
-                    onClick={() =>
-                      navigate("/SolutionPlanet", {
-                        state: {
-                          planetImage: solutionPlanetImage,
-                          planetName: name,
-                          solutionCollectionName: solutionCollectionName,
-                        },
-                      })
-                    }
+                    onClick={() => handleClick()}
                   >
                     Explore the planet
                   </LightButton>
@@ -156,8 +183,8 @@ function EmotionPlanet() {
                   onClick={() => setCalculate(true)}
                   className="planet"
                 ></TalkIconWrapper>
-              </Wrapper>
-            )}
+              </Wrapper>)
+            }
           </WholePage>
         </motion.div>
       )}
