@@ -11,7 +11,7 @@ import { Title } from "../../../styles/authenticationPageStyles";
 
 export default function ViewProfile(props) {
   const { currentUser } = useAuth();
-  const { nickname, faculty, yearOfStudy, residence } = props.moreUserInfo;
+  const { nickname, faculty, yearOfStudy, residence, point } = props.moreUserInfo;
 
   return (
     <ProfileWrapper>
@@ -31,6 +31,9 @@ export default function ViewProfile(props) {
         </InfoRow>
         <InfoRow dark="true">
           <Item>Residence: </Item> {residence}
+        </InfoRow>
+        <InfoRow dark="true">
+          <Item>Point: </Item> {point}
         </InfoRow>
       </ProfileInfo>
     </ProfileWrapper>

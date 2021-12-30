@@ -27,6 +27,7 @@ export function AuthProvider({ children }) {
         setDoc(doc(db, "users", registeredUser.user.uid), {
           email: registeredUser.user.email,
           likedSolutions: [],
+          point: 0,
         })
     );
   }

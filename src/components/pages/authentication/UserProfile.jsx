@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import styled from "styled-components/macro";
 import { useAuth } from "../../context/AuthContext";
 import profile from "../../../images/unicorn.svg";
 import loadingIcon from "../../../gifs/loading-colorful.gif";
@@ -8,12 +7,10 @@ import { db, storage } from "../../../firebase";
 import ViewProfile from "./UpdateProfile";
 import UpdateProfile from "./ViewProfile";
 import DefaultProfilePhoto from "../../../images/unicorn.svg";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, query, collection, getDocs, where } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import background from "../../../backgrounds/profile-page-galaxy.mp4";
 import {
-  MainPageRight,
-  SubPageLeft,
   Input,
 } from "../../../styles/authenticationPageStyles";
 import {
@@ -30,6 +27,7 @@ import {
 } from "../../../styles/animatedStyles";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import "../../../styles/animations.css";
+import { getRoles } from "@testing-library/react";
 
 export default function UserProfile() {
   const [image, setImage] = useState();
@@ -45,12 +43,14 @@ export default function UserProfile() {
   const [faculty, setFaculty] = useState();
   const [yearOfStudy, setYearOfStudy] = useState();
   const [residence, setResidence] = useState();
+  const [point, setPoint] = useState();
   const userRef = doc(db, "users", currentUser.uid);
   const moreUserInfo = {
     nickname: nickname,
     faculty: faculty,
     yearOfStudy: yearOfStudy,
     residence: residence,
+    point: point,
   };
 
   async function getUser() {
@@ -62,8 +62,26 @@ export default function UserProfile() {
       setFaculty(data.faculty);
       setYearOfStudy(data.yearOfStudy);
       setResidence(data.residence);
+      const noOfRelics = await getRelicCount();
+      setPoint(100 + 10 * noOfRelics);
     }
   }
+
+  async function getRelicCount() {
+    //count = 0;
+    //iterate all items in relics, if approved == true and uid == currentUser.uid
+    //count++;
+    const q = query(
+      collection(db, "relics"),
+      where("user", "==", currentUser.uid),
+      where("approved", "==", true)
+    );
+    const relicsSnap = await getDocs(q);
+    const relics = [];
+    relicsSnap.forEach(snap=> relics.push(snap.data()));
+    return relics.length;
+  }
+
 
   useEffect(() => getUser(), [moreUserInfo]);
 
