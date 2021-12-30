@@ -14,6 +14,7 @@ export const RelicsContainer = styled(MainForm)`
   justify-content: flex-start;
   align-items: flex-start;
   height: 90%;
+  overflow: scroll;
 `;
 
 export const RelicContainer = styled.div`
@@ -28,8 +29,7 @@ export const RelicContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: ${({ isApproved }) =>
-    isApproved ? "palegreen" : "lightblue"};
+  background-color: thistle;
   opacity: 0.75;
 `;
 
@@ -38,22 +38,20 @@ export const RelicTitle = styled.h2`
   text-transform: uppercase;
   text-align: center;
   word-break: break-word;
-  width: 100%;
 `;
 
 export const RelicContentWrapper = styled(Wrapper)`
   background-image: url(${grids});
   background-color: #fffaf0;
   word-break: break-word;
-  // padding: 10px;
-  // padding-top: 30px;
+  padding: 10px;
+  padding-top: 30px;
   width: 90%;
-  height: 100%;
+  height: 70%;
   font-family: Perpetua;
   font-size: 110%;
   margin-bottom: 10px;
   overflow: auto;
-
   &::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
@@ -77,11 +75,11 @@ export const RelicInput = styled.textarea`
   outline: none;
   border: none;
   text-align: center;
-  width: 100%;
+  width: 99%;
   height: 100%;
   border: 1px solid transparent;
-  overflow: auto;
   overflow-x: hidden;
+  overflow-y: scroll;
   padding: 0;
   margin: 0;
   &::-webkit-scrollbar-track {
@@ -90,11 +88,11 @@ export const RelicInput = styled.textarea`
     background-color: #f5f5f5;
   }
   &::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
     background-color: #f5f5f5;
   }
   &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
+    border-radius: 5px;
     background: radial-gradient(
       circle,
       rgba(206, 250, 107, 1) 0%,
@@ -102,7 +100,8 @@ export const RelicInput = styled.textarea`
     );
   }
   background: transparent;
-  font-size: 120%;
+  resize: none;
+  font-size: 110%;
 `;
 
 /**for parchment display */
@@ -112,11 +111,12 @@ export const RelicsWrapper = styled.div`
   height: 80%;
   display: grid;
   align-items: center;
+  justify-content: center;
   grid-template-columns: repeat(3, 400px);
   grid-template-rows: repeat(1, 400px);
   background-color: transparent;
   padding: 5%;
-  grid-gap: 2%;
+  grid-gap: 5%;
 `;
 
 export const LeaveARelicButton = styled(Button)`
@@ -126,10 +126,11 @@ export const LeaveARelicButton = styled(Button)`
   width: 150px;
 `;
 
-export const NavigationButtons = styled(LinkContainer)`
+export const IconWrapper = styled(LinkContainer)`
+  justify-content: space-evenly;
+  width: ${({ width }) => (width ? width : "50%")};
   position: absolute;
-  bottom: 0;
-  right: 50%;
+  bottom: 3%;
 `;
 
 export const Parchment = styled(Wrapper)`
@@ -139,10 +140,9 @@ export const Parchment = styled(Wrapper)`
   background-position: center;
   background-size: contain;
   background-image: url(${parchment});
-  margin: 10px;
   overflow: auto;
   opacity: 0.7;
-  padding: 10%;
+  padding: 20%;
   width: 60%;
   height: 80%;
 `;
@@ -152,12 +152,17 @@ export const ParchmentTitle = styled.h2`
   text-transform: uppercase;
   text-align: center;
   word-break: break-word;
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 0;
+  position: absolute;
+  top: 5%;
 `;
 
-export const ParchmentContentWrapper = styled(Wrapper)`
+export const ParchmentContentWrapper = styled.div`
   word-break: break-word;
-  width: 60%;
-  font-size: 120%;
+  width: 95%;
+  font-size: 110%;
   font-family: Perpetua;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -167,7 +172,7 @@ export const ParchmentContentWrapper = styled(Wrapper)`
     background-color: transparent;
   }
   &::-webkit-scrollbar {
-    width: 3px;
+    width: 2px;
     background-color: transparent;
   }
   &::-webkit-scrollbar-thumb {

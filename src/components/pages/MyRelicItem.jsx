@@ -1,16 +1,20 @@
 import { getDoc, doc, updateDoc, arrayRemove } from "firebase/firestore";
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components/macro";
-import { IconButton, RoundButton, Button } from "../../styles/globalStyles";
+import {
+  Button,
+  ApprovedIcon,
+  EditIcon,
+  DeleteIcon,
+  ConfirmIcon,
+} from "../../styles/globalStyles";
 import { db } from "../../firebase";
-import { useAuth } from "../context/AuthContext";
-import { GroupInput, Title } from "../../styles/authenticationPageStyles";
-import { LinkContainer } from "../../styles/featurePageStyles";
 import {
   RelicInput,
-  RelicContainer,
-  RelicTitle,
-  RelicContentWrapper,
+  Parchment,
+  ParchmentContentWrapper,
+  ParchmentTitle,
+  IconWrapper,
 } from "../../styles/relicPageStyles";
 
 function MyRelicItem(props) {
@@ -72,34 +76,35 @@ function MyRelicItem(props) {
   return (
     <>
       {isEdit ? (
-        <RelicContainer>
-          <RelicTitle>
-            <RelicInput ref={titleRef} defaultValue={currentTitle} />
-          </RelicTitle>
-          <RelicContentWrapper>
-            <RelicInput ref={contentRef} defaultValue={currentContent} />
-          </RelicContentWrapper>
-          <Button disabled={loading} onClick={handleSubmit}>
-            Confirm
-          </Button>
-        </RelicContainer>
+        <Parchment>
+          <ParchmentTitle>
+            <RelicInput
+              style={{ overflow: "hidden" }}
+              ref={titleRef}
+              defaultValue={currentTitle}
+            />
+          </ParchmentTitle>
+          <RelicInput ref={contentRef} defaultValue={currentContent} />
+          <ConfirmIcon disabled={loading} onClick={handleSubmit} />
+        </Parchment>
       ) : (
-        <RelicContainer isApproved={isApproved}>
+        <Parchment>
           {relic ? (
             <>
-              <RelicTitle>{currentTitle}</RelicTitle>
-              <RelicContentWrapper>{currentContent}</RelicContentWrapper>
-              <LinkContainer>
-                <Button type="button" onClick={() => setIsEdit(true)}>
-                  Edit
-                </Button>
-                <Button type="button" onClick={handleRemove}>
-                  Remove
-                </Button>
-              </LinkContainer>
+              {isApproved ? <ApprovedIcon /> : null}
+              <ParchmentTitle>{currentTitle}</ParchmentTitle>
+              <ParchmentContentWrapper>
+                {currentContent}
+              </ParchmentContentWrapper>
+              {!isApproved ? (
+                <IconWrapper>
+                  <EditIcon onClick={() => setIsEdit(true)} />
+                  <DeleteIcon onClick={handleRemove} />
+                </IconWrapper>
+              ) : null}
             </>
           ) : null}
-        </RelicContainer>
+        </Parchment>
       )}
     </>
   );

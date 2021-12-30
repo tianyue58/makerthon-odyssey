@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  getDocs,
-  collection,
-  updateDoc,
-  arrayUnion,
-  doc,
-  arrayRemove,
-  getDoc,
-  where,
-  query,
-} from "firebase/firestore";
+import { getDocs, collection, where, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import background from "../../backgrounds/relic-page-background.mp4";
 import { containerVariants } from "../../styles/animatedStyles";
 import {
-  Button,
-  LightButton,
+  PreviousIcon,
+  NextIcon,
   PageBelowNavBar,
   VideoBackground,
 } from "../../styles/globalStyles";
@@ -28,7 +18,7 @@ import { LinkContainer } from "../../styles/featurePageStyles";
 import {
   RelicsWrapper,
   LeaveARelicButton,
-  NavigationButtons,
+  IconWrapper,
 } from "../../styles/relicPageStyles";
 
 function ViewRelics() {
@@ -86,18 +76,14 @@ function ViewRelics() {
       </VideoBackground>
       <PageBelowNavBar style={{ display: "flex", justifyContent: "center" }}>
         <RelicsWrapper>{displayedResult}</RelicsWrapper>
-        <NavigationButtons>
+        <IconWrapper width="25%">
           {currentPage > 0 && (
-            <LightButton onClick={() => setCurrentPage(currentPage - 1)}>
-              Prev
-            </LightButton>
+            <PreviousIcon onClick={() => setCurrentPage(currentPage - 1)} />
           )}
           {currentPage < maxPage - 1 && (
-            <LightButton onClick={() => setCurrentPage(currentPage + 1)}>
-              Next
-            </LightButton>
+            <NextIcon onClick={() => setCurrentPage(currentPage + 1)} />
           )}
-        </NavigationButtons>
+        </IconWrapper>
         <LeaveARelicButton
           onClick={() => navigate("/LeaveRelics", { state: currentPlanet })}
         >

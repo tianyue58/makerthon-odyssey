@@ -118,6 +118,7 @@ function LeaveRelics() {
               <RelicContainer>
                 <RelicTitle>
                   <RelicInput
+                    style={{ overflow: "hidden" }}
                     ref={titleRef}
                     placeholder="Give your solution a nice title..."
                   />

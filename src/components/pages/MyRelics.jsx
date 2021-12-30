@@ -4,11 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   getDocs,
   collection,
-  updateDoc,
-  arrayUnion,
   doc,
-  arrayRemove,
-  getDoc,
   query,
   where,
   deleteDoc,
@@ -20,17 +16,24 @@ import {
   containerVariants,
   refreshContainer,
 } from "../../styles/animatedStyles";
-import { PageBelowNavBar, VideoBackground } from "../../styles/globalStyles";
+import {
+  PageBelowNavBar,
+  VideoBackground,
+  PreviousIcon,
+  NextIcon,
+} from "../../styles/globalStyles";
 import "../../styles/animations.css";
 import { useAuth } from "../context/AuthContext";
-import { MainForm } from "../../styles/profilePageStyles";
 import MyRelicItem from "./MyRelicItem";
-import { RelicsContainer } from "../../styles/relicPageStyles";
+import { RelicsWrapper, IconWrapper } from "../../styles/relicPageStyles";
 
 function MyRelics() {
   const { currentUser } = useAuth();
   const [relics, setRelics] = useState();
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [maxPage, setMaxPage] = useState();
+  const [displayedResult, setDisplayedResult] = useState();
 
   async function loadUserRelics() {
     const q = query(
@@ -42,10 +45,33 @@ function MyRelics() {
     relicsSnap.forEach((relic) => {
       recordedRelics.push(relic.data());
     });
-    setRelics(recordedRelics);
+    const max = Math.ceil(recordedRelics.length / 3);
+    setMaxPage(max);
+
+    const displayedRelics = await Promise.all(
+      recordedRelics.map((relic, index) => {
+        return (
+          <MyRelicItem
+            relicObject={relic}
+            key={index}
+            onRemove={handleRemove}
+          />
+        );
+      })
+    );
+    setRelics(displayedRelics);
+    setDisplayedResult(displayedRelics.slice(0, 3));
   }
 
   useEffect(() => loadUserRelics(), []);
+
+  useEffect(() => displayedResult && handleRefresh(), [currentPage]);
+
+  const handleRefresh = () => {
+    const start = currentPage * 3;
+    const end = Math.min(currentPage * 3 + 3, relics.length);
+    relics && setDisplayedResult(relics.slice(start, end));
+  };
 
   async function handleRemove(target) {
     const filteredRelics = relics.filter((relic) => relic.id !== target);
@@ -53,14 +79,6 @@ function MyRelics() {
     navigate("/MyRelics", { state: "refresh" });
     await deleteDoc(doc(db, "relics", target));
   }
-
-  const displayedResult =
-    relics &&
-    relics.map((relic, index) => {
-      return (
-        <MyRelicItem relicObject={relic} key={index} onRemove={handleRemove} />
-      );
-    });
 
   return (
     <motion.div
@@ -73,8 +91,16 @@ function MyRelics() {
       <VideoBackground autoPlay muted loop playsInline>
         <source src={background} type="video/mp4" />
       </VideoBackground>
-      <PageBelowNavBar>
-        <RelicsContainer>{displayedResult}</RelicsContainer>
+      <PageBelowNavBar style={{ display: "flex", justifyContent: "center" }}>
+        <RelicsWrapper>{displayedResult}</RelicsWrapper>
+        <IconWrapper width="25%">
+          {currentPage > 0 && (
+            <PreviousIcon onClick={() => setCurrentPage(currentPage - 1)} />
+          )}
+          {currentPage < maxPage - 1 && (
+            <NextIcon onClick={() => setCurrentPage(currentPage + 1)} />
+          )}
+        </IconWrapper>
       </PageBelowNavBar>
     </motion.div>
   );
