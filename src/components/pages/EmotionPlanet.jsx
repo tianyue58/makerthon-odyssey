@@ -26,10 +26,7 @@ import letsTalk from "../../images/letsTalk.png";
 import backToPlanet from "../../images/backToPlanet.png";
 
 function EmotionPlanet() {
-  const [displayPlanet, setDisplayPlanet] = useState(false);
-
-  const [calculate, setCalculate] = useState(false);
-
+  const [playVideo, setPlayVideo] = useState(true);
   const location = useLocation();
 
   const [planetRef, setPlanetRef] = useState();
@@ -52,7 +49,7 @@ function EmotionPlanet() {
         whileTap={{ scale: 0.9 }}
         onClick={() =>
           navigate("/ChooseTalkingTips", {
-            state: { aboutWhom: aboutWhom, phase: phase },
+            state: { aboutWhom: aboutWhom, phase: phase, planet: name },
           })
         }
         themeColor={themeColor}
@@ -114,12 +111,12 @@ function EmotionPlanet() {
 
   return (
     <>
-      {!displayPlanet ? (
+      {playVideo ? (
         <VideoBackground
           autoPlay
           muted
           playsInline
-          onEnded={() => setDisplayPlanet(true)}
+          onEnded={() => setPlayVideo(false)}
         >
           <source src={travelling} type="video/mp4" />
         </VideoBackground>

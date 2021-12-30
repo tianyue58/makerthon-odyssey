@@ -27,20 +27,22 @@ import {
   BackIconWrapper,
 } from "../../styles/featurePageStyles";
 import seeOtherTips from "../../images/seeOtherTips.png";
+import backToPlanet from "../../images/backToPlanet.png";
 import "../../styles/animations.css";
 
 function ChooseTalkingTips() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [planet, setPlanet] = useState();
 
   const [tips, setTips] = useState();
   const [showTip, setShowTip] = useState(false);
   const [currentTip, setCurrentTip] = useState();
 
   async function getTalkingTips() {
-    const { aboutWhom, phase } = location.state;
+    const { aboutWhom, phase, planet } = location.state;
+    setPlanet(planet.replace(/\s+/g, ""));
     const collectionName = aboutWhom + "_" + phase;
-    console.log(collectionName);
     const tipsSnap = await getDocs(collection(db, collectionName));
     const tipsArray = [];
     tipsSnap.forEach((tip) => tipsArray.push(tip.data()));
@@ -104,16 +106,6 @@ function ChooseTalkingTips() {
               >
                 {currentTip.content}
               </SolutionTextWrapper>
-              <LightButton
-                as={motion.div}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 2 }}
-                onClick={() => navigate("/")}
-                buttonmargin="50px"
-              >
-                Got it!
-              </LightButton>
               <BackIconWrapper
                 as={motion.div}
                 initial={{ opacity: 0 }}
@@ -155,6 +147,15 @@ function ChooseTalkingTips() {
             <PlanetSolutionsWrapper style={{ marginLeft: "10%" }}>
               {displayedResult}
             </PlanetSolutionsWrapper>
+            <BackIconWrapper
+              style={{
+                backgroundImage: `url('${backToPlanet}')`,
+                bottom: "10%",
+                left: 0,
+              }}
+              onClick={() => navigate("/EmotionPlanet", { state: planet })}
+              className="planet"
+            ></BackIconWrapper>
           </Wrapper>
         )}
       </PageBelowNavBar>

@@ -151,6 +151,6 @@ export const BackIconWrapper = styled.div`
   background-size: contain;
   width: 14%;
   height: 14%;
-  bottom: 20%;
-  left: 5%;
+  bottom: ${({ bottom }) => (bottom ? bottom : "20%")};
+  left: ${({ left }) => (left ? left : "5%")};
 `;
