@@ -14,7 +14,6 @@ import { db } from "../../firebase";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { containerVariants } from "../../styles/animatedStyles";
 import "../../styles/animations.css";
-import "../../styles/animations.css";
 import bubble from "../../images/talkingTips/bubble.png";
 import { PageBelowNavBar } from "../../styles/globalStyles";
 import { Title } from "../../styles/authenticationPageStyles";
@@ -25,7 +24,10 @@ import {
   SolutionContentWrapper,
   SolutionTextWrapper,
   SampleWrapper,
+  BackIconWrapper,
 } from "../../styles/featurePageStyles";
+import seeOtherTips from "../../images/seeOtherTips.png";
+import "../../styles/animations.css";
 
 function ChooseTalkingTips() {
   const navigate = useNavigate();
@@ -112,16 +114,17 @@ function ChooseTalkingTips() {
               >
                 Got it!
               </LightButton>
-              <LightButton
+              <BackIconWrapper
                 as={motion.div}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 2 }}
-                buttonwidth="150px"
+                style={{
+                  backgroundImage: `url('${seeOtherTips}')`,
+                }}
                 onClick={() => setShowTip(false)}
-              >
-                See other tips
-              </LightButton>
+                className="planet"
+              />
             </SolutionContentWrapper>
             <PlanetWrapper
               style={{

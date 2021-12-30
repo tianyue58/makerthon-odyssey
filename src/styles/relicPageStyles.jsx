@@ -13,7 +13,6 @@ export const RelicsContainer = styled(MainForm)`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  overflow: auto;
   height: 90%;
 `;
 
@@ -46,15 +45,15 @@ export const RelicContentWrapper = styled(Wrapper)`
   background-image: url(${grids});
   background-color: #fffaf0;
   word-break: break-word;
-  padding: 10px;
-  padding-top: 30px;
+  // padding: 10px;
+  // padding-top: 30px;
   width: 90%;
   height: 100%;
   font-family: Perpetua;
-  font-size: 120%;
+  font-size: 110%;
   margin-bottom: 10px;
   overflow: auto;
-  overflow-x: hidden;
+
   &::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
@@ -141,9 +140,11 @@ export const Parchment = styled(Wrapper)`
   background-size: contain;
   background-image: url(${parchment});
   margin: 10px;
-  overflow: hidden;
+  overflow: auto;
   opacity: 0.7;
   padding: 10%;
+  width: 60%;
+  height: 80%;
 `;
 
 export const ParchmentTitle = styled.h2`
@@ -156,7 +157,6 @@ export const ParchmentTitle = styled.h2`
 export const ParchmentContentWrapper = styled(Wrapper)`
   word-break: break-word;
   width: 60%;
-  height: 90%;
   font-size: 120%;
   font-family: Perpetua;
   overflow-y: scroll;
