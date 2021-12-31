@@ -10,12 +10,14 @@ import {
 } from "../../styles/globalStyles";
 import { db } from "../../firebase";
 import {
-  RelicInput,
+  RelicContentInput,
+  RelicTitleInput,
   Parchment,
   ParchmentContentWrapper,
   ParchmentTitle,
   IconWrapper,
 } from "../../styles/relicPageStyles";
+import { BsArrowReturnLeft } from "react-icons/bs";
 
 function MyRelicItem(props) {
   const id = props.relicObject.id;
@@ -28,6 +30,7 @@ function MyRelicItem(props) {
   const titleRef = useRef();
   const contentRef = useRef();
   const [loading, setLoading] = useState(false);
+  const [isExceedingLimit, setIsExceedingLimit] = useState(false);
 
   async function loadRelic() {
     const relicSnap = await getDoc(relicRef);
@@ -42,8 +45,7 @@ function MyRelicItem(props) {
 
   const handleRemove = () => props.onRemove(id);
 
-  async function handleUpdate(info) {
-    const { newTitle, newContent } = info;
+  async function handleUpdate(newTitle, newContent) {
     if (newTitle) {
       await updateDoc(relicRef, { title: newTitle });
       setCurrentTitle(newTitle);
@@ -57,15 +59,18 @@ function MyRelicItem(props) {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    const currentTitle = titleRef.current.value;
+    const currentContent = contentRef.current.value;
+
+    if (currentTitle.length > 60) {
+      alert("Please limit your title within 60 characters!");
+      return;
+    }
+
     const promises = [];
     setLoading(true);
 
-    const info = {
-      newTitle: titleRef.current.value,
-      newContent: contentRef.current.value,
-    };
-
-    promises.push(handleUpdate(info));
+    promises.push(handleUpdate(currentTitle, currentContent));
 
     Promise.all(promises).then(() => {
       setLoading(false);
@@ -73,18 +78,25 @@ function MyRelicItem(props) {
     });
   }
 
+  const handleWordCount = (e) => {
+    if (e.target.value.length == 60) setIsExceedingLimit(true);
+    else setIsExceedingLimit(false);
+  };
+
   return (
     <>
       {isEdit ? (
         <Parchment>
           <ParchmentTitle>
-            <RelicInput
-              style={{ overflow: "hidden" }}
+            <RelicTitleInput
               ref={titleRef}
               defaultValue={currentTitle}
+              maxLength={60}
+              warning={isExceedingLimit}
+              onChange={(e) => handleWordCount(e)}
             />
           </ParchmentTitle>
-          <RelicInput ref={contentRef} defaultValue={currentContent} />
+          <RelicContentInput ref={contentRef} defaultValue={currentContent} />
           <ConfirmIcon disabled={loading} onClick={handleSubmit} />
         </Parchment>
       ) : (

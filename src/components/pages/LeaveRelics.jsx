@@ -7,7 +7,7 @@ import {
   addDoc,
   collection,
 } from "firebase/firestore";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import {
@@ -31,7 +31,8 @@ import {
 import { LinkContainer, TextContainer } from "../../styles/featurePageStyles";
 import { Wrapper } from "../../styles/globalStyles";
 import {
-  RelicInput,
+  RelicTitleInput,
+  RelicContentInput,
   RelicContainer,
   RelicTitle,
   RelicContentWrapper,
@@ -52,6 +53,13 @@ const PageRight = styled(MainPageRight)`
   opacity: 1;
 `;
 
+const RelicTitleInputLarge = styled(RelicTitleInput)`
+  max-height: 10%;
+  width: 80%;
+  margin: 2%;
+  font-size: 150%;
+`;
+
 function LeaveRelics() {
   const location = useLocation();
   const titleRef = useRef();
@@ -60,6 +68,7 @@ function LeaveRelics() {
   const { currentUser } = useAuth();
   const [isSuccess, setIsSuccess] = useState();
   const planet = location.state;
+  const [isExceedingLimit, setIsExceedingLimit] = useState(false);
 
   async function handleUpload(title, content) {
     const docRef = await addDoc(collection(db, "relics"), {
@@ -75,12 +84,19 @@ function LeaveRelics() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    const currentTitle = titleRef.current.value;
+    const currentContent = contentRef.current.value;
+
+    if (currentTitle.length > 60) {
+      alert("Please limit your title within 60 characters!");
+      return;
+    }
+
     setLoading(true);
     const promises = [];
 
-    promises.push(
-      handleUpload(titleRef.current.value, contentRef.current.value)
-    );
+    promises.push(handleUpload(currentTitle, currentContent));
 
     Promise.all(promises)
       .catch((e) => {
@@ -91,6 +107,11 @@ function LeaveRelics() {
         setLoading(false);
       });
   }
+
+  const handleWordCount = (e) => {
+    if (e.target.value.length == 60) setIsExceedingLimit(true);
+    else setIsExceedingLimit(false);
+  };
 
   return (
     <motion.div
@@ -116,15 +137,16 @@ function LeaveRelics() {
             </PageLeft>
             <PageRight>
               <RelicContainer>
-                <RelicTitle>
-                  <RelicInput
-                    style={{ overflow: "hidden" }}
-                    ref={titleRef}
-                    placeholder="Give your solution a nice title..."
-                  />
-                </RelicTitle>
+                <RelicTitleInputLarge
+                  ref={titleRef}
+                  placeholder="Give your solution a nice title..."
+                  maxLength={60}
+                  warning={isExceedingLimit}
+                  onChange={(e) => handleWordCount(e)}
+                />
+
                 <RelicContentWrapper>
-                  <RelicInput
+                  <RelicContentInput
                     ref={contentRef}
                     placeholder="Briefly illustrate your solution here..."
                   />

@@ -71,10 +71,9 @@ export const RelicContentWrapper = styled(Wrapper)`
   }
 `;
 
-export const RelicInput = styled.textarea`
+export const RelicContentInput = styled.textarea`
   outline: none;
   border: none;
-  text-align: center;
   width: 99%;
   height: 100%;
   border: 1px solid transparent;
@@ -102,6 +101,22 @@ export const RelicInput = styled.textarea`
   background: transparent;
   resize: none;
   font-size: 110%;
+`;
+
+export const RelicTitleInput = styled.textarea`
+  outline: none;
+  border: 1px solid;
+  border-color: ${({ warning }) => (warning ? "red" : "green")};
+  border-radius: 0.5rem;
+  width: 99%;
+  height: 100%;
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  resize: none;
+  font-size: 110%;
+  max-height: 5%;
 `;
 
 /**for parchment display */
@@ -147,7 +162,7 @@ export const Parchment = styled(Wrapper)`
   height: 80%;
 `;
 
-export const ParchmentTitle = styled.h2`
+export const ParchmentTitle = styled.div`
   font-family: Lucida Bright;
   text-transform: uppercase;
   text-align: center;
@@ -157,11 +172,13 @@ export const ParchmentTitle = styled.h2`
   padding: 0;
   position: absolute;
   top: 5%;
+  text-size-adjust: auto;
+  max-height: 5%;
+  width: 70%;
 `;
 
 export const ParchmentContentWrapper = styled.div`
   word-break: break-word;
-  width: 95%;
   font-size: 110%;
   font-family: Perpetua;
   overflow-y: scroll;
