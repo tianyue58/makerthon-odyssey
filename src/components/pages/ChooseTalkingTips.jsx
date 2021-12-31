@@ -14,7 +14,7 @@ import { db } from "../../firebase";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { containerVariants } from "../../styles/animatedStyles";
 import "../../styles/animations.css";
-import bubble from "../../images/talkingTips/bubble.png";
+import bubble from "../../images/bubble.png";
 import { PageBelowNavBar } from "../../styles/globalStyles";
 import { Title } from "../../styles/authenticationPageStyles";
 import TalkingTipIcon from "./TalkingTipIcon";
