@@ -17,7 +17,6 @@ import {
   ParchmentTitle,
   IconWrapper,
 } from "../../styles/relicPageStyles";
-import { BsArrowReturnLeft } from "react-icons/bs";
 
 function MyRelicItem(props) {
   const id = props.relicObject.id;
@@ -62,8 +61,8 @@ function MyRelicItem(props) {
     const currentTitle = titleRef.current.value;
     const currentContent = contentRef.current.value;
 
-    if (currentTitle.length > 60) {
-      alert("Please limit your title within 60 characters!");
+    if (currentTitle.length == 0 || currentContent.length == 0) {
+      alert("Title/Content should not be blank");
       return;
     }
 

@@ -13,20 +13,8 @@ import {
 import { db } from "../../firebase";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import background from "../../backgrounds/emotion-planet-galaxy.mp4";
-import {
-  containerVariants,
-  refreshContainer,
-} from "../../styles/animatedStyles";
-import {
-  Button,
-  LightButton,
-  PageBelowNavBar,
-  VideoBackground,
-  Wrapper,
-  IconButton,
-  LikeIcon,
-  IconButtonContainer,
-} from "../../styles/globalStyles";
+import { containerVariants } from "../../styles/animatedStyles";
+import { PageBelowNavBar, VideoBackground } from "../../styles/globalStyles";
 import "../../styles/animations.css";
 import { useAuth } from "../context/AuthContext";
 import SolutionItem from "./SolutionItem";
@@ -58,7 +46,7 @@ function MyCollections() {
       (solution) => solution.name !== solutionObject.name
     );
     setCollections(filteredCollection);
-    navigate("/MyCollections", { state: "refresh" });
+    navigate("/MyCollections");
     updateDoc(solutionRef, {
       likes: arrayRemove(currentUser.uid),
     }).then(
@@ -83,9 +71,7 @@ function MyCollections() {
   return (
     <motion.div
       className="page"
-      variants={
-        location.state === "refresh" ? refreshContainer : containerVariants
-      }
+      variants={containerVariants}
       initial="hidden"
       animate="visible"
     >

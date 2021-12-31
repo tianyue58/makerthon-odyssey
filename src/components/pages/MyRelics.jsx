@@ -74,9 +74,10 @@ function MyRelics() {
   };
 
   async function handleRemove(target) {
-    const filteredRelics = relics.filter((relic) => relic.id !== target);
+    const filteredRelics =
+      relics && relics.filter((relic) => relic.id !== target);
     setRelics(filteredRelics);
-    navigate("/MyRelics", { state: "refresh" });
+    navigate("/MyRelics");
     await deleteDoc(doc(db, "relics", target));
   }
 

@@ -163,7 +163,9 @@ export const Parchment = styled(Wrapper)`
 `;
 
 export const ParchmentTitle = styled.div`
-  font-family: Lucida Bright;
+  font-family: Comic Sans MS;
+  color: brown;
+  font-weight: bold;
   text-transform: uppercase;
   text-align: center;
   word-break: break-word;

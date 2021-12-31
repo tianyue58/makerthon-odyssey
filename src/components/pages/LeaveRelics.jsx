@@ -7,8 +7,8 @@ import {
   addDoc,
   collection,
 } from "firebase/firestore";
-import React, { useState, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import {
   IconButton,
@@ -16,6 +16,7 @@ import {
   Button,
   VideoBackground,
   PageBelowNavBar,
+  LightButton,
 } from "../../styles/globalStyles";
 import { containerVariants } from "../../styles/animatedStyles";
 import { db } from "../../firebase";
@@ -38,6 +39,7 @@ import {
   RelicContentWrapper,
 } from "../../styles/relicPageStyles";
 import PopupNotification from "../PopupNotification";
+import { GiConsoleController } from "react-icons/gi";
 
 const PageLeft = styled(SubPageLeft)`
   left: 5%;
@@ -60,8 +62,17 @@ const RelicTitleInputLarge = styled(RelicTitleInput)`
   font-size: 150%;
 `;
 
+const BackButton = styled(LightButton)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  width: 80px;
+`;
+
 function LeaveRelics() {
   const location = useLocation();
+  const navigate = useNavigate();
   const titleRef = useRef();
   const contentRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -88,8 +99,8 @@ function LeaveRelics() {
     const currentTitle = titleRef.current.value;
     const currentContent = contentRef.current.value;
 
-    if (currentTitle.length > 60) {
-      alert("Please limit your title within 60 characters!");
+    if (currentTitle.length == 0 || currentContent.length == 0) {
+      alert("Title/Content should not be blank");
       return;
     }
 
@@ -130,6 +141,11 @@ function LeaveRelics() {
         ) : (
           <>
             <PageLeft>
+              <BackButton
+                onClick={() => navigate("/ViewRelics", { state: planet })}
+              >
+                Back
+              </BackButton>
               <TextContainer style={{ color: "Gold" }}>
                 People appreciate and never forget that helping hand especially
                 when times are tough...

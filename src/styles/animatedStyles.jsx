@@ -115,16 +115,6 @@ export const containerVariants = {
   },
 };
 
-export const refreshContainer = {
-  hidden: {
-    opacity: 0.5,
-  },
-  visible: {
-    opacity: 1,
-    transition: { duration: 2 },
-  },
-};
-
 export const AnimatedSelectionButton = (label, selection) => {
   return (
     <SelectedLightButton
