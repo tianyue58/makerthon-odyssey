@@ -149,10 +149,10 @@ function TipsState() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 2 }}
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/Tips")}
               buttonmargin="50px"
             >
-              Got it!
+              See other tips
             </LightButton>
           </SolutionContentWrapper>
           <PlanetWrapper

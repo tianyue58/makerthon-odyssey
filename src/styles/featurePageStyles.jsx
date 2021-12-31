@@ -61,14 +61,12 @@ export const GridItem = styled.div`
 `;
 
 export const GridItem2 = styled.div`
-  width: 80%;
-  height: 80%;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: transparent;
   border: none;
-  padding: 10px;
 `;
 
 export const PlanetWrapper = styled.div`
