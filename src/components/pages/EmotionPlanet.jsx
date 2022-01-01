@@ -9,7 +9,11 @@ import {
   WholePage,
   Wrapper,
 } from "../../styles/globalStyles";
-import { TextContainer, LinkContainer } from "../../styles/featurePageStyles";
+import {
+  TextContainer,
+  LinkContainer,
+  TalkIconWrapper,
+} from "../../styles/featurePageStyles";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { containerVariants } from "../../styles/animatedStyles";
 import "../../styles/animations.css";
@@ -18,31 +22,11 @@ import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { ProfilePhoto } from "../../styles/profilePageStyles";
 import { useAuth } from "../context/AuthContext";
-import SolutionPlanet from "./SolutionPlanet";
 import letsTalk from "../../images/letsTalk.png";
 import backToPlanet from "../../images/backToPlanet.png";
 
-
-const TalkIconWrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  bottom: -36%;
-  left: 1%;
-  width: 14%;
-  height: 14%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-`;
-
 function EmotionPlanet() {
-  const [displayPlanet, setDisplayPlanet] = useState(false);
-
-  const [calculate, setCalculate] = useState(false);
-
+  const [playVideo, setPlayVideo] = useState(false);
   const location = useLocation();
 
   const [planetRef, setPlanetRef] = useState();
@@ -65,7 +49,7 @@ function EmotionPlanet() {
         whileTap={{ scale: 0.9 }}
         onClick={() =>
           navigate("/ChooseTalkingTips", {
-            state: { aboutWhom: aboutWhom, phase: phase },
+            state: { aboutWhom: aboutWhom, phase: phase, planet: name },
           })
         }
         themeColor={themeColor}
@@ -76,7 +60,9 @@ function EmotionPlanet() {
   };
 
   useEffect(() => {
-    const currentPlanet = location.state;
+    const currentPlanet = location.state.substring(0, 11);
+    console.log(currentPlanet);
+    if (location.state.length > 11) setPlayVideo(true);
     setPlanetRef(doc(db, "planets", currentPlanet));
     if (
       currentPlanet === "Asteroid 325" ||
@@ -110,30 +96,29 @@ function EmotionPlanet() {
         planetName: name,
         solutionCollectionName: solutionCollectionName,
       },
-    })
+    });
   }
 
   async function updateVisitorCount() {
-  
     const planetSnap = await getDoc(planetRef);
     if (planetSnap.exists) {
       const visitors = planetSnap.data().visitors;
       if (!visitors.includes(currentUser.uid)) {
         updateDoc(planetRef, {
           visitors: arrayUnion(currentUser.uid),
-        })
-      }     
+        });
+      }
     }
   }
 
   return (
     <>
-      {!displayPlanet ? (
+      {playVideo ? (
         <VideoBackground
           autoPlay
           muted
           playsInline
-          onEnded={() => setDisplayPlanet(true)}
+          onEnded={() => setPlayVideo(false)}
         >
           <source src={travelling} type="video/mp4" />
         </VideoBackground>
@@ -178,14 +163,11 @@ function EmotionPlanet() {
                   <TextContainer>
                     You're on {name}
                     <br />
-                    Until now, {people} earthlings have visited this
-                    planet.
+                    Until now, {people} earthlings have visited this planet.
                     <br />
                     They have experienced the same emotion as you <br />
                   </TextContainer>
-                  <LightButton
-                    onClick={() => handleClick()}
-                  >
+                  <LightButton onClick={() => handleClick()}>
                     Explore the planet
                   </LightButton>
                 </Wrapper>
@@ -200,7 +182,6 @@ function EmotionPlanet() {
                 className="planet"
               ></TalkIconWrapper>
             </Wrapper>
-
           </WholePage>
         </motion.div>
       )}

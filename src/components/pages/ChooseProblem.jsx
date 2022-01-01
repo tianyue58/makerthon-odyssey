@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import background from "../../backgrounds/choose-page-galaxy.mp4";
-import styled from "styled-components/macro";
 import {
   VideoBackground,
   WholePage,
-  LightButton,
   Wrapper,
   Button,
 } from "../../styles/globalStyles";
@@ -13,7 +11,6 @@ import {
   TextContainer,
   LinkContainer,
   NavigationButtonContainer,
-  SelectedLightButton,
 } from "../../styles/featurePageStyles";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import {
@@ -51,16 +48,16 @@ function ChooseProblem() {
   const calculateDestination = (event) => {
     if (aboutMyself) {
       if (event === "School")
-        navigate("/EmotionPlanet", { state: "Asteroid325" });
+        navigate("/EmotionPlanet", { state: "Asteroid325-travel" });
       else if (event === "Work/Internship")
-        navigate("/EmotionPlanet", { state: "Asteroid326" });
-      else navigate("/EmotionPlanet", { state: "Asteroid327" });
+        navigate("/EmotionPlanet", { state: "Asteroid326-travel" });
+      else navigate("/EmotionPlanet", { state: "Asteroid327-travel" });
     } else {
       if (event === "School")
-        navigate("/EmotionPlanet", { state: "Asteroid328" });
+        navigate("/EmotionPlanet", { state: "Asteroid328-travel" });
       else if (event === "Work/Internship")
-        navigate("/EmotionPlanet", { state: "Asteroid329" });
-      else navigate("/EmotionPlanet", { state: "Asteroid330" });
+        navigate("/EmotionPlanet", { state: "Asteroid329-travel" });
+      else navigate("/EmotionPlanet", { state: "Asteroid330-travel" });
     }
   };
 

@@ -1,6 +1,5 @@
 import styled from "styled-components/macro";
 import { LightButton } from "./globalStyles";
-import magicBox from "../gifs/magic-box.gif";
 
 export const TextContainer = styled.div`
   display: flex;
@@ -61,14 +60,12 @@ export const GridItem = styled.div`
 `;
 
 export const GridItem2 = styled.div`
-  width: 80%;
-  height: 80%;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: transparent;
   border: none;
-  padding: 10px;
 `;
 
 export const PlanetWrapper = styled.div`
@@ -121,10 +118,35 @@ export const BoxWrapper = styled.button`
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  background-image: url(${magicBox});
 `;
 
 export const SampleWrapper = styled.div`
   width: 75%;
   font-size: 2em;
+`;
+
+export const TalkIconWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  bottom: -36%;
+  left: 1%;
+  width: 14%;
+  height: 14%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+`;
+
+export const BackIconWrapper = styled.div`
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 14%;
+  height: 14%;
+  bottom: ${({ bottom }) => (bottom ? bottom : "20%")};
+  left: ${({ left }) => (left ? left : "5%")};
 `;

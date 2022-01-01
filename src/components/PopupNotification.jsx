@@ -5,7 +5,6 @@ import "../styles/popupNotification.css";
 function PopupNotification(props) {
   const isSuccess = props.status;
   const navigate = useNavigate();
-  const backPlanet = props.planet.split(" ").join("");
 
   return (
     <div id="container">
@@ -29,10 +28,10 @@ function PopupNotification(props) {
           </div>
           <button
             class="button-box"
-            onClick={() => navigate("/EmotionPlanet", { state: backPlanet })}
+            onClick={() => navigate("/ViewRelics", { state: props.planet })}
           >
             <h1 class="heading" style={{ color: "darkgreen" }}>
-              Back to Planet
+              Back to View Relics
             </h1>
           </button>
         </div>

@@ -23,6 +23,7 @@ import TipsToStayHealthy from "./components/pages/TipsToStayHealthy";
 import Tips from "./components/pages/Tips";
 import TipsState from "./components/pages/TipsState";
 import ChooseTalkingTips from "./components/pages/ChooseTalkingTips";
+import ViewResources from "./components/pages/ViewResources";
 
 function App() {
   const [currentPath, setCurrentPath] = useState();
@@ -153,6 +154,14 @@ function App() {
             element={
               <PrivateRoute>
                 <MyRelics />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ViewResources"
+            element={
+              <PrivateRoute>
+                <ViewResources />
               </PrivateRoute>
             }
           />

@@ -1,16 +1,21 @@
 import { getDoc, doc, updateDoc, arrayRemove } from "firebase/firestore";
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components/macro";
-import { IconButton, RoundButton, Button } from "../../styles/globalStyles";
-import { db } from "../../firebase";
-import { useAuth } from "../context/AuthContext";
-import { GroupInput, Title } from "../../styles/authenticationPageStyles";
-import { LinkContainer } from "../../styles/featurePageStyles";
 import {
-  RelicInput,
-  RelicContainer,
-  RelicTitle,
-  RelicContentWrapper,
+  Button,
+  ApprovedIcon,
+  EditIcon,
+  DeleteIcon,
+  ConfirmIcon,
+} from "../../styles/globalStyles";
+import { db } from "../../firebase";
+import {
+  RelicContentInput,
+  RelicTitleInput,
+  Parchment,
+  ParchmentContentWrapper,
+  ParchmentTitle,
+  IconWrapper,
 } from "../../styles/relicPageStyles";
 
 function MyRelicItem(props) {
@@ -24,6 +29,7 @@ function MyRelicItem(props) {
   const titleRef = useRef();
   const contentRef = useRef();
   const [loading, setLoading] = useState(false);
+  const [isExceedingLimit, setIsExceedingLimit] = useState(false);
 
   async function loadRelic() {
     const relicSnap = await getDoc(relicRef);
@@ -38,8 +44,7 @@ function MyRelicItem(props) {
 
   const handleRemove = () => props.onRemove(id);
 
-  async function handleUpdate(info) {
-    const { newTitle, newContent } = info;
+  async function handleUpdate(newTitle, newContent) {
     if (newTitle) {
       await updateDoc(relicRef, { title: newTitle });
       setCurrentTitle(newTitle);
@@ -53,15 +58,18 @@ function MyRelicItem(props) {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    const currentTitle = titleRef.current.value;
+    const currentContent = contentRef.current.value;
+
+    if (currentTitle.length == 0 || currentContent.length == 0) {
+      alert("Title/Content should not be blank");
+      return;
+    }
+
     const promises = [];
     setLoading(true);
 
-    const info = {
-      newTitle: titleRef.current.value,
-      newContent: contentRef.current.value,
-    };
-
-    promises.push(handleUpdate(info));
+    promises.push(handleUpdate(currentTitle, currentContent));
 
     Promise.all(promises).then(() => {
       setLoading(false);
@@ -69,37 +77,45 @@ function MyRelicItem(props) {
     });
   }
 
+  const handleWordCount = (e) => {
+    if (e.target.value.length == 60) setIsExceedingLimit(true);
+    else setIsExceedingLimit(false);
+  };
+
   return (
     <>
       {isEdit ? (
-        <RelicContainer>
-          <RelicTitle>
-            <RelicInput ref={titleRef} defaultValue={currentTitle} />
-          </RelicTitle>
-          <RelicContentWrapper>
-            <RelicInput ref={contentRef} defaultValue={currentContent} />
-          </RelicContentWrapper>
-          <Button disabled={loading} onClick={handleSubmit}>
-            Confirm
-          </Button>
-        </RelicContainer>
+        <Parchment>
+          <ParchmentTitle>
+            <RelicTitleInput
+              ref={titleRef}
+              defaultValue={currentTitle}
+              maxLength={60}
+              warning={isExceedingLimit}
+              onChange={(e) => handleWordCount(e)}
+            />
+          </ParchmentTitle>
+          <RelicContentInput ref={contentRef} defaultValue={currentContent} />
+          <ConfirmIcon disabled={loading} onClick={handleSubmit} />
+        </Parchment>
       ) : (
-        <RelicContainer isApproved={isApproved}>
+        <Parchment>
           {relic ? (
             <>
-              <RelicTitle>{currentTitle}</RelicTitle>
-              <RelicContentWrapper>{currentContent}</RelicContentWrapper>
-              <LinkContainer>
-                <Button type="button" onClick={() => setIsEdit(true)}>
-                  Edit
-                </Button>
-                <Button type="button" onClick={handleRemove}>
-                  Remove
-                </Button>
-              </LinkContainer>
+              {isApproved ? <ApprovedIcon /> : null}
+              <ParchmentTitle>{currentTitle}</ParchmentTitle>
+              <ParchmentContentWrapper>
+                {currentContent}
+              </ParchmentContentWrapper>
+              {!isApproved ? (
+                <IconWrapper>
+                  <EditIcon onClick={() => setIsEdit(true)} />
+                  <DeleteIcon onClick={handleRemove} />
+                </IconWrapper>
+              ) : null}
             </>
           ) : null}
-        </RelicContainer>
+        </Parchment>
       )}
     </>
   );

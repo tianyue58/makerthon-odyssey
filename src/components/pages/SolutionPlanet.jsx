@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components/macro";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   getDocs,
   collection,
@@ -11,7 +10,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { motion } from "framer-motion/dist/framer-motion";
+import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import background from "../../backgrounds/emotion-planet-galaxy.mp4";
 import { containerVariants } from "../../styles/animatedStyles";
 import {
@@ -23,13 +22,13 @@ import {
   IconButtonContainer,
 } from "../../styles/globalStyles";
 import SolutionIcon from "./SolutionIcon";
-import {
-  MainPageLeft,
-  SubPageRight,
-  Title,
-} from "../../styles/authenticationPageStyles";
+import { Title } from "../../styles/authenticationPageStyles";
 import "../../styles/animations.css";
 import { useAuth } from "../context/AuthContext";
+import { BackIconWrapper } from "../../styles/featurePageStyles";
+import backToPlanet from "../../images/backToPlanet.png";
+import magicBox from "../../gifs/magic-box.gif";
+import staticBox from "../../images/magic-box-static.png";
 
 import {
   PlanetSolutionsWrapper,
@@ -61,10 +60,6 @@ function SolutionPlanet() {
     const solutionsSnap = await getDocs(collection(db, solutionCollectionName));
     const solutionArray = [];
     solutionsSnap.forEach((solution) => solutionArray.push(solution.data()));
-    // solutionsSnap.forEach((solution) => {
-    //   const currentSolutionRef = doc(db, solutionCollectionName, solution.id);
-    //   updateDoc(currentSolutionRef, { likes: [], id: solution.id });
-    // });
     setSolutions(solutionArray);
   }
 
@@ -189,6 +184,14 @@ function SolutionPlanet() {
               }}
             >
               <PlanetSolutionsWrapper>{displayedResult}</PlanetSolutionsWrapper>
+              <BoxWrapper
+                as={motion.button}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 2 }}
+                onClick={() => navigate("/ViewRelics", { state: planetName })}
+                style={{ backgroundImage: `url('${staticBox}')` }}
+              />
             </PlanetWrapper>
           </Wrapper>
         ) : (
@@ -205,10 +208,24 @@ function SolutionPlanet() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 2 }}
                 onClick={() => navigate("/ViewRelics", { state: planetName })}
+                style={{ backgroundImage: `url('${magicBox}')` }}
               />
             </PlanetWrapper>
           </Wrapper>
         )}
+        <BackIconWrapper
+          style={{
+            backgroundImage: `url('${backToPlanet}')`,
+            bottom: "10%",
+            left: 0,
+          }}
+          onClick={() =>
+            navigate("/EmotionPlanet", {
+              state: planetName.replace(/\s+/g, ""),
+            })
+          }
+          className="planet"
+        />
       </PageBelowNavBar>
     </motion.div>
   );

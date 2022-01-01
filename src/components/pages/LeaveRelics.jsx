@@ -1,18 +1,9 @@
 import background from "../../backgrounds/lightbulb-background.mp4";
-import {
-  getDoc,
-  doc,
-  updateDoc,
-  arrayRemove,
-  addDoc,
-  collection,
-} from "firebase/firestore";
-import React, { useEffect, useState, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { updateDoc, addDoc, collection } from "firebase/firestore";
+import React, { useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import {
-  IconButton,
-  RoundButton,
   Button,
   VideoBackground,
   PageBelowNavBar,
@@ -22,19 +13,17 @@ import { db } from "../../firebase";
 import { useAuth } from "../context/AuthContext";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import {
-  GroupInput,
   MainPageRight,
-  MessageBlock,
   SubPageLeft,
-  Title,
 } from "../../styles/authenticationPageStyles";
-import { LinkContainer, TextContainer } from "../../styles/featurePageStyles";
-import { Wrapper } from "../../styles/globalStyles";
+import { TextContainer } from "../../styles/featurePageStyles";
+
 import {
-  RelicInput,
+  RelicTitleInput,
+  RelicContentInput,
   RelicContainer,
-  RelicTitle,
   RelicContentWrapper,
+  BackButton,
 } from "../../styles/relicPageStyles";
 import PopupNotification from "../PopupNotification";
 
@@ -52,14 +41,23 @@ const PageRight = styled(MainPageRight)`
   opacity: 1;
 `;
 
+const RelicTitleInputLarge = styled(RelicTitleInput)`
+  max-height: 10%;
+  width: 80%;
+  margin: 2%;
+  font-size: 150%;
+`;
+
 function LeaveRelics() {
   const location = useLocation();
+  const navigate = useNavigate();
   const titleRef = useRef();
   const contentRef = useRef();
   const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
   const [isSuccess, setIsSuccess] = useState();
   const planet = location.state;
+  const [isExceedingLimit, setIsExceedingLimit] = useState(false);
 
   async function handleUpload(title, content) {
     const docRef = await addDoc(collection(db, "relics"), {
@@ -75,12 +73,19 @@ function LeaveRelics() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    const currentTitle = titleRef.current.value;
+    const currentContent = contentRef.current.value;
+
+    if (currentTitle.length == 0 || currentContent.length == 0) {
+      alert("Title/Content should not be blank");
+      return;
+    }
+
     setLoading(true);
     const promises = [];
 
-    promises.push(
-      handleUpload(titleRef.current.value, contentRef.current.value)
-    );
+    promises.push(handleUpload(currentTitle, currentContent));
 
     Promise.all(promises)
       .catch((e) => {
@@ -91,6 +96,11 @@ function LeaveRelics() {
         setLoading(false);
       });
   }
+
+  const handleWordCount = (e) => {
+    if (e.target.value.length == 60) setIsExceedingLimit(true);
+    else setIsExceedingLimit(false);
+  };
 
   return (
     <motion.div
@@ -109,6 +119,11 @@ function LeaveRelics() {
         ) : (
           <>
             <PageLeft>
+              <BackButton
+                onClick={() => navigate("/ViewRelics", { state: planet })}
+              >
+                Back
+              </BackButton>
               <TextContainer style={{ color: "Gold" }}>
                 People appreciate and never forget that helping hand especially
                 when times are tough...
@@ -116,14 +131,16 @@ function LeaveRelics() {
             </PageLeft>
             <PageRight>
               <RelicContainer>
-                <RelicTitle>
-                  <RelicInput
-                    ref={titleRef}
-                    placeholder="Give your solution a nice title..."
-                  />
-                </RelicTitle>
+                <RelicTitleInputLarge
+                  ref={titleRef}
+                  placeholder="Give your solution a nice title..."
+                  maxLength={60}
+                  warning={isExceedingLimit}
+                  onChange={(e) => handleWordCount(e)}
+                />
+
                 <RelicContentWrapper>
-                  <RelicInput
+                  <RelicContentInput
                     ref={contentRef}
                     placeholder="Briefly illustrate your solution here..."
                   />

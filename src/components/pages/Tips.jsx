@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import background from "../../backgrounds/view-galaxy.mp4";
 import { VideoBackground, WholePage, Wrapper } from "../../styles/globalStyles";
-import { motion } from "framer-motion/dist/framer-motion";
+import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { containerVariants } from "../../styles/animatedStyles";
 import "../../styles/animations.css";
 import tip1 from "../../images/tips/tip1.png";

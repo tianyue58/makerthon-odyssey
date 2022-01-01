@@ -1,8 +1,10 @@
 import styled, { createGlobalStyle } from "styled-components/macro";
-import { Link } from "react-router-dom";
 import { BsPatchQuestion } from "react-icons/bs";
-import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { FaHeart } from "react-icons/fa";
+import { FcApprove } from "react-icons/fc";
+import { FiEdit, FiDownload } from "react-icons/fi";
+import { MdDeleteForever } from "react-icons/md";
+import { GiConfirmed, GiNextButton, GiPreviousButton } from "react-icons/gi";
 
 export const GlobalStyle = createGlobalStyle`
  body {
@@ -170,4 +172,64 @@ export const LikeIcon = styled(FaHeart)`
     width: 30px;
     height: 30px;
   }
+`;
+
+export const ApprovedIcon = styled(FcApprove)`
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+`;
+
+export const ConfirmIcon = styled(GiConfirmed)`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  bottom: 3%;
+  color: green;
+  transition: 0.3s;
+  &:hover {
+    width: 40px;
+    height: 40px;
+  }
+`;
+
+export const EditIcon = styled(FiEdit)`
+  width: 35px;
+  height: 35px;
+  color: blue;
+  opacity: 0.5;
+  transition: 0.3s;
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const DeleteIcon = styled(MdDeleteForever)`
+  width: 40px;
+  height: 40px;
+  color: red;
+  opacity: 0.5;
+  transition: 0.3s;
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const PreviousIcon = styled(GiPreviousButton)`
+  width: 40px;
+  height: 40px;
+  color: white;
+`;
+
+export const NextIcon = styled(GiNextButton)`
+  width: 40px;
+  height: 40px;
+  color: white;
+`;
+
+export const DownloadIcon = styled(FiDownload)`
+  width: 80px;
+  height: 80px;
 `;
