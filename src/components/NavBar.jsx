@@ -101,6 +101,11 @@ function NavBar(props) {
               <LightButton>My Relics</LightButton>
             </Link>
           ) : null}
+          {currentPath != "/ViewResources" ? (
+            <Link to="/ViewResources">
+              <LightButton>Resources</LightButton>
+            </Link>
+          ) : null}
           <LightButton onClick={handleLogout}>Log Out</LightButton>
         </Functionalities>
       ) : null}

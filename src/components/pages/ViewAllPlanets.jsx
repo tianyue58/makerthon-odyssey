@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import background from "../../backgrounds/view-galaxy.mp4";
-import styled from "styled-components/macro";
 import {
   VideoBackground,
   WholePage,

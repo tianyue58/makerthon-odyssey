@@ -2,7 +2,7 @@ import styled, { createGlobalStyle } from "styled-components/macro";
 import { BsPatchQuestion } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
 import { FcApprove } from "react-icons/fc";
-import { FiEdit } from "react-icons/fi";
+import { FiEdit, FiDownload } from "react-icons/fi";
 import { MdDeleteForever } from "react-icons/md";
 import { GiConfirmed, GiNextButton, GiPreviousButton } from "react-icons/gi";
 
@@ -227,4 +227,9 @@ export const NextIcon = styled(GiNextButton)`
   width: 40px;
   height: 40px;
   color: white;
+`;
+
+export const DownloadIcon = styled(FiDownload)`
+  width: 80px;
+  height: 80px;
 `;
