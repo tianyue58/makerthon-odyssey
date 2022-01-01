@@ -1,6 +1,5 @@
 import styled from "styled-components/macro";
 import { LightButton } from "./globalStyles";
-import magicBox from "../gifs/magic-box.gif";
 
 export const TextContainer = styled.div`
   display: flex;
@@ -119,7 +118,6 @@ export const BoxWrapper = styled.button`
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  background-image: url(${magicBox});
 `;
 
 export const SampleWrapper = styled.div`

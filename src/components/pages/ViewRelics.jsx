@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components/macro";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import { useLocation, useNavigate } from "react-router-dom";
 import { getDocs, collection, where, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
@@ -14,11 +14,11 @@ import {
 } from "../../styles/globalStyles";
 import "../../styles/animations.css";
 import RelicItem from "./RelicItem";
-import { LinkContainer } from "../../styles/featurePageStyles";
 import {
   RelicsWrapper,
   LeaveARelicButton,
   IconWrapper,
+  BackButton,
 } from "../../styles/relicPageStyles";
 
 function ViewRelics() {
@@ -75,6 +75,15 @@ function ViewRelics() {
         <source src={background} type="video/mp4" />
       </VideoBackground>
       <PageBelowNavBar style={{ display: "flex", justifyContent: "center" }}>
+        <BackButton
+          onClick={() =>
+            navigate("/EmotionPlanet", {
+              state: currentPlanet.replace(/\s+/g, ""),
+            })
+          }
+        >
+          Back
+        </BackButton>
         <RelicsWrapper>{displayedResult}</RelicsWrapper>
         <IconWrapper width="25%">
           {currentPage > 0 && (

@@ -4,11 +4,9 @@ import {
   PageBelowNavBar,
   VideoBackground,
   Wrapper,
-  Button,
-  LightButton,
   DownloadIcon,
 } from "../../styles/globalStyles";
-import { motion } from "framer-motion/dist/framer-motion";
+import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import { containerVariants } from "../../styles/animatedStyles";
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";

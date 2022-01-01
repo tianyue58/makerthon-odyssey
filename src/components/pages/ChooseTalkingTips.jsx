@@ -155,7 +155,7 @@ function ChooseTalkingTips() {
               }}
               onClick={() => navigate("/EmotionPlanet", { state: planet })}
               className="planet"
-            ></BackIconWrapper>
+            />
           </Wrapper>
         )}
       </PageBelowNavBar>

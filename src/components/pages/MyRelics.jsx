@@ -12,10 +12,7 @@ import {
 import { db } from "../../firebase";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import background from "../../backgrounds/particle-background.mp4";
-import {
-  containerVariants,
-  refreshContainer,
-} from "../../styles/animatedStyles";
+import { containerVariants } from "../../styles/animatedStyles";
 import {
   PageBelowNavBar,
   VideoBackground,

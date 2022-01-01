@@ -1,45 +1,31 @@
 import background from "../../backgrounds/lightbulb-background.mp4";
-import {
-  getDoc,
-  doc,
-  updateDoc,
-  arrayRemove,
-  addDoc,
-  collection,
-} from "firebase/firestore";
-import React, { useState, useRef, useEffect } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { updateDoc, addDoc, collection } from "firebase/firestore";
+import React, { useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import {
-  IconButton,
-  RoundButton,
   Button,
   VideoBackground,
   PageBelowNavBar,
-  LightButton,
 } from "../../styles/globalStyles";
 import { containerVariants } from "../../styles/animatedStyles";
 import { db } from "../../firebase";
 import { useAuth } from "../context/AuthContext";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import {
-  GroupInput,
   MainPageRight,
-  MessageBlock,
   SubPageLeft,
-  Title,
 } from "../../styles/authenticationPageStyles";
-import { LinkContainer, TextContainer } from "../../styles/featurePageStyles";
-import { Wrapper } from "../../styles/globalStyles";
+import { TextContainer } from "../../styles/featurePageStyles";
+
 import {
   RelicTitleInput,
   RelicContentInput,
   RelicContainer,
-  RelicTitle,
   RelicContentWrapper,
+  BackButton,
 } from "../../styles/relicPageStyles";
 import PopupNotification from "../PopupNotification";
-import { GiConsoleController } from "react-icons/gi";
 
 const PageLeft = styled(SubPageLeft)`
   left: 5%;
@@ -60,14 +46,6 @@ const RelicTitleInputLarge = styled(RelicTitleInput)`
   width: 80%;
   margin: 2%;
   font-size: 150%;
-`;
-
-const BackButton = styled(LightButton)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 50%;
-  width: 80px;
 `;
 
 function LeaveRelics() {

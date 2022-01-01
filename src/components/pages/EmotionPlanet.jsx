@@ -26,7 +26,7 @@ import letsTalk from "../../images/letsTalk.png";
 import backToPlanet from "../../images/backToPlanet.png";
 
 function EmotionPlanet() {
-  const [playVideo, setPlayVideo] = useState(true);
+  const [playVideo, setPlayVideo] = useState(false);
   const location = useLocation();
 
   const [planetRef, setPlanetRef] = useState();
@@ -60,7 +60,9 @@ function EmotionPlanet() {
   };
 
   useEffect(() => {
-    const currentPlanet = location.state;
+    const currentPlanet = location.state.substring(0, 11);
+    console.log(currentPlanet);
+    if (location.state.length > 11) setPlayVideo(true);
     setPlanetRef(doc(db, "planets", currentPlanet));
     if (
       currentPlanet === "Asteroid 325" ||

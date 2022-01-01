@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import grids from "../images/grids.png";
 import { MainForm } from "./profilePageStyles";
 import { LinkContainer } from "./featurePageStyles";
-import { Button } from "./globalStyles";
+import { Button, LightButton } from "./globalStyles";
 import parchment from "../images/parchment.png";
 
 /** for my relic collection display */
@@ -198,4 +198,12 @@ export const ParchmentContentWrapper = styled.div`
     border-radius: 10px;
     background: lightyellow;
   }
+`;
+
+export const BackButton = styled(LightButton)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  width: 80px;
 `;
