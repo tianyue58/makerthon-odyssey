@@ -65,9 +65,9 @@ function EmotionPlanet() {
     if (location.state.length > 11) setPlayVideo(true);
     setPlanetRef(doc(db, "planets", currentPlanet));
     if (
-      currentPlanet === "Asteroid 325" ||
-      currentPlanet === "Asteroid 326" ||
-      currentPlanet === "Asteroid 327"
+      currentPlanet === "Asteroid325" ||
+      currentPlanet === "Asteroid326" ||
+      currentPlanet === "Asteroid327"
     ) {
       setAboutWhom("me");
     } else setAboutWhom("other");

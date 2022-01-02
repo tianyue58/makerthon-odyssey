@@ -19,27 +19,6 @@ import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 function Home() {
   const navigate = useNavigate();
 
-  const AnimatedColorfulButton = (
-    label,
-    navigation,
-    isAboutMyself,
-    themeColor
-  ) => {
-    return (
-      <LightButton
-        as={motion.button}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() =>
-          navigate(navigation, { state: { aboutMyself: isAboutMyself } })
-        }
-        themeColor={themeColor}
-      >
-        {label}
-      </LightButton>
-    );
-  };
-
   return (
     <motion.div
       className="page"
@@ -59,23 +38,33 @@ function Home() {
             </p>
           </TextContainer>
           <LinkContainer>
-            {AnimatedColorfulButton(
-              "I have something on my mind",
-              "/ChooseProblem",
-              true,
-              "red"
-            )}
-            {AnimatedColorfulButton(
-              "I'm worrying for someone else",
-              "/ChooseProblem",
-              false
-            )}
-            {AnimatedColorfulButton(
-              "I'm in a good mood",
-              "/TipsToStayHealthy",
-              true,
-              "lightgreen"
-            )}
+            <LightButton
+              as={motion.button}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate("/ChooseProblem", { state: true })}
+              themeColor="red"
+            >
+              I have something on my mind
+            </LightButton>
+            <LightButton
+              as={motion.button}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate("/ChooseProblem", { state: false })}
+              themeColor="blue"
+            >
+              I'm worrying for someone else
+            </LightButton>
+            <LightButton
+              as={motion.button}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate("/TipsToStayHealthy")}
+              themeColor="green"
+            >
+              I'm in a good mood
+            </LightButton>
             {/* <LightButton
               onClick={() =>
                 navigate("/ChooseProblem", { state: { aboutMyself: true } })
