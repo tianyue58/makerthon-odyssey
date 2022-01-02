@@ -28,8 +28,7 @@ function ChooseProblem() {
   const [aboutMyself, setAboutMyself] = useState();
 
   const componentOnMount = () => {
-    const { aboutMyself } = location.state;
-    setAboutMyself(aboutMyself);
+    setAboutMyself(location.state);
   };
 
   const handleSelectEvent = (event) => {
@@ -47,15 +46,15 @@ function ChooseProblem() {
 
   const calculateDestination = (event) => {
     if (aboutMyself) {
-      if (event === "School")
+      if (event === "At School")
         navigate("/EmotionPlanet", { state: "Asteroid325-travel" });
-      else if (event === "Work/Internship")
+      else if (event === "At Work/Internship")
         navigate("/EmotionPlanet", { state: "Asteroid326-travel" });
       else navigate("/EmotionPlanet", { state: "Asteroid327-travel" });
     } else {
-      if (event === "School")
+      if (event === "At School")
         navigate("/EmotionPlanet", { state: "Asteroid328-travel" });
-      else if (event === "Work/Internship")
+      else if (event === "At Work/Internship")
         navigate("/EmotionPlanet", { state: "Asteroid329-travel" });
       else navigate("/EmotionPlanet", { state: "Asteroid330-travel" });
     }

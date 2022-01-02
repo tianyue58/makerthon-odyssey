@@ -36,7 +36,7 @@ const DownloadLink = styled.a`
 function ViewResources() {
   const bookletPDF = ref(
     storage,
-    "gs://odyssey-ffb23.appspot.com/resources/campaign booklet.pdf"
+    "gs://odyssey-ffb23.appspot.com/resources/campaign-booklet.pdf"
   );
 
   const bookletCover = ref(
