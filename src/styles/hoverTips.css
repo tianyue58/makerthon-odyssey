@@ -1,0 +1,26 @@
+.container {
+  padding-top: 8%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.image {
+  display: block;
+  width: 65%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  left: 60%;
+  top: 0;
+  color: #f1f1f1;
+  width: 50%;
+  transition: 0.5s ease;
+  opacity: 0;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
