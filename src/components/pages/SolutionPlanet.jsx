@@ -25,10 +25,16 @@ import SolutionIcon from "./SolutionIcon";
 import { Title } from "../../styles/authenticationPageStyles";
 import "../../styles/animations.css";
 import { useAuth } from "../context/AuthContext";
-import { BackIconWrapper } from "../../styles/featurePageStyles";
+import {
+  BackIconWrapper,
+  DiscoverContainer,
+} from "../../styles/featurePageStyles";
 import backToPlanet from "../../images/backToPlanet.png";
 import magicBox from "../../gifs/magic-box.gif";
 import staticBox from "../../images/magic-box-static.png";
+import discover from "../../images/discover-icon.png";
+import question from "../../images/question.png";
+import "../../styles/hoverTips.css";
 
 import {
   PlanetSolutionsWrapper,
@@ -177,6 +183,27 @@ function SolutionPlanet() {
                 </IconButton>
                 <p>Liked by: {noOfLikes}</p>
               </IconButtonContainer>
+              <DiscoverContainer
+                className="discoverContainer"
+                as={motion.div}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7, delay: 2 }}
+              >
+                <img src={discover} alt="Avatar" class="discoverImage planet" />
+                <div class="discoverTip">
+                  <img
+                    class="previewImage"
+                    src={
+                      currentSolution.linkPreview
+                        ? currentSolution.linkPreview
+                        : question
+                    }
+                    onClick={() => window.open(currentSolution.link)}
+                    alt="alt"
+                  />
+                </div>
+              </DiscoverContainer>
             </SolutionContentWrapper>
             <PlanetWrapper
               style={{

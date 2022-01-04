@@ -1,5 +1,6 @@
 import styled from "styled-components/macro";
 import { LightButton } from "./globalStyles";
+import discover from "../images/discover-icon.png";
 
 export const TextContainer = styled.div`
   display: flex;
@@ -115,6 +116,20 @@ export const BoxWrapper = styled.button`
   right: 35%;
   width: 80px;
   height: 80px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+`;
+
+export const DiscoverContainer = styled.div`
+  border: none;
+  outline: none;
+  background: none;
+  position: absolute;
+  bottom: 20%;
+  right: 5%;
+  width: 200px;
+  height: 100px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
