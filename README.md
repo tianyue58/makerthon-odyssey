@@ -1,4 +1,5 @@
 Are you a NUS student looking to improve your mental wellbeing? Do you feel overwhelmed by commitments from school, work or private life? Do you have someone close to you who is experiencing poor mental health? Have you ever wished that there were a comprehensive app that could provide guidance and community support during this journey? If you answered yes to any of these questions, we have just the application for you!
+
 <div align = "center">
     <img alt="logo" src="images/logomaker.jpg" width=30% height=30%>
 </div>
