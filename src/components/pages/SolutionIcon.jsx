@@ -3,10 +3,9 @@ import styled from "styled-components/macro";
 import "../../styles/animations.css";
 
 function SolutionIcon(props) {
-  const { icon, link } = props.solutionObject;
+  const { icon } = props.solutionObject;
 
   const handleClick = () => {
-    link && window.open(link);
     props.onClick(props.index);
   };
 

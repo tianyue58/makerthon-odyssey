@@ -1,0 +1,68 @@
+.container {
+  padding-top: 8%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.image {
+  display: block;
+  width: 65%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  left: 60%;
+  top: 0;
+  color: #f1f1f1;
+  width: 50%;
+  transition: 0.5s ease;
+  opacity: 0;
+}
+
+.discoverContainer {
+  border: none;
+  outline: none;
+  background: none;
+  position: absolute;
+  bottom: 20%;
+  right: 5%;
+  width: 200px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+.discoverImage {
+  display: block;
+  width: 40%;
+  height: auto;
+}
+
+.previewImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+}
+
+.discoverTip {
+  position: absolute;
+  left: 30%;
+  bottom: 90%;
+  color: #f1f1f1;
+  width: 80%;
+  transition: 0.5s ease;
+  opacity: 0;
+}
+
+.discoverContainer:hover .discoverTip {
+  opacity: 1;
+}
